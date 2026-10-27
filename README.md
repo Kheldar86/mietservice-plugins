@@ -9,6 +9,10 @@ Quellcode der eigenen Plugins von [mietservice-barnim.de](https://mietservice-ba
 
 Der erste Stand wurde am 27.10.2026 direkt von der Live-Seite übernommen und Datei für Datei per SHA-256 mit den Live-Dateien abgeglichen. Versionshinweise stehen im jeweiligen `CHANGELOG.md`.
 
+## Spezifikation
+
+Was die Plugins können müssen, steht unter [`specs/`](specs): alle Anforderungen mit fester Nummer und Status, dazu der Ablauf einer Änderung (Spec → Plan → Pull Request → Freigabe) und eine Vorlage für neue Änderungen.
+
 ## Regeln
 
 1. **Jede Änderung ist eine neue Plugin-Version** mit Eintrag im `CHANGELOG.md` (Neu / Geändert / Behoben / Update-Hinweise) und hochgezählter Version im Plugin-Kopf (bei msb-rental auch `MSB_VERSION`).
