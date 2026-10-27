@@ -1,0 +1,29 @@
+/* Mietservice Barnim – KI-Artikelassistent (ab 1.2.0) */
+.msb-ai { max-width: 1100px; }
+.msb-ai__lead { font-size: 14px; }
+.msb-ai__step[hidden] { display: none; }
+.msb-ai__num { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; margin-right: 6px; border-radius: 50%; background: #2f6b3a; color: #fff; font-size: 13px; }
+.msb-ai__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 20px; }
+.msb-ai__grid .full { grid-column: 1 / -1; }
+#msb-ai-step-result .msb-ai__grid { grid-template-columns: 1fr 1fr; }
+@media (max-width: 900px) { .msb-ai__grid, #msb-ai-step-result .msb-ai__grid { grid-template-columns: 1fr; } }
+.msb-ai__grid label { display: inline-block; margin-bottom: 4px; }
+.msb-ai__images { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin: 12px 0; }
+.msb-ai__images li { position: relative; margin: 0; padding: 6px; background: #f6f7f7; border: 1px solid #dcdcde; border-radius: 6px; cursor: move; }
+.msb-ai__images li.is-first { border-color: #2f6b3a; box-shadow: 0 0 0 1px #2f6b3a; }
+.msb-ai__images li.is-first::before { content: "Beitragsbild"; position: absolute; top: 10px; left: 10px; padding: 1px 6px; border-radius: 3px; background: #2f6b3a; color: #fff; font-size: 11px; z-index: 1; }
+.msb-ai__thumb { aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4px; background: #fff; }
+.msb-ai__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.msb-ai__alt { margin-top: 6px; font-size: 12px; cursor: text; }
+.msb-ai__remove { position: absolute; top: 8px; right: 8px; width: 24px; height: 24px; border: 0; border-radius: 50%; background: rgba(0,0,0,.6); color: #fff; font-size: 16px; line-height: 22px; cursor: pointer; z-index: 1; }
+.msb-ai__status { display: inline-block; margin-left: 12px; vertical-align: middle; }
+.msb-ai__status.is-busy::before { content: ""; display: inline-block; width: 14px; height: 14px; margin-right: 8px; vertical-align: -2px; border: 2px solid #c3c4c7; border-top-color: #2f6b3a; border-radius: 50%; animation: msb-ai-spin .8s linear infinite; }
+.msb-ai__status.is-error { color: #b32d2e; font-weight: 600; }
+.msb-ai__status.is-ok { color: #1c5b2a; font-weight: 600; }
+@keyframes msb-ai-spin { to { transform: rotate(360deg); } }
+.msb-ai__check { margin: 0 0 16px; padding: 10px 14px; background: #fcf0d1; border-left: 4px solid #dba617; border-radius: 4px; }
+.msb-ai__check[hidden] { display: none; }
+.msb-ai__check ul { margin: 6px 0 0 18px; list-style: disc; }
+.msb-ai__count { color: #646970; font-weight: 400; font-size: 12px; }
+.msb-ai__count.is-warn { color: #b32d2e; }
+.msb-ai__done { border-color: #2f6b3a; }

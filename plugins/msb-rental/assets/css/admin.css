@@ -1,0 +1,385 @@
+/* Mietservice Barnim – Vermietung: Backend */
+.msb-meta__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px 20px; }
+.msb-meta__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 1100px) { .msb-meta__grid, .msb-meta__cols { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 700px) { .msb-meta__grid, .msb-meta__cols { grid-template-columns: 1fr; } }
+.msb-meta label { display: block; margin-bottom: 4px; }
+.msb-meta input[type="number"] { width: 100%; }
+.msb-meta textarea { width: 100%; font-family: Menlo, Consolas, monospace; font-size: 12px; }
+.msb-meta .description { display: block; margin-top: 4px; }
+.msb-copy { font-family: Menlo, Consolas, monospace; font-size: 12px; background: #f6f7f7; }
+
+.msb-card-box { background: #fff; border: 1px solid #dcdcde; border-radius: 6px; padding: 4px 20px 16px; margin: 16px 0; }
+.msb-card-box h2 { font-size: 15px; margin: 16px 0 10px; }
+.msb-card-box h3 { margin: 16px 0 8px; }
+
+/* Status-Badges */
+.msb-status { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; line-height: 20px; background: #f0f0f1; color: #50575e; vertical-align: middle; }
+.msb-status--pending   { background: #fcf0d1; color: #8a5a00; }
+.msb-status--confirmed { background: #d8efdc; color: #1c5b2a; }
+.msb-status--picked_up { background: #dbe8fb; color: #1d4e8f; }
+.msb-status--returned  { background: #ececec; color: #50575e; }
+.msb-status--cancelled { background: #f7dcdc; color: #8a1f1f; text-decoration: line-through; }
+.msb-tag { display: inline-block; margin-top: 3px; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600; }
+.msb-tag--today { background: #dbe8fb; color: #1d4e8f; }
+.msb-tag--late { background: #f7dcdc; color: #8a1f1f; }
+
+/* Heute/Morgen */
+.msb-today { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 16px 0; }
+@media (max-width: 1100px) { .msb-today { grid-template-columns: 1fr 1fr; } }
+.msb-today__box { background: #fff; border: 1px solid #dcdcde; border-radius: 6px; padding: 10px 14px; }
+.msb-today__box h3 { margin: 0 0 6px; font-size: 13px; display: flex; justify-content: space-between; }
+.msb-today__box .count { background: #f0f0f1; border-radius: 999px; padding: 0 8px; font-weight: 600; }
+.msb-today__box ul { margin: 0; }
+.msb-today__box li { margin: 2px 0; }
+
+/* Detail */
+.msb-detail { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; align-items: start; }
+@media (max-width: 960px) { .msb-detail { grid-template-columns: 1fr; } }
+.msb-detail tfoot th, .msb-detail tfoot td { font-weight: 600; }
+.msb-data th { color: #50575e; font-weight: 600; }
+.msb-delete { color: #b32d2e !important; }
+@media print {
+	#adminmenumain, #wpadminbar, .msb-detail__side, .page-title-action, .notice, #wpfooter { display: none !important; }
+	#wpcontent { margin: 0 !important; }
+	.msb-detail { grid-template-columns: 1fr; }
+}
+
+/* Formular-Builder */
+.msb-fields td { vertical-align: top; }
+.msb-handle { cursor: move; color: #8c8f94; padding-top: 14px !important; }
+.msb-field-extra { margin-top: 6px; display: grid; gap: 6px; }
+.msb-field-row.is-layout td:nth-child(4) input, .msb-field-row.is-layout td:nth-child(5) input, .msb-field-row.is-layout td:nth-child(6) select { opacity: .35; }
+.msb-fields .ui-sortable-helper { background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,.12); display: table; }
+.msb-remove-field, .msb-remove-line { color: #b32d2e; margin-top: 6px; }
+
+/* Manuelle Buchung */
+.msb-admin-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; max-width: 900px; }
+.msb-admin-form .full { grid-column: 1 / -1; }
+.msb-lines td { vertical-align: middle; }
+
+/* Kalender */
+.msb-cal-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 14px 0; }
+.msb-cal-month { font-size: 16px; min-width: 150px; text-align: center; }
+.msb-cal-legend { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
+.msb-admin-cal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 1px; background: #dcdcde; border: 1px solid #dcdcde; }
+.msb-admin-cal__wd { background: #f6f7f7; padding: 6px; font-weight: 600; text-align: center; }
+.msb-admin-cal__day { background: #fff; min-height: 110px; padding: 4px; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.msb-admin-cal__day.is-empty { background: #f6f7f7; }
+.msb-admin-cal__day.is-today { box-shadow: inset 0 0 0 2px #2271b1; }
+.msb-admin-cal__num { display: flex; justify-content: space-between; font-weight: 600; color: #50575e; }
+.msb-admin-cal__add { text-decoration: none; opacity: 0; width: 18px; text-align: center; border-radius: 3px; }
+.msb-admin-cal__day:hover .msb-admin-cal__add { opacity: 1; background: #f0f0f1; }
+.msb-admin-cal__ev { display: block; padding: 2px 5px; border-radius: 3px; font-size: 11px; line-height: 1.35; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.msb-admin-cal__ev small { display: block; opacity: .8; overflow: hidden; text-overflow: ellipsis; }
+
+/* Inventar */
+.msb-inv-wrap { overflow-x: auto; background: #fff; border: 1px solid #dcdcde; }
+.msb-inv { border-collapse: collapse; width: 100%; font-size: 12px; }
+.msb-inv th, .msb-inv td { border-bottom: 1px solid #f0f0f1; border-right: 1px solid #f0f0f1; padding: 6px 4px; text-align: center; white-space: nowrap; }
+.msb-inv thead th { background: #f6f7f7; font-weight: 600; }
+.msb-inv th.is-closed { background: #e6e6e6; color: #8c8f94; }
+.msb-inv th.is-today { background: #dbe8fb; }
+.msb-inv__item { text-align: left !important; position: sticky; left: 0; background: #fff; min-width: 180px; z-index: 1; }
+.msb-inv thead .msb-inv__item { background: #f6f7f7; }
+.msb-inv__cell a { display: block; text-decoration: none; color: inherit; font-weight: 600; }
+.msb-inv__cell.is-free { background: #e3f1e1; }
+.msb-inv__cell.is-partial { background: #fdf0cf; }
+.msb-inv__cell.is-full { background: #f6dcdc; color: #8a1f1f; }
+.msb-inv__cell.is-blocked { background: #e6e6e6; color: #8c8f94; }
+
+/* Shortcode-Seite */
+.msb-sc-table .msb-copy { width: 100%; }
+.msb-examples code { background: #f0f0f1; }
+.msb-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 960px) { .msb-columns { grid-template-columns: 1fr; } }
+.msb-columns .msb-copy { width: 100%; }
+.msb-placeholders { margin-bottom: 12px; }
+.msb-placeholders summary { cursor: pointer; font-weight: 600; margin-bottom: 8px; }
+
+/* ===== 1.1.0 ========================================================= */
+.msb-help-link { text-decoration: none; font-size: 13px; font-weight: 400; vertical-align: middle; margin-left: 6px; white-space: nowrap; }
+.msb-help-link .dashicons { font-size: 18px; width: 18px; height: 18px; vertical-align: text-bottom; }
+.msb-green { color: #2f6b3a; }
+.msb-orange { color: #8a5a00; }
+.msb-red { color: #b32d2e; }
+.msb-muted { color: #646970; }
+
+/* Preisregeln */
+.msb-rules__table td { vertical-align: middle; }
+.msb-rules__table th:first-child, .msb-rule__active { width: 24px; text-align: center; }
+.msb-rule__cond label { margin-right: 6px; white-space: nowrap; }
+.msb-rule__cond input[type="date"] { max-width: 140px; }
+.msb-rule__mode { max-width: 190px; }
+.msb-rules { margin-bottom: 12px; }
+
+/* Galerie-Editor */
+.msb-gallery-edit__list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 0; }
+.msb-gallery-edit__list li { position: relative; margin: 0; cursor: move; aspect-ratio: 1; background: #f0f0f1; border-radius: 4px; overflow: hidden; }
+.msb-gallery-edit__list img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.msb-gallery-edit__remove { position: absolute; top: 2px; right: 2px; width: 20px; height: 20px; border-radius: 50%; border: 0; background: rgba(0,0,0,.6); color: #fff; cursor: pointer; line-height: 18px; padding: 0; font-size: 14px; }
+
+/* Zahlungen */
+.msb-pay-summary { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+@media (max-width: 1200px) { .msb-pay-summary { grid-template-columns: repeat(3, 1fr); } }
+.msb-pay-summary > div { background: #f6f7f7; border-radius: 6px; padding: 8px 12px; }
+.msb-pay-summary span { display: block; font-size: 11px; text-transform: uppercase; color: #646970; letter-spacing: .03em; }
+.msb-pay-summary strong { font-size: 15px; }
+.msb-pay-summary small { display: block; color: #646970; }
+.msb-pay-table td { vertical-align: top; }
+.msb-pay-actions .msb-inline-form { margin: 0 0 6px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.msb-pay-tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 14px; border-top: 1px solid #f0f0f1; padding-top: 6px; }
+.msb-pay-tools h4 { margin: 10px 0 6px; }
+.msb-pay-tools .msb-inline-form { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.msb-pay { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; background: #f0f0f1; }
+.msb-pay--paid, .msb-pay--released { background: #d8efdc; color: #1c5b2a; }
+.msb-pay--authorized, .msb-pay--scheduled { background: #dbe8fb; color: #1d4e8f; }
+.msb-pay--pending, .msb-pay--requested { background: #fcf0d1; color: #8a5a00; }
+.msb-pay--failed, .msb-pay--captured { background: #f7dcdc; color: #8a1f1f; }
+.msb-pay--refunded, .msb-pay--cancelled { background: #ececec; color: #50575e; }
+.msb-status--awaiting_payment { background: #fcf0d1; color: #8a5a00; font-style: italic; }
+
+/* Dokumentation */
+.msb-docs__version { font-size: 13px; font-weight: 400; color: #646970; margin-left: 8px; }
+.msb-docs__lead { font-size: 14px; max-width: 760px; }
+#msb-doc-search { margin: 6px 0 16px; }
+.msb-docs__layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 28px; align-items: start; }
+.msb-docs__toc { position: sticky; top: 46px; max-height: calc(100vh - 70px); overflow: auto; background: #fff; border: 1px solid #dcdcde; border-radius: 6px; padding: 6px 16px 12px; }
+.msb-docs__toc h3 { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: #646970; margin: 14px 0 4px; }
+.msb-docs__toc ul { margin: 0; }
+.msb-docs__toc li { margin: 0; }
+.msb-docs__toc a { display: block; padding: 3px 0; text-decoration: none; }
+.msb-docs__toc a.is-current { font-weight: 600; }
+/* Smartphone/Tablet (ab 1.2.6 nach den Grundregeln, damit sie greifen) */
+@media (max-width: 960px) {
+	.msb-docs__layout { grid-template-columns: 1fr; }
+	.msb-docs .msb-docs__toc { position: static; top: auto; max-height: none; overflow: visible; column-count: 2; column-gap: 20px; }
+	.msb-docs__toc h3 { break-after: avoid; }
+	.msb-docs__toc ul { break-inside: avoid; }
+}
+@media (max-width: 480px) { .msb-docs .msb-docs__toc { column-count: 1; } }
+.msb-doc { background: #fff; border: 1px solid #dcdcde; border-radius: 6px; padding: 4px 24px 12px; margin-bottom: 18px; scroll-margin-top: 50px; max-width: 980px; }
+.msb-doc h2 { font-size: 18px; margin: 18px 0 10px; }
+.msb-doc h3 { font-size: 14px; margin: 18px 0 6px; }
+.msb-doc p, .msb-doc li { font-size: 14px; line-height: 1.6; max-width: 820px; }
+.msb-doc__anchor { text-decoration: none; color: #c3c4c7; font-weight: 400; }
+.msb-doc__table { margin: 8px 0 12px; }
+.msb-doc__table td { vertical-align: top; font-size: 13px; }
+.msb-doc__table td:first-child { width: 28%; }
+.msb-doc__steps li { margin-bottom: 6px; }
+.msb-doc__top { text-align: right; font-size: 12px; margin: 0; }
+.msb-doc.is-hidden { display: none; }
+.msb-doc mark { background: #fcf0d1; }
+.msb-changelog__version { padding-top: 6px; border-top: 1px solid #f0f0f1; }
+
+/* ===== 1.6.3: Handy-Ansicht ========================================== */
+.msb-m, .msb-move, .msb-admin-cal__wdname, .msb-admin-cal__none { display: none; }
+.msb-fields .msb-cb { text-align: center; }
+@media (max-width: 782px) {
+	.msb-m { display: inline; }
+
+	/* Karten statt Tabellen (Artikel der manuellen Buchung, Formularfelder) */
+	.msb-admin .msb-lines, .msb-admin .msb-fields { border: 0; box-shadow: none; background: none; }
+	.msb-lines thead, .msb-fields thead { display: none; }
+	.msb-lines tbody, .msb-fields tbody { display: block; }
+	.msb-admin .msb-lines tr, .msb-admin .msb-fields tr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px 12px; background: #fff; border: 1px solid #dcdcde; border-radius: 6px; padding: 12px; margin-bottom: 12px; }
+	.msb-admin .msb-lines td, .msb-admin .msb-fields td { display: block; padding: 0 !important; border: 0; width: auto !important; min-width: 0; }
+	.msb-lines td[data-label]::before, .msb-fields td[data-label]::before { content: attr(data-label); display: block; font-size: 12px; font-weight: 600; color: #50575e; margin-bottom: 3px; }
+	.msb-lines input[type="date"], .msb-lines input[type="number"], .msb-lines select, .msb-fields select, .msb-fields input[type="text"] { width: 100%; max-width: none; }
+	.msb-lines td[data-label="Artikel"] { grid-column: 1 / -1; }
+	.msb-lines td:last-child, .msb-field-row__remove { align-self: end; text-align: right; }
+	.msb-remove-line::after { content: "Entfernen"; }
+	.msb-remove-line, .msb-remove-field { margin: 0; display: inline-flex; align-items: center; gap: 4px; min-height: 40px; }
+
+	/* Formularfelder: Kopfzeile mit Pfeilen und Entfernen, dann die Angaben */
+	.msb-fields .msb-handle { order: 1; display: flex !important; gap: 6px; }
+	.msb-fields .msb-handle > .dashicons { display: none; }
+	.msb-move { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; }
+	.msb-move .dashicons { margin: 0; }
+	.msb-field-row__remove { order: 2; }
+	.msb-fields td[data-label="Beschriftung"] { order: 3; grid-column: 1 / -1; }
+	.msb-fields td[data-label="Typ"] { order: 4; }
+	.msb-fields td[data-label="Breite"] { order: 5; }
+	.msb-fields td[data-label="Schlüssel"] { order: 6; grid-column: 1 / -1; }
+	.msb-fields .msb-cb { order: 7; grid-column: 1 / -1; text-align: left; }
+	.msb-fields .msb-cb label { display: flex; align-items: center; gap: 8px; min-height: 32px; }
+	.msb-fields .msb-cb input { margin: 0; }
+	.msb-fields .ui-sortable-helper { display: grid; }
+	.msb-field-row:first-child .msb-move[data-dir="-1"], .msb-field-row:last-child .msb-move[data-dir="1"] { visibility: hidden; }
+
+	/* Manuelle Buchung: Kundendaten untereinander */
+	.msb-admin-form { grid-template-columns: 1fr; }
+	#msb-customer-select { width: 100%; max-width: none; }
+
+	/* Kalender als Liste der Tage mit Buchungen */
+	.msb-cal-toolbar { gap: 8px; }
+	.msb-cal-month { flex: 1; min-width: 0; }
+	.msb-cal-toolbar form { display: block !important; margin: 0 !important; flex-basis: 100%; }
+	.msb-cal-toolbar form select { width: 100%; max-width: none; }
+	.msb-cal-legend { margin-left: 0; }
+	.msb-admin-cal { display: block; background: none; border: 0; }
+	.msb-admin-cal__wd, .msb-admin-cal__day.is-empty, .msb-admin-cal__day:not(.has-ev):not(.is-today) { display: none; }
+	.msb-admin-cal__day { display: flex; position: relative; min-height: 104px; padding: 10px 10px 10px 72px; margin-bottom: 8px; border: 1px solid #dcdcde; border-radius: 6px; gap: 6px; box-sizing: border-box; }
+	.msb-admin-cal__num { position: absolute; left: 10px; top: 10px; width: 52px; flex-direction: column; align-items: center; gap: 6px; font-size: 20px; line-height: 1.1; color: #1d2327; }
+	.msb-admin-cal__num > span { display: flex; flex-direction: column; align-items: center; }
+	.msb-admin-cal__wdname { display: block; font-size: 12px; font-weight: 600; color: #646970; text-transform: uppercase; }
+	.msb-admin-cal__add { opacity: 1; width: 32px; height: 32px; line-height: 30px; font-size: 18px; background: #f0f0f1; border-radius: 50%; }
+	.msb-admin-cal__ev { font-size: 14px; padding: 8px 10px; white-space: normal; border-radius: 4px; }
+	.msb-admin-cal__ev small { font-size: 13px; margin-top: 2px; }
+	.msb-admin-cal__day.is-today:not(.has-ev)::after { content: "Heute keine Buchung"; align-self: center; color: #646970; }
+	.msb-admin-cal__none { display: block; background: #fff; border: 1px solid #dcdcde; border-radius: 6px; padding: 14px; text-align: center; color: #646970; }
+}
+
+/* ===== 1.6.4: Belege auf dem Handy ==================================== */
+@media (max-width: 782px) {
+	.msb-doc-list, #documents .widefat { border: 0; box-shadow: none; background: none; }
+	.msb-doc-list thead, #documents .widefat thead { display: none; }
+	.msb-doc-list tbody, #documents .widefat tbody { display: block; }
+	.msb-doc-list tr, #documents .widefat tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; background: #fff !important; border: 1px solid #dcdcde; border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; }
+	.msb-doc-list td, #documents .widefat td { display: block; padding: 0 !important; text-align: left !important; min-width: 0; }
+	.msb-doc-list td:nth-child(1), #documents .widefat td:nth-child(1) { font-size: 15px; }
+	.msb-doc-list td:nth-child(6), #documents .widefat td:nth-child(4) { grid-row: 1; grid-column: 2; text-align: right !important; font-weight: 600; font-size: 15px; white-space: nowrap; }
+	.msb-doc-list td:nth-child(2), #documents .widefat td:nth-child(2) { color: #50575e; }
+	.msb-doc-list td:nth-child(3), #documents .widefat td:nth-child(3) { text-align: right !important; color: #50575e; }
+	.msb-doc-list td:nth-child(5) { order: 5; }
+	.msb-doc-list td:nth-child(7) { order: 6; text-align: right !important; color: #646970; }
+	.msb-doc-list td:nth-child(4) { order: 7; grid-column: 1 / -1; }
+	.msb-doc-list td:nth-child(4)::before { content: "Buchung "; color: #646970; }
+	.msb-doc-list td[colspan] { grid-column: 1 / -1; }
+	#documents .widefat td:nth-child(5) { grid-column: 1 / -1; color: #646970; }
+	#documents .widefat td:nth-child(5)::before { content: "Versand: "; }
+	#documents .widefat td:nth-child(6) { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px; }
+	#documents .msb-inline-form { margin: 0; }
+}
+
+/* ===== 1.6.4: Kartenstil für Buchungsliste und Buchung auf dem Handy == */
+@media (max-width: 782px) {
+	/* Gemeinsamer Baustein: Tabelle als Karten. Kopf, Betrag rechts, Aktionen und Beschriftungen setzt admin.js. */
+	.msb-admin table.msb-cards { border: 0; box-shadow: none; background: none; }
+	.msb-admin table.msb-cards > thead { display: none; }
+	.msb-admin table.msb-cards > tbody, .msb-admin table.msb-cards > tfoot { display: block; }
+	.msb-admin table.msb-cards > tbody > tr { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; background: #fff !important; border: 1px solid #dcdcde; border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; }
+	.msb-admin table.msb-cards > tbody > tr > td { display: block; flex: 1 1 100%; padding: 0 !important; text-align: left !important; min-width: 0; box-shadow: none; }
+	.msb-admin table.msb-cards td.msb-c-head { flex: 1 1 0; order: -2; font-size: 15px; font-weight: 600; }
+	.msb-admin table.msb-cards td.msb-c-head small { font-weight: 400; }
+	.msb-admin table.msb-cards td.msb-c-aside { flex: 0 0 auto; order: -1; text-align: right !important; font-weight: 600; font-size: 15px; white-space: nowrap; }
+	.msb-admin table.msb-cards td.msb-c-actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px; }
+	.msb-admin table.msb-cards td.msb-c-actions .msb-inline-form { margin: 0; width: 100%; }
+	.msb-admin table.msb-cards td.msb-c-actions .regular-text { width: 100%; margin-top: 4px; }
+	.msb-admin table.msb-cards td.msb-c-actions .small-text { width: 7em; }
+	.msb-admin table.msb-cards td.msb-c-empty { display: none; }
+	.msb-admin table.msb-cards > tfoot tr { display: flex; justify-content: space-between; gap: 12px; padding: 4px 12px; }
+	.msb-admin table.msb-cards > tfoot th, .msb-admin table.msb-cards > tfoot td { display: block; padding: 0; border: 0; text-align: left !important; }
+
+	/* Beschriftung links, Wert daneben (auch mehrzeilig) – Kartentabellen und Buchungsliste */
+	.msb-admin table.msb-cards > tbody > tr > td[data-label], .msb-admin .wp-list-table.buchungen tbody tr:not(.no-items) td.msb-c-label { position: relative; padding-left: 116px !important; }
+	.msb-admin table.msb-cards > tbody > tr > td[data-label]::before, .msb-admin .wp-list-table.buchungen tbody tr:not(.no-items) td.msb-c-label::before { content: attr(data-label); position: absolute; left: 0; top: 2px; width: 108px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #646970; font-size: 12px; }
+
+	/* Buchung: Kennzahlen zweispaltig */
+	.msb-pay-summary { grid-template-columns: 1fr 1fr; }
+
+	/* Buchungsliste: Kacheln Heute/Morgen untereinander, jede Buchung als Karte mit allen Angaben */
+	.msb-today { grid-template-columns: 1fr; gap: 8px; }
+	.msb-today__box { padding: 8px 12px; }
+	.msb-today__box h3 { margin: 0; }
+	.msb-today__box ul, .msb-today__box p { margin: 4px 0 0; }
+	.msb-admin .wp-list-table.buchungen { border: 0; box-shadow: none; background: none; }
+	.msb-admin .wp-list-table.buchungen thead, .msb-admin .wp-list-table.buchungen tfoot { display: none; }
+	.msb-admin .wp-list-table.buchungen tbody { display: block; }
+	.msb-admin .wp-list-table.buchungen tbody tr:not(.no-items) { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; background: #fff; border: 1px solid #dcdcde; border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; }
+	.msb-admin .wp-list-table.buchungen tbody tr:not(.no-items) > * { display: block !important; padding: 0 !important; box-shadow: none; }
+	.msb-admin .wp-list-table.buchungen tbody tr:not(.no-items) td:not(.check-column) { order: 3; flex: 1 1 100%; }
+	.msb-admin .wp-list-table.buchungen tbody th.check-column { order: 0; flex: 0 0 auto; width: auto; }
+	.msb-admin .wp-list-table.buchungen tbody tr:not(.no-items) td.column-primary { order: 1; flex: 1 1 0; font-size: 15px; }
+	.msb-admin .wp-list-table.buchungen tbody tr:not(.no-items) td.column-status { order: 2; flex: 0 0 auto; text-align: right; }
+	.msb-admin .wp-list-table.buchungen tbody tr:not(.no-items) td:not(.msb-c-label)::before { content: none; }
+	.msb-admin .wp-list-table.buchungen .toggle-row { display: none; }
+	.msb-admin .wp-list-table.buchungen .row-actions { position: static; left: 0; padding-top: 4px; }
+}
+
+/* ===== 1.6.5: Aktionen auf dem Handy getrennt ======================== */
+@media (max-width: 782px) {
+	/* Buchungsliste: Kopfzeile Häkchen | Nummer | Status, darunter die Angaben, ganz unten Öffnen links und Stornieren rechts */
+	.msb-admin .wp-list-table.buchungen tbody tr:not(.no-items) { display: grid !important; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 4px 10px; }
+	.msb-admin .wp-list-table.buchungen tbody tr:not(.no-items) > .hidden { display: none !important; }
+	.msb-admin .wp-list-table.buchungen tbody tr:not(.no-items) > * { width: auto !important; border: 0; }
+	.msb-admin .wp-list-table.buchungen tbody tr:not(.no-items) > td.check-column { grid-row: 1; grid-column: 1; padding-left: 0 !important; }
+	.msb-admin .wp-list-table.buchungen tbody tr:not(.no-items) > .column-primary { display: contents !important; }
+	.msb-admin .wp-list-table.buchungen .column-primary > strong { grid-row: 1; grid-column: 2; font-size: 15px; }
+	.msb-admin .wp-list-table.buchungen tbody tr:not(.no-items) td.column-status { grid-row: 1; grid-column: 3; }
+	.msb-admin .wp-list-table.buchungen tbody tr:not(.no-items) td:not(.check-column):not(.column-primary):not(.column-status) { grid-column: 1 / -1; }
+	.msb-admin .wp-list-table.buchungen .column-primary > .row-actions { order: 99; grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 8px; margin: 6px 0 0; padding-top: 4px; border-top: 1px solid #f0f0f1; }
+	.msb-admin .wp-list-table.buchungen .row-actions span a { padding: 8px 0; font-size: 14px; }
+	.msb-admin .wp-list-table.buchungen .row-actions span.cancel a { color: #b32d2e; }
+
+	/* Belege und Zahlungen: unwiderrufliche Aktionen abgesetzt und rechts */
+	#documents .widefat td:nth-child(6) .msb-inline-form:last-child:not(:nth-child(2)) { margin-left: auto; }
+	.msb-admin table.msb-cards td.msb-c-actions .msb-inline-form + .msb-inline-form { border-top: 1px solid #f0f0f1; padding-top: 8px; margin-top: 4px; }
+}
+
+/* ===== 1.6.7: Kunden, Preisregeln, Inventar, Reiter auf dem Handy ===== */
+@media (max-width: 782px) {
+	/* Kundenliste: Kopfzeile Häkchen | Name | Konto, darunter die Angaben, ganz unten die Aktionen */
+	.msb-admin .wp-list-table.kunden { border: 0; box-shadow: none; background: none; }
+	.msb-admin .wp-list-table.kunden thead, .msb-admin .wp-list-table.kunden tfoot { display: none; }
+	.msb-admin .wp-list-table.kunden tbody { display: block; }
+	.msb-admin .wp-list-table.kunden tbody tr:not(.no-items) { display: grid !important; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 4px 10px; background: #fff; border: 1px solid #dcdcde; border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; }
+	.msb-admin .wp-list-table.kunden tbody tr:not(.no-items) > * { display: block !important; width: auto !important; padding: 0 !important; border: 0; box-shadow: none; }
+	.msb-admin .wp-list-table.kunden tbody tr:not(.no-items) > .hidden { display: none !important; }
+	.msb-admin .wp-list-table.kunden tbody tr:not(.no-items) > td.check-column { grid-row: 1; grid-column: 1; }
+	.msb-admin .wp-list-table.kunden tbody tr:not(.no-items) > .column-primary { display: contents !important; }
+	.msb-admin .wp-list-table.kunden .column-primary > strong { grid-row: 1; grid-column: 2; font-size: 15px; }
+	.msb-admin .wp-list-table.kunden tbody tr:not(.no-items) td.column-account { grid-row: 1; grid-column: 3; color: #50575e; }
+	.msb-admin .wp-list-table.kunden tbody tr:not(.no-items) td:not(.check-column):not(.column-primary):not(.column-account) { grid-column: 1 / -1; }
+	.msb-admin .wp-list-table.kunden tbody tr:not(.no-items) td.msb-c-label { position: relative; padding-left: 116px !important; }
+	.msb-admin .wp-list-table.kunden tbody tr:not(.no-items) td.msb-c-label::before { content: attr(data-label); position: absolute; left: 0; top: 2px; width: 108px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #646970; font-size: 12px; }
+	.msb-admin .wp-list-table.kunden tbody tr:not(.no-items) td:not(.msb-c-label)::before { content: none; }
+	.msb-admin .wp-list-table.kunden .toggle-row { display: none !important; }
+	.msb-admin .wp-list-table.kunden .column-primary > .row-actions { position: static; order: 99; grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 8px; margin: 6px 0 0; padding-top: 4px; border-top: 1px solid #f0f0f1; }
+	.msb-admin .wp-list-table.kunden .row-actions span a { padding: 8px 0; font-size: 14px; }
+
+	/* Preisregeln im Artikel: jede Regel als Karte, Entfernen abgesetzt rechts unten */
+	.msb-rules__table { border: 0; box-shadow: none; background: none; }
+	.msb-rules__table thead { display: none; }
+	.msb-rules__table tbody { display: block; }
+	.msb-rules__table tr.msb-rule { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; background: #fff !important; border: 1px solid #dcdcde; border-radius: 6px; padding: 12px; margin-bottom: 12px; }
+	.msb-rules__table tr.msb-rule > td { display: block; padding: 0 !important; border: 0; width: auto !important; text-align: left !important; min-width: 0; }
+	.msb-rules__table tr.msb-rule > td:nth-child(n+2):nth-child(-n+5)::before { display: block; font-size: 12px; font-weight: 600; color: #50575e; margin-bottom: 3px; }
+	.msb-rules__table tr.msb-rule > td:nth-child(2)::before { content: "Regel"; }
+	.msb-rules__table tr.msb-rule > td:nth-child(3)::before { content: "Bedingung"; }
+	.msb-rules__table tr.msb-rule > td:nth-child(4)::before { content: "Wirkung"; }
+	.msb-rules__table tr.msb-rule > td:nth-child(5)::before { content: "Bezeichnung für Kunden"; }
+	.msb-rules__table .msb-rule__active { display: flex !important; align-items: center; gap: 8px; font-weight: 600; }
+	.msb-rules__table .msb-rule__active input { margin: 0; }
+	.msb-rules__table .msb-rule__active::after { content: "Regel aktiv"; }
+	.msb-rules__table select, .msb-rule__mode { width: 100%; max-width: none; }
+	.msb-rules__table .msb-rule__mode + input { width: 8em; margin-top: 6px; }
+	.msb-rule__cond .msb-c--weekdays { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+	.msb-rule__cond .msb-c--weekdays label { display: inline-flex; align-items: center; gap: 4px; min-height: 32px; margin: 0; }
+	.msb-rule__cond input[type="date"] { max-width: 45%; }
+	.msb-rules__table tr.msb-rule > td:last-child { text-align: right !important; border-top: 1px solid #f0f0f1; padding-top: 6px !important; }
+	.msb-rule__remove { display: inline-flex; align-items: center; gap: 4px; min-height: 40px; color: #b32d2e; text-decoration: none; }
+	.msb-rule__remove::after { content: "Entfernen"; font-size: 14px; }
+	.msb-rules__add { width: 100%; min-height: 40px; }
+
+	/* Inventar: je Artikel eine Karte mit den Tagen als Kacheln */
+	.msb-cal-toolbar form input[type="date"] { width: 100%; }
+	.msb-inv-wrap { overflow: visible; background: none; border: 0; }
+	.msb-inv, .msb-inv tbody { display: block; }
+	.msb-inv thead { display: none; }
+	.msb-inv tbody tr { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; background: #fff; border: 1px solid #dcdcde; border-radius: 6px; padding: 10px; margin-bottom: 12px; }
+	.msb-inv tbody td { display: block; border: 0; padding: 0; min-width: 0; }
+	.msb-inv tbody td.msb-inv__item { grid-column: 1 / -1; position: static; min-width: 0; font-size: 15px; font-weight: 600; white-space: normal; padding: 0 2px 2px; }
+	.msb-inv tbody td.msb-inv__item small { font-weight: 400; }
+	.msb-inv tbody td.msb-inv__stock { grid-column: 1 / -1; text-align: left; color: #646970; padding: 0 2px 6px; }
+	.msb-inv tbody td.msb-inv__stock::before { content: "Bestand: "; }
+	.msb-inv__cell { border-radius: 4px; }
+	.msb-inv__cell a { padding: 4px 0 6px; font-size: 16px; line-height: 1.2; }
+	.msb-inv__cell a::before { content: attr(data-day); display: block; font-size: 10px; font-weight: 400; color: #50575e; white-space: pre-line; margin-bottom: 2px; }
+	.msb-inv__cell.is-today { box-shadow: inset 0 0 0 2px #2271b1; }
+	.msb-inv__cell.is-closed a::before { color: #8c8f94; }
+
+	/* Reiter der Einstellungen: eine Zeile, seitlich wischen */
+	.msb-admin .nav-tab-wrapper { display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+	.msb-admin .nav-tab-wrapper .nav-tab { float: none; flex: 0 0 auto; white-space: nowrap; margin: 0 4px -1px 0; padding: 8px 12px; }
+}

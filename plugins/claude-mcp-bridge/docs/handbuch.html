@@ -1,0 +1,211 @@
+<nav class="cmb-toc">
+	<strong>Inhalt</strong>
+	<ol>
+		<li><a href="#ueberblick">Überblick</a></li>
+		<li><a href="#einrichtung">Einrichtung</a></li>
+		<li><a href="#arbeiten">Mit Claude arbeiten</a></li>
+		<li><a href="#freigaben">Freigaben</a></li>
+		<li><a href="#zweifaktor">Zwei-Faktor mit Aegis</a></li>
+		<li><a href="#experten">Expertenmodus</a></li>
+		<li><a href="#tools">Tool-Referenz</a></li>
+		<li><a href="#sicherheit">Sicherheitsmodell</a></li>
+		<li><a href="#notfall">Notfall &amp; Widerruf</a></li>
+		<li><a href="#probleme">Fehlerbehebung</a></li>
+	</ol>
+</nav>
+
+<h2 id="ueberblick">1. Überblick</h2>
+<p>Die <strong>Claude MCP Bridge</strong> macht diese WordPress-Website zu einem Connector für Claude – im Browser, in der Desktop-App und in der <strong>Claude-App auf dem Handy</strong>. Claude kann Inhalte lesen und Änderungen vorschlagen. <strong>Ausgeführt wird jede Änderung erst, wenn du sie hier im WordPress-Backend freigibst.</strong></p>
+<ul>
+	<li><strong>Lesen</strong> geht sofort (Beiträge, Seiten, Medien, Kommentare; im Expertenmodus auch Dateien, Datenbank, WP-CLI).</li>
+	<li><strong>Ändern</strong> erzeugt immer einen <em>Vorschlag</em> mit Freigabe-Link. Du siehst genau, was passiert (Vorher/Nachher, Code, SQL, Befehl) und entscheidest.</li>
+	<li>Riskante Aktionen verlangen zusätzlich dein <strong>WordPress-Passwort</strong> – oder, wenn eingestellt, nur den <strong>Zwei-Faktor-Code</strong> aus Aegis.</li>
+</ul>
+
+<h2 id="einrichtung">2. Einrichtung</h2>
+<h3>Voraussetzungen</h3>
+<ul>
+	<li>HTTPS auf der Website</li>
+	<li>Permalinks nicht auf „Einfach“ (<em>Einstellungen → Permalinks</em>)</li>
+	<li>Ein Administrator-Konto</li>
+</ul>
+<h3>Verbinden (einmalig)</h3>
+<ol>
+	<li><em>Claude MCP → Einstellungen</em>: „Bridge aktiv“ anhaken und speichern.</li>
+	<li><strong>Kopplung starten (15 Min.)</strong> klicken. Das Fenster schließt automatisch nach der ersten Registrierung.</li>
+	<li>In Claude (am einfachsten auf claude.ai im Browser): <em>Einstellungen → Connectors → Benutzerdefinierten Connector hinzufügen</em>. Als URL die <strong>Connector-URL</strong> von der Einstellungsseite einfügen.</li>
+	<li>Auf <em>Verbinden</em> tippen, bei WordPress anmelden, auf der Zustimmungsseite prüfen, dass die Weiterleitung an <code>claude.ai</code> geht, und <strong>Erlauben</strong> wählen.</li>
+</ol>
+<p>Der Connector steht danach automatisch auch in der Handy-App zur Verfügung.</p>
+<h3>Alternative: eigener OAuth-Client</h3>
+<p>Statt Kopplungsfenster kannst du auf der Einstellungsseite einen Client mit Secret erzeugen und Client-ID/Secret in Claude unter <em>Erweiterte Einstellungen</em> des Connectors eintragen. Das Secret wird nur einmal angezeigt.</p>
+
+<h2 id="arbeiten">3. Mit Claude arbeiten</h2>
+<p>Schreib Claude einfach, was du möchtest. Beispiele:</p>
+<ul>
+	<li>„Welche Entwürfe habe ich gerade?“</li>
+	<li>„Schreib einen Blogbeitrag über Fahrradanhänger für Familien und leg ihn als Entwurf an.“</li>
+	<li>„Ergänze bei allen Bildern ohne Alt-Text einen passenden Alt-Text.“</li>
+	<li>„Welche Kommentare warten auf Freigabe? Markier offensichtlichen Spam.“</li>
+	<li>Expertenmodus: „Warum ist die Startseite langsam? Schau dir die aktiven Plugins und die Cron-Jobs an.“ · „Ändere im Child-Theme die Linkfarbe auf Dunkelgrün.“ · „Ersetze in der Datenbank alle http://-Links durch https:// – erst als Probelauf.“</li>
+</ul>
+<p>Für jede Änderung antwortet Claude mit einem <strong>Freigabe-Link</strong>. Claude darf erst behaupten, dass etwas erledigt ist, wenn der Status „ausgeführt“ ist.</p>
+
+<h2 id="freigaben">4. Freigaben</h2>
+<p>Offene Vorschläge findest du über den Link von Claude oder unter <em>Claude MCP → Freigaben</em> (mit Zähler im Menü). Jede Freigabeseite zeigt:</p>
+<ul>
+	<li><strong>Risikostufe</strong>: <em>normal</em> (Inhalte), <em>hoch</em> (Dateien, SQL, Plugins), <em>kritisch</em> (PHP-Code, WP-CLI, PHP-Dateien, .htaccess, mu-plugins).</li>
+	<li>Die <strong>Begründung</strong> von Claude.</li>
+	<li>Genau, was passiert: Vorher/Nachher-Vergleich, vollständiger Code, SQL-Anweisung oder Befehl.</li>
+</ul>
+<table class="widefat striped">
+	<thead><tr><th>Risiko</th><th>Freigabe</th><th>Gültigkeit</th></tr></thead>
+	<tbody>
+		<tr><td>normal</td><td>Tippen auf „Freigeben“</td><td>24 Stunden</td></tr>
+		<tr><td>hoch</td><td>„Freigeben“ + WordPress-Passwort (+ Aegis-Code, wenn eingerichtet) – mit Option „nur Zwei-Faktor-Code“: nur Aegis-Code</td><td>6 Stunden</td></tr>
+		<tr><td>kritisch</td><td>wie „hoch“</td><td>1 Stunde</td></tr>
+	</tbody>
+</table>
+<h3>Sammelfreigabe</h3>
+<p>Unter <em>Claude MCP → Freigaben</em> stehen alle offenen Vorschläge mit Kästchen. Markieren (oder „Alle auswählen“), einmal bestätigen, <strong>„Markierte freigeben“</strong> – fertig. So lässt sich z. B. eine neue Plugin-Version mit mehreren Dateien in einem Schritt freigeben.</p>
+<ul>
+	<li>Bestätigt wird nach dem höchsten Risiko der Auswahl (ein Code bzw. Passwort + Code).</li>
+	<li>Reihenfolge: älteste zuerst, <strong>Plugin-Hauptdateien zuletzt</strong> (in der Liste markiert) – die neue Versionsnummer greift erst, wenn alle anderen Dateien geschrieben sind.</li>
+	<li>Schlägt ein Vorschlag fehl, wird angehalten; der Rest bleibt offen. Darüber erscheint ein Ergebnisblock.</li>
+	<li>Vorher jeden Vorschlag über „ansehen“ prüfen – die Sammelfreigabe ersetzt nicht die Kontrolle.</li>
+</ul>
+<p>Weitere Regeln:</p>
+<ul>
+	<li>Nur der Administrator, der Claude verbunden hat, kann seine Vorschläge entscheiden.</li>
+	<li>Wurde ein Beitrag oder eine Datei nach dem Vorschlag verändert, wird die Freigabe <strong>abgelehnt statt überschrieben</strong>.</li>
+	<li>Nach 5 Fehlversuchen (Passwort oder Code) sind Freigaben 15 Minuten gesperrt.</li>
+	<li>Dateiänderungen haben einen <strong>„Rückgängig machen“</strong>-Knopf (stellt den vorherigen Stand wieder her, solange die Datei seitdem nicht erneut geändert wurde).</li>
+	<li>Datenbank- und WP-CLI-Änderungen lassen sich nicht automatisch zurücknehmen – vor großen Änderungen ein Backup anlegen.</li>
+</ul>
+
+<h2 id="zweifaktor">5. Zwei-Faktor mit Aegis</h2>
+<p>Zusätzlich zum Passwort kannst du riskante Freigaben mit einem 6-stelligen Code aus <strong>Aegis Authenticator</strong> (oder jeder anderen TOTP-App) absichern. Das gilt nur für Freigaben dieser Bridge und ist unabhängig vom Zwei-Faktor beim WordPress-Login.</p>
+<h3>Einrichten</h3>
+<ol>
+	<li><em>Claude MCP → Einstellungen → Zwei-Faktor-Bestätigung</em>: Passwort eingeben, <strong>Einrichtung starten</strong>.</li>
+	<li>Auf dem Handy <strong>„In Authenticator-App öffnen“</strong> antippen – Aegis übernimmt den Eintrag direkt. Alternativ in Aegis „+ → Manuell eingeben“ mit dem angezeigten Schlüssel (TOTP, SHA1, 6 Stellen, 30 Sekunden).</li>
+	<li>Den aktuellen Code aus Aegis eintragen und <strong>Aktivieren</strong>.</li>
+	<li>Die <strong>10 Backup-Codes</strong> sicher aufbewahren (z. B. im Passwortmanager). Jeder funktioniert einmal, falls das Handy fehlt. Sie werden nur einmal angezeigt.</li>
+</ol>
+<h3>Wo der Code abgefragt wird</h3>
+<ul>
+	<li>Freigaben mit Risiko „hoch“ oder „kritisch“ (Dateien, SQL, Plugins, PHP, WP-CLI) – zusammen mit dem Passwort oder, mit der Option „Freigaben nur mit Zwei-Faktor-Code“, <strong>allein</strong>.</li>
+	<li>„Rückgängig machen“ bei Dateiänderungen.</li>
+	<li>Einschalten des Expertenmodus und Ändern der WP-CLI-Pfade.</li>
+	<li>Optional auch bei normalen Inhaltsfreigaben (Einstellung „Code auch für normale Inhaltsfreigaben verlangen“).</li>
+</ul>
+<h3>Richtlinie</h3>
+<ul>
+	<li><strong>Erzwingen</strong>: Riskante Freigaben sind nur noch mit eingerichtetem Zwei-Faktor möglich. Wer keinen eingerichtet hat, kann sie nicht freigeben.</li>
+	<li><strong>Freigaben nur mit Zwei-Faktor-Code</strong> (ab 0.4.0): Bei Freigaben entfällt das WordPress-Passwort, der Code ist dann Pflicht. Rückgängig, Expertenmodus und diese Einstellungen verlangen weiterhin Passwort und Code. Ohne eingerichteten Zwei-Faktor gilt automatisch wieder das Passwort. Wichtig: Backup-Codes sicher aufbewahren und Aegis-Sicherung aktivieren.</li>
+	<li>Richtlinie ändern, neue Backup-Codes erzeugen oder Zwei-Faktor deaktivieren geht nur mit Passwort <em>und</em> gültigem Code (oder Backup-Code).</li>
+</ul>
+<h3>Technik</h3>
+<ul>
+	<li>TOTP nach RFC 6238. Der Schlüssel wird verschlüsselt gespeichert (libsodium, Schlüssel aus den WordPress-Salts).</li>
+	<li>Jeder Code gilt nur einmal (Replay-Schutz), ±30 Sekunden Toleranz für die Handy-Uhr.</li>
+	<li>Backup-Codes nur als Hash gespeichert.</li>
+</ul>
+<h3>Handy verloren?</h3>
+<p>Mit einem Backup-Code anmelden, Zwei-Faktor deaktivieren und neu einrichten. Ohne Backup-Codes: per WP-CLI auf dem Server <code>wp user meta delete &lt;ID&gt; _cmb_totp_secret</code> und <code>wp user meta delete &lt;ID&gt; _cmb_totp_backup</code> ausführen (bzw. über den Hoster).</p>
+
+<h2 id="experten">6. Expertenmodus</h2>
+<p>Unter <em>Einstellungen → Expertenmodus</em> lassen sich fünf Bereiche einzeln einschalten. Zum Einschalten ist dein Passwort nötig. <strong>Danach den Connector in Claude einmal trennen und neu verbinden</strong>, damit Claude die zusätzliche Berechtigung erhält.</p>
+<table class="widefat striped">
+	<thead><tr><th>Bereich</th><th>Sofort (ohne Freigabe)</th><th>Nur mit Freigabe</th></tr></thead>
+	<tbody>
+		<tr><td>Dateien</td><td>Ordner auflisten, Dateien lesen und durchsuchen</td><td>Datei anlegen, ändern, löschen (mit Backup)</td></tr>
+		<tr><td>PHP ausführen</td><td>–</td><td>PHP-Code in WordPress ausführen (max. 30 s)</td></tr>
+		<tr><td>Datenbank</td><td>SELECT/SHOW/DESCRIBE/EXPLAIN (max. 200 Zeilen, Passwort-Hashes und Geheimnisse geschwärzt)</td><td>INSERT, UPDATE, DELETE, ALTER, CREATE TABLE …</td></tr>
+		<tr><td>WP-CLI</td><td>Lesende Befehle wie <code>plugin list</code>, <code>core version</code>, <code>cron event list</code></td><td>Alle anderen Befehle (max. 60 s)</td></tr>
+		<tr><td>Plugins</td><td>Installierte Plugins, Infos aus wordpress.org</td><td>Installieren (nur wordpress.org), aktivieren, deaktivieren, aktualisieren, löschen</td></tr>
+	</tbody>
+</table>
+<h3>Immer gesperrt – auch mit Freigabe</h3>
+<ul>
+	<li>Lesen oder Ändern von Zugangsdaten: <code>wp-config.php</code>, <code>.env</code>, <code>.htpasswd</code>, Schlüssel/Zertifikate, Datenbank-Dumps und Backup-Ordner.</li>
+	<li>Ändern von WordPress-Core (<code>wp-admin</code>, <code>wp-includes</code>, <code>wp-*.php</code>) und PHP-Dateien im Upload-Ordner.</li>
+	<li>Alles, was die Claude MCP Bridge selbst betrifft (Plugin-Ordner, eigene Tabellen, Deaktivieren/Löschen über Claude) – damit kein Vorschlag die Freigabepflicht aushebeln kann.</li>
+	<li>SQL: Benutzer-/Rechteverwaltung (GRANT, CREATE USER …), Dateizugriff (INTO OUTFILE, LOAD_FILE), Stored Procedures/Trigger/Events, mehrere Anweisungen auf einmal.</li>
+	<li>WP-CLI: <code>shell</code>, <code>server</code>, <code>db export/import/query/cli</code>, <code>config get</code>, <code>--ssh</code>, <code>--http</code>, <code>--path</code>, <code>--require</code>, <code>--exec</code>. Befehle laufen ohne Shell – Pipes, <code>;</code>, <code>$(…)</code> haben keine Wirkung.</li>
+</ul>
+<h3>WP-CLI einrichten</h3>
+<p>WP-CLI muss auf dem Server installiert sein und PHP muss <code>proc_open</code> erlauben (bei vielen Shared-Hostern nicht der Fall). Trage den Pfad zu <code>wp</code> ein (z. B. <code>/usr/local/bin/wp</code>). Bei einer <code>.phar</code>-Datei ohne Shebang zusätzlich den Pfad zum PHP-CLI (z. B. <code>/usr/bin/php</code>).</p>
+<h3>Komplett abschalten</h3>
+<p>In <code>wp-config.php</code>: <code>define( 'CMB_DISABLE_POWER_TOOLS', true );</code> – sperrt den Expertenmodus unabhängig von den Einstellungen. Außerdem werden <code>DISALLOW_FILE_MODS</code> und <code>DISALLOW_FILE_EDIT</code> respektiert.</p>
+
+<h2 id="tools">7. Tool-Referenz</h2>
+<table class="widefat striped">
+	<thead><tr><th>Tool</th><th>Art</th><th>Zweck</th></tr></thead>
+	<tbody>
+		<tr><td><code>site_info</code></td><td>lesen</td><td>Name, Version, Theme, Plugins, Zähler</td></tr>
+		<tr><td><code>list_posts</code>, <code>get_post</code></td><td>lesen</td><td>Beiträge und Seiten</td></tr>
+		<tr><td><code>list_terms</code>, <code>list_media</code>, <code>list_comments</code></td><td>lesen</td><td>Kategorien/Schlagwörter, Medien, Kommentare</td></tr>
+		<tr><td><code>list_pending_changes</code>, <code>get_change_status</code></td><td>lesen</td><td>Offene Vorschläge und Ergebnisse</td></tr>
+		<tr><td><code>propose_create_post</code>, <code>propose_update_post</code>, <code>propose_trash_post</code></td><td>Vorschlag</td><td>Beiträge/Seiten anlegen, ändern, in den Papierkorb</td></tr>
+		<tr><td><code>propose_update_site_settings</code></td><td>Vorschlag</td><td>Website-Titel und Untertitel</td></tr>
+		<tr><td><code>propose_moderate_comment</code>, <code>propose_update_media</code></td><td>Vorschlag</td><td>Kommentare moderieren, Medientexte</td></tr>
+		<tr><td><code>cancel_change</code></td><td>–</td><td>Eigenen offenen Vorschlag zurückziehen</td></tr>
+		<tr><td><code>list_files</code>, <code>read_file</code>, <code>search_files</code></td><td>lesen (Experte)</td><td>Dateien</td></tr>
+		<tr><td><code>propose_write_file</code>, <code>propose_edit_file</code>, <code>propose_delete_file</code></td><td>Vorschlag (Experte)</td><td>Dateien ändern</td></tr>
+		<tr><td><code>propose_run_php</code></td><td>Vorschlag (Experte)</td><td>PHP ausführen</td></tr>
+		<tr><td><code>db_select</code> / <code>propose_db_query</code></td><td>lesen / Vorschlag (Experte)</td><td>Datenbank</td></tr>
+		<tr><td><code>wp_cli_read</code> / <code>propose_wp_cli</code></td><td>lesen / Vorschlag (Experte)</td><td>WP-CLI</td></tr>
+		<tr><td><code>list_plugins</code>, <code>plugin_directory_info</code>, <code>propose_plugin_action</code></td><td>lesen / Vorschlag (Experte)</td><td>Plugins</td></tr>
+	</tbody>
+</table>
+
+<h2 id="sicherheit">8. Sicherheitsmodell</h2>
+<h3>Verbindung</h3>
+<ul>
+	<li>OAuth 2.1, nur Authorization Code mit PKCE (S256). Weiterleitung ausschließlich an <code>https://claude.ai/api/mcp/auth_callback</code> (Claude Code/Loopback nur per Opt-in).</li>
+	<li>Registrierung neuer Clients nur im Kopplungsfenster, max. 20 Clients, Rate-Limits.</li>
+	<li>Zustimmung nur durch eingeloggte Administratoren, mit Nonce und Klickjacking-Schutz.</li>
+	<li>Codes: 2 Minuten, einmalig. Access-Token: 1 Stunde. Refresh-Token: 30 Tage, wird bei jeder Nutzung ersetzt; Wiederverwendung sperrt die ganze Verbindung.</li>
+	<li>Tokens sind an die Connector-URL gebunden, werden nur gehasht gespeichert und nur im Authorization-Header akzeptiert.</li>
+	<li>Der Token gilt nur für den MCP-Endpunkt – nicht für die übrige WordPress-REST-API.</li>
+	<li>Expertenmodus nur mit eigener Berechtigung <code>wp:power</code>, die bei der Zustimmung deutlich angezeigt wird.</li>
+</ul>
+<h3>Ausführung</h3>
+<ul>
+	<li>Ohne Freigabe laufen nur lesende Operationen. Lesende SQL-Abfragen laufen zusätzlich in einer READ-ONLY-Transaktion (MySQL/MariaDB).</li>
+	<li>Freigabe: eingeloggt + Nonce + Capability + bei Risiko „hoch/kritisch“ Passwort und – wenn eingerichtet bzw. erzwungen – TOTP-Code. Doppelte Ausführung ausgeschlossen, Integritäts-Hash pro Vorschlag.</li>
+	<li>Bei der Ausführung wird alles erneut geprüft (Rechte, Sperrlisten, Veraltung, ob der Bereich noch eingeschaltet ist).</li>
+	<li>Beitragsinhalte werden immer durch <code>wp_kses_post</code> gefiltert – auch für Admins –, damit eingeschleustes <code>&lt;script&gt;</code> (z. B. über einen Kommentar, den Claude gelesen hat) nicht auf die Website gelangt.</li>
+	<li>Datei-Pfade werden auf die WordPress-Installation begrenzt (keine <code>..</code>, keine Symlink-Ausbrüche). PHP-Dateien werden vor dem Speichern auf Syntaxfehler geprüft.</li>
+	<li>Geheimnisse werden geschwärzt, bevor eine Antwort an Claude geht: Passwort-Hashes, Sitzungen, API-Schlüssel und Webhook-Secrets – auch innerhalb serialisierter Plugin-Einstellungen – sowie bekannte Schlüsselformate in Dateien und Ausgaben. Das schützt vor versehentlicher Ausgabe, nicht vor gezielten Teilabfragen per SQL.</li>
+	<li>Protokoll aller Verbindungen, Tool-Aufrufe und Entscheidungen unter <em>Claude MCP → Protokoll</em> (IPs gekürzt, 90 Tage).</li>
+</ul>
+<h3>Wichtig zu wissen</h3>
+<p>Mit freigegebenem PHP-Code, PHP-Dateien, WP-CLI oder SQL kann <em>alles</em> auf dieser Website verändert werden. Die Sperrlisten (z. B. Bridge-Dateien, wp-config.php) schützen vor versehentlichen oder untergeschobenen Vorschlägen, aber <strong>der eigentliche Schutz ist deine Prüfung vor dem Freigeben</strong>. Gib nichts frei, was du nicht verstehst – besonders, wenn Claude vorher Kommentare, Formulareingaben oder fremde Inhalte gelesen hat.</p>
+
+<h2 id="notfall">9. Notfall &amp; Widerruf</h2>
+<ul>
+	<li><em>Claude MCP → Verbindungen</em>: einzelne Verbindung trennen oder <strong>Alle Verbindungen trennen</strong>.</li>
+	<li>Bridge deaktivieren (Einstellungen) oder Plugin deaktivieren: alle Tokens werden sofort ungültig.</li>
+	<li>Passwort- oder Rollenänderung des Admins macht dessen Tokens automatisch ungültig.</li>
+	<li><code>define( 'CMB_DISABLE_POWER_TOOLS', true );</code> in wp-config.php sperrt den Expertenmodus sofort.</li>
+</ul>
+
+<h2 id="probleme">10. Fehlerbehebung</h2>
+<dl>
+	<dt>Claude meldet „Couldn't reach the MCP server“</dt>
+	<dd>Prüfe HTTPS, Permalinks und dass „Bridge aktiv“ gesetzt ist. Sicherheits-Plugins oder Firewalls (WAF) dürfen <code>/wp-json/cmb/v1/</code> und <code>/.well-known/</code> nicht blockieren.</dd>
+	<dt>„Registration is closed“</dt>
+	<dd>Vor dem Verbinden in WordPress „Kopplung starten“ klicken.</dd>
+	<dt>„Unauthorized“, obwohl verbunden</dt>
+	<dd>Manche Apache/CGI-Hoster entfernen den Authorization-Header. In die <code>.htaccess</code> oberhalb des WordPress-Blocks: <code>SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1</code></dd>
+	<dt>Aegis-Code wird abgelehnt</dt>
+	<dd>Uhrzeit des Handys auf „automatisch“ stellen. Jeder Code gilt nur einmal – nach einer Freigabe auf den nächsten Code warten. Tipp: mehrere Vorschläge per Sammelfreigabe mit einem Code freigeben.</dd>
+	<dt>Expertenmodus-Tools fehlen in Claude</dt>
+	<dd>Nach dem Einschalten den Connector in Claude trennen und neu verbinden.</dd>
+	<dt>WP-CLI „nicht verfügbar“</dt>
+	<dd>Pfad prüfen; viele Hoster deaktivieren <code>proc_open</code>. Dann den Bereich ausgeschaltet lassen.</dd>
+	<dt>Plugin-Installation schlägt fehl</dt>
+	<dd>Der Server muss wordpress.org erreichen und schreiben dürfen (FS_METHOD „direct“). Andernfalls über das normale WordPress-Backend installieren.</dd>
+</dl>

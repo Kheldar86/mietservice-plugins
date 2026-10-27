@@ -1,0 +1,113 @@
+<h2 id="v042">Version 0.4.2 <small>– 26. Oktober 2026</small></h2>
+<p><strong>Datenschutz-Update:</strong> Kundendaten gelangen nicht mehr an Claude.</p>
+<h3>Neu</h3>
+<ul>
+	<li><strong>Kundendaten schwärzen</strong> (Claude MCP → Einstellungen, standardmäßig an): Namen, E-Mail-Adressen, Telefonnummern, Anschriften und Anmerkungen von Kunden kommen in <code>db_select</code>-Ergebnissen nur als <code>[geschwärzt]</code> an. Erkannt werden Spalten wie <code>customer_name</code>, <code>user_email</code>, <code>first_name</code>, Benutzer-Metadaten wie <code>billing_*</code>, Felder in JSON- und serialisierten Werten (Buchungsformular, Stripe-Daten, Belegdaten) und E-Mail-Adressen fremder Domains in jedem Wert. Buchungsnummern, Status, Beträge und Termine bleiben sichtbar.</li>
+	<li><strong>Belege</strong> (PDF/CSV in <code>uploads/msb-belege</code>) werden nicht mehr ausgeliefert.</li>
+</ul>
+<h3>Grenzen</h3>
+<p>Schutz gegen versehentliche Ausgabe. Umbenannte Spalten (<code>AS</code>) oder Teilabfragen werden nur über das E-Mail-Muster erkannt. Muss Claude einen bestimmten Kundendatensatz prüfen, die Einstellung kurz ausschalten und danach wieder einschalten.</p>
+<h3>Update</h3>
+<p>Als ZIP installieren (<em>Plugins → Installieren → Plugin hochladen → „Vorhandene durch hochgeladene Version ersetzen“</em>). Keine Datenbankänderung; Einstellungen, Verbindungen und Zwei-Faktor bleiben erhalten.</p>
+
+<h2 id="v041">Version 0.4.1 <small>– 22. Oktober 2026</small></h2>
+<p><strong>Sicherheitsupdate:</strong> Geheimnisse in Plugin-Einstellungen gelangen nicht mehr an Claude.</p>
+<h3>Behoben</h3>
+<ul>
+	<li><strong>Schwärzung in serialisierten Optionen</strong>: Bisher prüfte <code>db_select</code> nur Options- und Meta-Namen. Einstellungen wie <code>msb_settings</code> heißen unauffällig, enthalten aber Stripe-Schlüssel und Webhook-Secret – diese kamen ungeschwärzt zurück. Jetzt werden serialisierte und JSON-Werte entpackt und alle Felder mit Namen wie <em>secret, password, api_key, token, webhook</em> geschwärzt.</li>
+	<li><strong>Bekannte Schlüsselformate</strong> (Stripe <code>sk_</code>/<code>rk_</code>/<code>whsec_</code>, Anthropic, OpenAI, GitHub, Slack, AWS, private Schlüssel, Passwort-Hashes) werden in <em>jeder</em> Antwort an Claude geschwärzt: Datenbank, Dateien, Suche, WP-CLI- und PHP-Ausgaben, Fehlermeldungen. Das Präfix bleibt sichtbar, z. B. <code>rk_live_[geschwärzt]</code>.</li>
+</ul>
+<h3>Grenzen</h3>
+<p>Die Schwärzung schützt vor versehentlicher Ausgabe. Wer per SQL gezielt Teile eines Werts abfragt (<code>SUBSTRING</code>, <code>HEX</code> …), kann sie umgehen. Deshalb bleibt der Expertenmodus Administratoren vorbehalten und jede Änderung freigabepflichtig.</p>
+<h3>Update</h3>
+<p>Als ZIP installieren (<em>Plugins → Installieren → Plugin hochladen → „Vorhandene durch hochgeladene Version ersetzen“</em>). Keine Datenbankänderung; Einstellungen, Verbindungen und Zwei-Faktor bleiben erhalten.</p>
+
+<h2 id="v040">Version 0.4.0 <small>– 17. Oktober 2026</small></h2>
+<p><strong>Weniger Tippen bei Freigaben</strong> – nur noch der Aegis-Code und mehrere Vorschläge auf einmal.</p>
+<h3>Neu</h3>
+<ul>
+	<li><strong>Freigaben nur mit Zwei-Faktor-Code</strong>: neue Option unter <em>Einstellungen → Zwei-Faktor-Bestätigung</em>. Ist sie aktiv, verlangen Freigaben mit Risiko „hoch“ oder „kritisch“ nur noch den 6-stelligen Code aus Aegis – kein WordPress-Passwort mehr. Standardmäßig aus.</li>
+	<li><strong>Sammelfreigabe</strong>: Unter <em>Claude MCP → Freigaben</em> lassen sich offene Vorschläge markieren („Alle auswählen“) und mit <em>einer</em> Bestätigung freigeben oder ablehnen. Die Bestätigung richtet sich nach dem höchsten Risiko der Auswahl.</li>
+	<li><strong>Sichere Reihenfolge</strong>: Ausgeführt wird vom ältesten zum neuesten Vorschlag. Plugin-Hauptdateien (mit der Kopfzeile „Plugin Name:“ und meist der neuen Versionsnummer) kommen automatisch zuletzt und sind in der Liste markiert.</li>
+	<li><strong>Abbruch beim ersten Fehler</strong>: Schlägt ein Vorschlag fehl (z. B. weil die Datei inzwischen geändert wurde), wird angehalten. Die übrigen Vorschläge bleiben offen. Ein Ergebnisblock zeigt, was ausgeführt wurde.</li>
+	<li>Nach einer Einzelfreigabe zeigt die Meldung, wie viele Vorschläge noch offen sind.</li>
+</ul>
+<h3>Sicherheit</h3>
+<ul>
+	<li>Die Option greift nur, wenn Zwei-Faktor eingerichtet ist. Wird Zwei-Faktor deaktiviert, gilt automatisch wieder das Passwort.</li>
+	<li>Einschalten der Option nur mit Passwort <em>und</em> Code (wie alle Zwei-Faktor-Einstellungen).</li>
+	<li>Weiterhin mit Passwort und Code: „Rückgängig machen“, Expertenmodus einschalten, Zwei-Faktor-Einstellungen ändern.</li>
+	<li>Jeder Code gilt einmal; Sperre nach 5 Fehlversuchen; Integritäts-, Rechte- und Veraltungsprüfung für jeden einzelnen Vorschlag einer Sammelfreigabe. Ist ein ausgewählter Vorschlag nicht mehr offen oder verändert, wird nichts ausgeführt.</li>
+	<li>Höchstens 25 Vorschläge pro Sammelfreigabe; Protokolleintrag <code>batch_approve</code>.</li>
+</ul>
+<h3>Getestet</h3>
+<p>44 neue End-to-End-Tests gegen WordPress 6.8.3: Bestätigung mit und ohne Option, Backup-Code, Wiederverwendung, Sperre, Rückgängig weiterhin mit Passwort, Sammelfreigabe, Reihenfolge, Abbruch, Integrität, fehlende Nonce, Darstellung der Freigabeseiten.</p>
+<h3>Update</h3>
+<p>Diese Version wird als ZIP-Datei installiert (<em>Plugins → Installieren → Plugin hochladen → „Vorhandene durch hochgeladene Version ersetzen“</em>), da die Bridge sich bewusst nicht selbst verändern kann. Einstellungen, Verbindungen und Zwei-Faktor bleiben erhalten.</p>
+
+<h2 id="v030">Version 0.3.0 <small>– 10. Oktober 2026</small></h2>
+<p><strong>Zwei-Faktor-Bestätigung für Freigaben</strong> – kompatibel mit Aegis Authenticator und allen TOTP-Apps.</p>
+<h3>Neu</h3>
+<ul>
+	<li>Einrichtung unter <em>Einstellungen → Zwei-Faktor-Bestätigung</em> mit Direkt-Link „In Authenticator-App öffnen“ (otpauth) für Aegis auf dem Handy, alternativ manueller Schlüssel.</li>
+	<li>Riskante Freigaben (hoch/kritisch), „Rückgängig machen“ und das Einschalten des Expertenmodus verlangen Passwort <em>und</em> Code.</li>
+	<li>10 einmalige Backup-Codes, neu erzeugbar.</li>
+	<li>Richtlinien: Zwei-Faktor für riskante Freigaben erzwingen; optional auch für normale Inhaltsfreigaben.</li>
+	<li>Handbuch um Kapitel „Zwei-Faktor mit Aegis“ erweitert.</li>
+</ul>
+<h3>Sicherheit</h3>
+<ul>
+	<li>TOTP nach RFC 6238 (geprüft gegen den offiziellen Testvektor), ±1 Zeitschritt Toleranz.</li>
+	<li>Schlüssel verschlüsselt gespeichert (libsodium secretbox, Schlüssel aus den WordPress-Salts), Backup-Codes nur als HMAC.</li>
+	<li>Replay-Schutz: jeder Code nur einmal gültig.</li>
+	<li>Gemeinsame Fehlversuchssperre für Passwort und Code (5 Versuche, 15 Minuten).</li>
+	<li>Ändern der Zwei-Faktor-Einstellungen nur mit Passwort und gültigem Code.</li>
+</ul>
+<h3>Getestet</h3>
+<p>213 automatisierte End-to-End-Tests (81 Basis, 99 Expertenmodus, 33 Zwei-Faktor).</p>
+<h3>Hinweis</h3>
+<p>Der Zwei-Faktor-Code gilt für Freigaben der Bridge. Ein 2FA-Plugin für den WordPress-Login (z. B. Aegis User Guard, Two Factor, WP 2FA) bleibt davon unberührt und schützt weiterhin die Anmeldung.</p>
+
+<h2 id="v020">Version 0.2.0 <small>– 10. Oktober 2026</small></h2>
+<p><strong>Expertenmodus:</strong> Dateien, PHP, SQL, WP-CLI und Plugin-Verwaltung – jede Änderung nur nach Freigabe mit Passwort.</p>
+<h3>Neu</h3>
+<ul>
+	<li><strong>Dateien</strong>: <code>list_files</code>, <code>read_file</code>, <code>search_files</code> (sofort); <code>propose_write_file</code>, <code>propose_edit_file</code>, <code>propose_delete_file</code> (Freigabe). Vorher/Nachher-Diff, Backup und „Rückgängig machen“.</li>
+	<li><strong>PHP</strong>: <code>propose_run_php</code> – Code wird vollständig auf der Freigabeseite angezeigt, Ausgabe kommt zurück an Claude.</li>
+	<li><strong>Datenbank</strong>: <code>db_select</code> (lesend, sofort, Passwort-Hashes geschwärzt) und <code>propose_db_query</code> (Änderungen).</li>
+	<li><strong>WP-CLI</strong>: <code>wp_cli_read</code> (Allowlist lesender Befehle) und <code>propose_wp_cli</code>.</li>
+	<li><strong>Plugins</strong>: <code>list_plugins</code>, <code>plugin_directory_info</code>, <code>propose_plugin_action</code> (installieren nur von wordpress.org, aktivieren, deaktivieren, aktualisieren, löschen).</li>
+	<li><strong>Risikostufen</strong> normal/hoch/kritisch mit farbigem Hinweis, unterschiedlicher Gültigkeit (24 h / 6 h / 1 h) und <strong>Passwortabfrage</strong> ab „hoch“ (Sperre nach 5 Fehlversuchen).</li>
+	<li>Eigene OAuth-Berechtigung <code>wp:power</code>, die auf der Zustimmungsseite deutlich angezeigt wird. Jeder Bereich einzeln schaltbar, Einschalten nur mit Passwort.</li>
+	<li>Kill-Switch <code>CMB_DISABLE_POWER_TOOLS</code>; Respekt von <code>DISALLOW_FILE_MODS</code> / <code>DISALLOW_FILE_EDIT</code>.</li>
+	<li>Integriertes <strong>Handbuch</strong> und diese <strong>Release Notes</strong> im Menü „Claude MCP“.</li>
+</ul>
+<h3>Sicherheit</h3>
+<ul>
+	<li>Pfad-Sandbox auf die WordPress-Installation (kein <code>..</code>, keine Symlink-Ausbrüche, keine Nullbytes).</li>
+	<li>Sperrliste für Zugangsdaten, Backups, Datenbankdateien, WordPress-Core, PHP im Upload-Ordner und die Bridge selbst.</li>
+	<li>PHP-Syntaxprüfung vor dem Speichern, damit die Website nicht ausfällt.</li>
+	<li>SQL: genau eine Anweisung; doppelte Analyse (mit/ohne Backslash-Escapes) gegen versteckte Befehle; Sperre für Rechteverwaltung, Dateizugriff, Stored Programs, ausführbare Kommentare und die Bridge-Tabellen; lesende Abfragen zusätzlich in READ-ONLY-Transaktion.</li>
+	<li>WP-CLI ohne Shell (Argumentliste), gesperrte Befehle/Optionen, Zeitlimit 60 s, minimale Umgebung.</li>
+	<li>Ausführung prüft erneut, ob der Bereich noch eingeschaltet ist und ob sich das Ziel seit dem Vorschlag verändert hat.</li>
+</ul>
+<h3>Getestet</h3>
+<p>180 automatisierte End-to-End-Tests (81 Basis, 99 Expertenmodus) gegen WordPress 6.8 – darunter Pfad-Traversal, Symlink-Ausbruch, SQL-Tricks (<code>1--1 INTO OUTFILE</code>, <code>/*! */</code>, Backslash-Strings), Shell-Injection über WP-CLI, CSRF, Passwort-Sperre und Veraltung.</p>
+<h3>Bekannte Grenzen</h3>
+<ul>
+	<li>Plugin-Installation von wordpress.org wurde in der Testumgebung mangels Internetzugang nur bis zur Fehlermeldung geprüft.</li>
+	<li>Datenbank- und WP-CLI-Änderungen haben kein automatisches Rückgängig.</li>
+	<li>Zwei-Faktor-Plugins werden bei der Passwortabfrage nicht einbezogen.</li>
+	<li>Keine Theme-Installation, keine Medien-Uploads, keine Page-Builder-Unterstützung, Multisite ungetestet.</li>
+</ul>
+
+<h2 id="v010">Version 0.1.0 <small>– 10. Oktober 2026</small></h2>
+<p>Erste Version.</p>
+<ul>
+	<li>MCP-Server (Streamable HTTP) für Claude Web, Desktop und Mobile.</li>
+	<li>OAuth 2.1 mit PKCE, Kopplungsfenster für die dynamische Registrierung, Refresh-Token-Rotation mit Wiederverwendungserkennung, Token-Bindung an die Connector-URL.</li>
+	<li>Lese-Tools für Beiträge, Seiten, Medien, Kategorien, Kommentare und Website-Infos.</li>
+	<li>Vorschlags-Tools mit Freigabe im Backend: Beiträge/Seiten anlegen, ändern, in den Papierkorb; Titel/Untertitel; Kommentarmoderation; Medientexte.</li>
+	<li>Veraltungsschutz, <code>wp_kses_post</code> für alle Inhalte, Protokoll, Widerruf einzelner oder aller Verbindungen.</li>
+	<li>81 automatisierte Sicherheits- und Funktionstests.</li>
+</ul>

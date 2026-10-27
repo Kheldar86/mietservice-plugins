@@ -1,0 +1,14 @@
+# Geheimnisse und Exporte gehören nicht ins Repository
+.env
+*.env
+wp-config.php
+*.sql
+*.sql.gz
+*.zip
+*.log
+
+# System
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
