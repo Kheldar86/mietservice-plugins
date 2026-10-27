@@ -11,7 +11,7 @@ Der erste Stand wurde am 27.10.2026 direkt von der Live-Seite übernommen und Da
 
 ## Spezifikation
 
-Was die Plugins können müssen, steht unter [`specs/`](specs): alle Anforderungen mit fester Nummer und Status, dazu der Ablauf einer Änderung (Spec → Plan → Pull Request → Freigabe) und eine Vorlage für neue Änderungen.
+Was die Plugins können müssen, steht unter [`specs/`](specs): alle Anforderungen mit fester Nummer und Status, dazu der Ablauf einer Änderung mit [Spec Kit](https://github.com/github/spec-kit) (`/speckit-specify` → `/speckit-plan` → `/speckit-tasks` → `/speckit-implement` → Freigabe). Die Grundregeln stehen in der [Constitution](.specify/memory/constitution.md).
 
 ## Tests
 
