@@ -3,7 +3,7 @@
  * Plugin Name:       Mietservice Barnim – Vermietung
  * Plugin URI:        https://www.mietservice-barnim.de
  * Description:       Vermietung von Outdoor- und Transportartikeln: Inventar, Buchungskalender, dynamische Preise, Bildergalerien, Online-Zahlung (Stripe, PayPal) mit Anzahlung und Kaution, Kundenverwaltung mit optionalem Kundenkonto, Buchungsübersicht, Shortcodes und KI-Artikelassistent.
- * Version:           1.8.4
+ * Version:           1.8.5
  * Author:            Mietservice Barnim
  * Text Domain:       msb-rental
  * Requires at least: 6.0
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MSB_VERSION', '1.8.4' );
+define( 'MSB_VERSION', '1.8.5' );
 define( 'MSB_FILE', __FILE__ );
 define( 'MSB_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MSB_URL', plugin_dir_url( __FILE__ ) );

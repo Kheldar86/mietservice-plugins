@@ -7,7 +7,7 @@
 | ID | Stufe | Status |
 |---|---|---|
 | SEO-01 | MUSS | umgesetzt (bis 1.2.7) |
-| SEO-02 | MUSS | umgesetzt (bis 1.2.7); offen: Verfügbarkeit ist nicht datumsbezogen (B-11) |
+| SEO-02 | MUSS | umgesetzt in 1.8.5 (geändert 28.10.2026, B-11) |
 | SEO-03 | MUSS | umgesetzt (bis 1.2.7) |
 
 ### SEO-01 · MUSS
@@ -18,9 +18,9 @@ Jede Artikelseite gibt ein Product-Schema (JSON-LD) aus: Name, Marke (höchstens
 
 ### SEO-02 · MUSS
 
-Ein Angebot (LeaseOut, Preis je Tag) erscheint nur bei Preis > 0. Verfügbarkeit = buchbar und Bestand > 0.
+Ein Angebot (LeaseOut, Preis je Tag) erscheint nur bei Preis > 0. Die Verfügbarkeit ist datumsbezogen: `InStock`, wenn der Artikel im Prüfzeitraum an mindestens einem Tag frei ist, sonst `OutOfStock`. Der Prüfzeitraum umfasst 30 Tage ab dem frühesten buchbaren Tag (heute + Vorlauf). Ein Tag ist frei, wenn der Kalender nach VFG-05 für ihn „buchbar“ und eine freie Menge > 0 liefert. Damit fließen „buchbar“, Bestand, belegte Buchungen mit Puffer, Sperrzeiten und die maximale Vorausbuchung ein. Ein Tag ohne Abholung oder Rückgabe (Schliesstag) zählt trotzdem als frei.
 
-**Status:** umgesetzt (bis 1.2.7); offen: Verfügbarkeit ist nicht datumsbezogen (B-11)
+**Status:** umgesetzt in 1.8.5 (geändert 28.10.2026, B-11)
 
 ### SEO-03 · MUSS
 
