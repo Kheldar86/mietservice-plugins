@@ -29,7 +29,7 @@ Hier steht, **was** die Plugins können müssen. Der Code unter `plugins/` setzt
 | IF | [Schnittstellen](anforderungen/IF-schnittstellen.md) | beide |
 | BR | [Claude MCP Bridge](anforderungen/BR-bridge.md) | Bridge |
 
-Dazu kommen die [Befunde und Fragen](anforderungen/befunde-und-fragen.md) aus der ersten Fassung und die Liste der [Nachträge](anforderungen/nachtraege.md): Dinge, die schon umgesetzt sind, aber noch keine Nummer haben.
+Dazu kommen die [Befunde und Fragen](anforderungen/befunde-und-fragen.md) aus der ersten Fassung und die Liste der [Nachträge](anforderungen/nachtraege.md): Funktionen, die vor ihrer Nummer live gingen, mit der Zuordnung zu den Nummern, die sie am 31.10.2026 bekommen haben.
 
 ## Schreibweise
 

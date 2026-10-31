@@ -71,8 +71,8 @@ Alle Pfade relativ zum Repository. Geändert werden nur Dateien unter `specs/` (
 
 **Independent Test**: Prüfung „jeder Nachtrag hat eine Nummer“ aus [quickstart.md](quickstart.md) liefert `0`.
 
-- [ ] T012 [US2] In `specs/anforderungen/nachtraege.md` die Tabelle um die Spalte „Nummern“ ergänzen und je Zeile die IDs aus der Spalte „Nachtrag“ des Nummernplans eintragen, jede als Link auf die Bereichsdatei (z. B. `[PAY-29](PAY-zahlung-kaution-storno.md#pay-29--muss)`). Den Einleitungssatz ersetzen durch: Alle Einträge haben seit dem 31.10.2026 eine Nummer, die Tabelle bleibt als Zuordnung stehen (FR-008). Zusätzlich vermerken, dass DSG-10 und DSG-11 ohne eigene Zeile dazugekommen sind (FR-013).
-- [ ] T013 [US2] Prüfung „jeder Nachtrag hat eine Nummer“ aus `specs/001-nachtraege-nummerieren/quickstart.md` ausführen; erwartet `0`. Die Links stichprobenartig in der GitHub-Vorschau öffnen (depends on T012).
+- [X] T012 [US2] In `specs/anforderungen/nachtraege.md` die Tabelle um die Spalte „Nummern“ ergänzen und je Zeile die IDs aus der Spalte „Nachtrag“ des Nummernplans eintragen, jede als Link auf die Bereichsdatei (z. B. `[PAY-29](PAY-zahlung-kaution-storno.md#pay-29--muss)`). Den Einleitungssatz ersetzen durch: Alle Einträge haben seit dem 31.10.2026 eine Nummer, die Tabelle bleibt als Zuordnung stehen (FR-008). Zusätzlich vermerken, dass DSG-10 und DSG-11 ohne eigene Zeile dazugekommen sind (FR-013).
+- [X] T013 [US2] Prüfung „jeder Nachtrag hat eine Nummer“ aus `specs/001-nachtraege-nummerieren/quickstart.md` ausführen; erwartet `0`. Die Links stichprobenartig in der GitHub-Vorschau öffnen (depends on T012).
 
 **Checkpoint**: US1 und US2 unabhängig prüfbar
 
