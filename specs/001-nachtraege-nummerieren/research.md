@@ -8,7 +8,7 @@ Es gab im Technical Context keine offenen Punkte. Die Recherche diente dem Abgle
 
 ### R-01 Granularität
 
-- **Decision**: 37 neue Nummern für 17 Nachträge, eine je prüfbarer Regel (Entscheidung 31.10.2026, Q1: A). Die Spec hatte 25 bis 30 geschätzt. Mehr sind es, weil einige Zeilen (Testbuchungen, Belege, manuelle Buchung) jeweils drei oder vier eigenständige Regeln enthalten.
+- **Decision**: 39 neue Nummern: 37 für die 17 Nachträge und 2 für Funktionen aus 1.7.0 ohne Nummer (FR-013, Entscheidung 31.10.2026). Für die Nachträge gilt: eine je prüfbarer Regel (Entscheidung 31.10.2026, Q1: A). Die Spec hatte 25 bis 30 geschätzt. Mehr sind es, weil einige Zeilen (Testbuchungen, Belege, manuelle Buchung) jeweils drei oder vier eigenständige Regeln enthalten.
 - **Rationale**: Jede Nummer lässt sich einzeln prüfen und später einzeln ändern.
 - **Alternatives considered**: Zusammenfassen auf etwa 25 Nummern. Verworfen, weil dann Regeln mit unterschiedlicher Version (z. B. 1.5.5 und 1.5.7) unter einer Nummer stünden.
 
@@ -36,17 +36,17 @@ Der Code gilt. Bei einer Abweichung beschreibt der Text den Code, und der Status
 | A-07 | Bewertungsbitte (IF-19) | 1.8.4 | bestätigt: nur Belegart `invoice`, nur mit Haken, nur mit Link | – |
 | A-08 | AGB-PDF (IF-18) | 1.8.3 | bestätigt: nur bei Mail-Typ `confirmed` | – |
 | A-09 | Bridge „Kundendaten schwärzen“ (BR-19, BR-20) | 0.4.2: Standard an | bestätigt: `redact_pii => true`, Belege `.pdf`/`.csv` unter `uploads/msb-belege` gesperrt | – |
+| A-11 | Art. 17 und Sperrhinweis (DSG-10, DSG-11) | 1.7.0 | bestätigt: Kasten in `MSB_Admin_Customers` mit `MSB_Retention::preview_customer()`, nur mit `msb_capability( 'delete' )`; Hinweis in `MSB_Retention` bei gesetztem `blocked_until` | – |
 | A-10 | Herkunft Kleinanzeigen ohne Cookie (BKG-20) | 1.8.0 | bestätigt: Herkunft als Transient am vorhandenen Warenkorb-Token, kein neues Cookie | – |
 
 ## Befunde außerhalb des Umfangs
 
-Diese Punkte betreffen bestehende Anforderungen, nicht die Nachträge. Sie werden nicht umgeschrieben, sondern als Befund in [befunde-und-fragen.md](../anforderungen/befunde-und-fragen.md) aufgenommen.
+Diese Punkte betreffen bestehende Anforderungen, nicht die Nachträge. Sie werden nicht umgeschrieben (Entscheidung 31.10.2026, FR-012), sondern als Befund in [befunde-und-fragen.md](../anforderungen/befunde-und-fragen.md) aufgenommen.
 
 | Nr. | Befund | Betrifft |
 |---|---|---|
 | B-14 | ADM-04 sagt „Standardstatus bestätigt“. Seit 1.5.7 ist bei der manuellen Buchung „Angefragt“ vorausgewählt (ADM-08). | ADM-04 |
 | B-15 | IF-06 zählt nicht alle heutigen Vorlagen auf: Es fehlen u. a. die Mail mit dem Bestätigungslink (1.5.2) und die Mails zu Belegen (1.6.0). | IF-06 |
 | B-16 | DSG-02 rechnet die 8 Jahre ab dem Jahr „der Rechnung“. Der Code rechnet ab dem letzten Beleg bzw. der letzten Zahlung. | DSG-02 |
-| B-17 | Live, aber nicht in `nachtraege.md` und ohne Nummer: Kasten „Daten löschen (Art. 17 DSGVO)“ mit Vorschau und Hinweis „gesperrt bis …“ (1.7.0). DSG-06 deckt nur das Löschen ab, nicht die Vorschau. | DSG-06 |
 
 Bei ADM-04 und PAY-23 kommt zusätzlich ein Verweis auf die neue Nummer in den Status (FR-009). Der Text der bestehenden Anforderung bleibt.

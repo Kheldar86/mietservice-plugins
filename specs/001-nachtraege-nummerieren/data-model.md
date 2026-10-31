@@ -7,7 +7,7 @@
 - **Nachtrag** (N-01 bis N-17): Zeile in [nachtraege.md](../anforderungen/nachtraege.md), hier in der Reihenfolge der Datei nummeriert.
 - **Anforderung**: neue Nummer mit Stufe, Kurzinhalt und Status. Das Format steht in [contracts/anforderung-format.md](contracts/anforderung-format.md).
 
-Regeln: Jede Nummer kommt genau einmal vor. Jeder Nachtrag hat mindestens eine Nummer. Die Nummern je Bereich schließen lückenlos an die letzte bestehende an.
+Regeln: Jede Nummer kommt genau einmal vor. Jeder Nachtrag hat mindestens eine Nummer. Zwei Zeilen kommen nicht aus `nachtraege.md`, sondern aus FR-013. Die Nummern je Bereich schließen lückenlos an die letzte bestehende an.
 
 ## Zuordnung
 
@@ -49,6 +49,8 @@ Regeln: Jede Nummer kommt genau einmal vor. Jeder Nachtrag hat mindestens eine N
 | N-16 Google-Bewertung | BKG-21 | SOLL | Freiwilliger, nicht verpflichtender Haken im Buchungsformular und auf der Bestätigungsseite für Telefonbuchungen: Einwilligung in eine einmalige Bewertungsbitte. | umgesetzt in 1.8.4 |
 | N-16 | IF-19 | MUSS | Die Bewertungsbitte steht nur in der Mail zur Rechnung, nur mit Haken und nur, wenn der Link „Google-Bewertung“ gesetzt ist. Stornorechnung, Korrektur und Kautionsabrechnung bleiben ohne Bitte. | umgesetzt in 1.8.4 |
 | N-17 Bridge | BR-19 | MUSS | Einstellung „Kundendaten schwärzen“, Standard an: Kundendaten kommen in SQL-Ergebnissen als `[geschwärzt]` an (siehe G-10, BR-18). | umgesetzt in Bridge 0.4.2 |
+| 1.7.0, nicht in nachtraege.md (FR-013) | DSG-10 | MUSS | Kasten „Daten löschen (Art. 17 DSGVO)“ am Kunden, nur mit der Berechtigung zum Löschen: zeigt vorher, wie viele Buchungen gelöscht und welche wegen der Aufbewahrungspflicht gesperrt werden. Bei laufenden Buchungen nicht möglich. Kunden löschen, einzeln und als Sammelaktion, läuft über diesen Weg. | umgesetzt in 1.7.0 |
+| 1.7.0, nicht in nachtraege.md (FR-013) | DSG-11 | MUSS | Eine gesperrte Buchung zeigt im Backend den Hinweis, dass sie nach Art. 18 DSGVO gesperrt ist und nur wegen der Aufbewahrungspflicht bis zu einem genannten Datum gespeichert bleibt. | umgesetzt in 1.7.0 |
 | N-17 | BR-20 | MUSS | Bei aktiver Einstellung liefert die Bridge keine Belege (PDF, CSV) aus `uploads/msb-belege` aus. | umgesetzt in Bridge 0.4.2 |
 
 ## Summen
@@ -59,10 +61,10 @@ Regeln: Jede Nummer kommt genau einmal vor. Jeder Nachtrag hat mindestens eine N
 | BKG | 4 | BKG-18 bis BKG-21 |
 | PAY | 11 | PAY-26 bis PAY-36 |
 | IF | 8 | IF-12 bis IF-19 |
-| DSG | 2 | DSG-08, DSG-09 |
+| DSG | 4 | DSG-08 bis DSG-11 |
 | ART | 2 | ART-06, ART-07 |
 | BR | 2 | BR-19, BR-20 |
-| **gesamt** | **37** | |
+| **gesamt** | **39** | |
 
 ## Verweise an bestehenden Anforderungen (FR-009)
 
@@ -72,4 +74,5 @@ Regeln: Jede Nummer kommt genau einmal vor. Jeder Nachtrag hat mindestens eine N
 | PAY-23 | „Kautionsabrechnung siehe PAY-29“ |
 | PAY-14 | „Barkaution siehe PAY-26 bis PAY-28“ |
 | DSG-05 | „Buchungen ohne Zahlung nach Abschluss siehe DSG-08“ |
+| DSG-06 | „Vorschau und Ablauf siehe DSG-10, Hinweis an gesperrten Buchungen siehe DSG-11“ |
 | BR-18 | „Kundendaten siehe BR-19, BR-20“ |

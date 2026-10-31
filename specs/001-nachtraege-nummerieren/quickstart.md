@@ -5,8 +5,8 @@ Prüft die Erfolgskriterien SC-001 bis SC-004 nach der Umsetzung. Alle Befehle l
 ## SC-001: alle Nummern da, keine doppelt
 
 ```sh
-# Jede neue ID genau einmal als Abschnitt (erwartet: 37 Zeilen, alle mit "1")
-for id in ADM-0{7,8,9} ADM-1{0,1,2,3,4} BKG-1{8,9} BKG-2{0,1} PAY-2{6,7,8,9} PAY-3{0,1,2,3,4,5,6} IF-1{2,3,4,5,6,7,8,9} DSG-0{8,9} ART-0{6,7} BR-19 BR-20; do
+# Jede neue ID genau einmal als Abschnitt (erwartet: 39 Zeilen, alle mit "1")
+for id in ADM-0{7,8,9} ADM-1{0,1,2,3,4} BKG-1{8,9} BKG-2{0,1} PAY-2{6,7,8,9} PAY-3{0,1,2,3,4,5,6} IF-1{2,3,4,5,6,7,8,9} DSG-0{8,9} DSG-1{0,1} ART-0{6,7} BR-19 BR-20; do
   printf '%s %s\n' "$id" "$(grep -c "^### $id ·" specs/anforderungen/*.md | awk -F: '{s+=$2} END {print s}')"
 done
 
@@ -14,7 +14,7 @@ done
 grep -ho '^### [A-Z]*-[0-9]*' specs/anforderungen/*.md | sort | uniq -d
 ```
 
-Erwartet: 37 Zeilen mit `1`, danach keine Ausgabe.
+Erwartet: 39 Zeilen mit `1`, danach keine Ausgabe.
 
 ## SC-001: jeder Nachtrag hat eine Nummer
 

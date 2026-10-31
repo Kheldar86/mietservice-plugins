@@ -6,7 +6,7 @@
 
 ## Summary
 
-Die 17 Nachträge aus [nachtraege.md](../anforderungen/nachtraege.md) bekommen 37 neue Anforderungsnummern in sieben Bereichsdateien, eine je prüfbarer Regel (Entscheidung 31.10.2026). Grundlage ist der CHANGELOG, abgeglichen mit dem Code auf `main` (msb-rental 1.8.5, Bridge 0.4.2). Zwei Abweichungen werden im Status vermerkt (Logo-Fallback, nicht dokumentierte Löschregel). Vier Befunde zu bestehenden Anforderungen kommen als B-14 bis B-17 in die Befundliste. Die Zuordnung steht im [Nummernplan](data-model.md), der Abgleich in [research.md](research.md).
+Die 17 Nachträge aus [nachtraege.md](../anforderungen/nachtraege.md) bekommen 37 neue Anforderungsnummern in sieben Bereichsdateien, eine je prüfbarer Regel (Entscheidung 31.10.2026). Dazu kommen 2 Nummern für Funktionen aus 1.7.0, die nicht in der Liste stehen (FR-013), zusammen 39. Grundlage ist der CHANGELOG, abgeglichen mit dem Code auf `main` (msb-rental 1.8.5, Bridge 0.4.2). Zwei Abweichungen werden im Status vermerkt (Logo-Fallback, nicht dokumentierte Löschregel). Drei Befunde zu bestehenden Anforderungen kommen als B-14 bis B-16 in die Befundliste; die Texte dieser Anforderungen bleiben unverändert (FR-012). Die Zuordnung steht im [Nummernplan](data-model.md), der Abgleich in [research.md](research.md).
 
 ## Technical Context
 
@@ -26,7 +26,7 @@ Die 17 Nachträge aus [nachtraege.md](../anforderungen/nachtraege.md) bekommen 3
 
 **Constraints**: Kein Plugin-Code, keine Plugin-Version, kein Plugin-CHANGELOG (FR-010). Keine Geheimnisse (FR-011). Bestehende Nummern bleiben unverändert (FR-002).
 
-**Scale/Scope**: 37 neue Anforderungen in 7 Dateien, Verweise an 5 bestehenden, 4 neue Befunde, Umbau von `nachtraege.md`
+**Scale/Scope**: 39 neue Anforderungen in 7 Dateien, Verweise an 6 bestehenden, 3 neue Befunde, Umbau von `nachtraege.md`
 
 ## Constitution Check
 
@@ -42,7 +42,7 @@ Die 17 Nachträge aus [nachtraege.md](../anforderungen/nachtraege.md) bekommen 3
 | VI. Recht und Geld zuerst | Texte zu Belegen, EÜR und Löschfristen geben das live laufende Verhalten wieder und entscheiden nichts Neues. Die offene Frage an den Steuerberater bei PAY-23 bleibt stehen. | erfüllt |
 | VII. Einfach und passend zum Bestand | Gleiches Format wie die bestehenden Anforderungen ([Format](contracts/anforderung-format.md)). | erfüllt |
 
-**Nach Phase 1 erneut geprüft**: keine Änderung. Die Zahl der Nummern (37 statt geschätzt 25 bis 30) folgt aus der Entscheidung „je prüfbarer Regel“ und verletzt keinen Grundsatz.
+**Nach Phase 1 erneut geprüft**: keine Änderung. Die Zahl der Nummern (39 statt geschätzt 25 bis 30) folgt aus der Entscheidung „je prüfbarer Regel“ und verletzt keinen Grundsatz.
 
 ## Project Structure
 
@@ -53,7 +53,7 @@ specs/001-nachtraege-nummerieren/
 ├── spec.md
 ├── plan.md                         # diese Datei
 ├── research.md                     # Abgleich CHANGELOG ↔ Code, Befunde
-├── data-model.md                   # Nummernplan (37 Zeilen)
+├── data-model.md                   # Nummernplan (39 Zeilen)
 ├── quickstart.md                   # Prüfbefehle für SC-001 bis SC-004
 ├── contracts/anforderung-format.md # Format einer Anforderung
 ├── checklists/requirements.md
@@ -68,11 +68,11 @@ specs/anforderungen/
 ├── BKG-buchungsprozess.md          # BKG-18 bis BKG-21
 ├── PAY-zahlung-kaution-storno.md   # PAY-26 bis PAY-36, Verweise an PAY-14, PAY-23
 ├── IF-schnittstellen.md            # IF-12 bis IF-19
-├── DSG-datenschutz-loeschfristen.md# DSG-08, DSG-09, Verweis an DSG-05
+├── DSG-datenschutz-loeschfristen.md# DSG-08 bis DSG-11, Verweise an DSG-05, DSG-06
 ├── ART-mietartikel.md              # ART-06, ART-07
 ├── BR-bridge.md                    # BR-19, BR-20, Verweis an BR-18
 ├── nachtraege.md                   # je Zeile die neuen Nummern, Kopf „alle nummeriert“
-└── befunde-und-fragen.md           # B-14 bis B-17
+└── befunde-und-fragen.md           # B-14 bis B-16
 ```
 
 **Structure Decision**: Keine neuen Dateien unter `specs/anforderungen/`. Jede Nummer kommt in die bestehende Bereichsdatei, Übersicht und Abschnitt am Ende. `specs/README.md` bleibt unverändert, weil sich kein Bereich ändert.
@@ -82,7 +82,7 @@ specs/anforderungen/
 - [ ] Prüfungen aus [quickstart.md](quickstart.md) für SC-001, SC-002 und SC-004 ohne Fehler
 - [ ] Stichprobe von drei Nummern gegen den Code (FR-006) ohne Befund
 - [ ] A-01 und A-02 im Status vermerkt
-- [ ] B-14 bis B-17 in `befunde-und-fragen.md` mit Status `offen`
+- [ ] B-14 bis B-16 in `befunde-und-fragen.md` mit Status `offen`
 - [ ] Pull Request mit Link auf diesen Ordner; Moritz bestätigt den Plan vor der Umsetzung
 
 ## Freigabe

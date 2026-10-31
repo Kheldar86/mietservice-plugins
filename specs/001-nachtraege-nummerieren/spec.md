@@ -69,6 +69,8 @@ Wo ein Nachtrag eine bestehende Anforderung berührt (z. B. Kautionsabrechnung u
 
 - Q: Eine Nummer je Nachtrag-Zeile oder je prüfbarer Regel? → A: Je prüfbarer Regel (FR-004).
 - Q: Text nur aus dem CHANGELOG oder zusätzlich mit dem Code abgleichen? → A: CHANGELOG plus Abgleich mit dem Code im Repository (FR-006).
+- Q: Sollen bestehende Anforderungen, die laut Code-Abgleich veraltet sind (ADM-04, IF-06, DSG-02), gleich korrigiert werden? → A: Nein. Sie werden als Befunde notiert und bekommen einen Verweis im Status, korrigiert wird in einem Folge-Feature (FR-012).
+- Q: Soll der Kasten „Daten löschen (Art. 17 DSGVO)“ mit Vorschau und dem Hinweis „gesperrt bis …“ eine eigene Nummer bekommen, obwohl er nicht in `nachtraege.md` steht? → A: Ja, beide werden in diesem Feature nummeriert (FR-013).
 
 ## Requirements *(mandatory)*
 
@@ -77,7 +79,7 @@ Wo ein Nachtrag eine bestehende Anforderung berührt (z. B. Kautionsabrechnung u
 - **FR-001**: Jeder der 17 Einträge in `nachtraege.md` MUSS mindestens eine Anforderungsnummer in einer Bereichsdatei unter `specs/anforderungen/` bekommen.
 - **FR-002**: Neue Nummern MÜSSEN die nächste freie Nummer im Bereich sein (Stand heute: ADM-07, BKG-18, PAY-26, IF-12, DSG-08, ART-06, G-16, BR-19). Bestehende Nummern werden nicht umnummeriert.
 - **FR-003**: Jede neue Anforderung MUSS die gleiche Form haben wie die bestehenden: Zeile in der Übersicht (ID, Stufe, Status), Abschnitt `### ID · STUFE`, prüfbarer Text, Zeile `**Status:**`.
-- **FR-004**: Fasst ein Nachtrag mehrere unabhängige Regeln zusammen, MUSS jede prüfbare Regel eine eigene Nummer bekommen, nicht nur jede Zeile in `nachtraege.md` (Entscheidung 31.10.2026). Der Plan kommt auf 37 neue Nummern.
+- **FR-004**: Fasst ein Nachtrag mehrere unabhängige Regeln zusammen, MUSS jede prüfbare Regel eine eigene Nummer bekommen, nicht nur jede Zeile in `nachtraege.md` (Entscheidung 31.10.2026). Der Plan kommt mit FR-013 auf 39 neue Nummern.
 - **FR-005**: Der Status MUSS `umgesetzt in X.Y.Z` lauten, mit der Version aus dem CHANGELOG, ab der der heutige Stand gilt. Bei Abweichung zwischen CHANGELOG und Code gilt `abweichend …` mit Begründung.
 - **FR-006**: Der Text der Anforderung MUSS das heutige Verhalten beschreiben, das live ist (msb-rental 1.8.5, Bridge 0.4.2). Grundlage ist der CHANGELOG-Text, abgeglichen mit dem Code im Repository (Entscheidung 31.10.2026). Weicht der Code vom CHANGELOG ab, beschreibt der Text den Code, und der Status vermerkt die Abweichung.
 - **FR-007**: Die Stufe MUSS `MUSS` sein, außer der CHANGELOG beschreibt das Verhalten als optional oder abschaltbar. Dann ist sie `SOLL`.
@@ -85,6 +87,8 @@ Wo ein Nachtrag eine bestehende Anforderung berührt (z. B. Kautionsabrechnung u
 - **FR-009**: Berührt ein Nachtrag eine bestehende Anforderung, MÜSSEN beide aufeinander verweisen (z. B. PAY-23).
 - **FR-010**: Die Änderung DARF keinen Plugin-Code, keine Plugin-Version und kein CHANGELOG eines Plugins ändern.
 - **FR-011**: Die Texte DÜRFEN keine Schlüssel, Secrets, Werte aus `msb_settings` oder Kundendaten enthalten (Grundsatz III). Konkrete Einstellwerte, die heute schon in der Spec stehen (z. B. „live: 1 Tag“), sind erlaubt.
+- **FR-012**: Weicht eine bestehende Anforderung vom Code ab, DARF ihr Text in diesem Feature nicht geändert werden. Die Abweichung MUSS als neuer Befund in `befunde-und-fragen.md` stehen (Status `offen`), und der Status der Anforderung MUSS auf den Befund verweisen (Entscheidung 31.10.2026).
+- **FR-013**: Zusätzlich zu den 17 Nachträgen MÜSSEN zwei Funktionen aus 1.7.0 eine Nummer bekommen, die nicht in `nachtraege.md` stehen: der Kasten „Daten löschen (Art. 17 DSGVO)“ mit Vorschau am Kunden und der Hinweis „gesperrt bis …“ an gesperrten Buchungen (Entscheidung 31.10.2026).
 
 ### Key Entities
 
@@ -100,6 +104,7 @@ Wo ein Nachtrag eine bestehende Anforderung berührt (z. B. Kautionsabrechnung u
 - **SC-002**: In jeder geänderten Bereichsdatei stimmen die Übersicht und die Abschnitte überein: gleiche IDs, gleiche Stufen, gleicher Status.
 - **SC-003**: Zu jeder neuen Anforderung lässt sich in höchstens einer Minute die Version im CHANGELOG finden, die im Status steht.
 - **SC-004**: Der Diff berührt nur Dateien unter `specs/`.
+- **SC-005**: Auch die beiden Funktionen aus FR-013 haben je eine Nummer.
 
 ## Assumptions
 
