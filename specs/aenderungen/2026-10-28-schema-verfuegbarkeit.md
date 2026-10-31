@@ -5,7 +5,7 @@
 | Datum | 2026-10-28 |
 | Plugin | msb-rental |
 | Neue Version | 1.8.5 (vorher 1.8.4) |
-| Status | in Arbeit |
+| Status | live |
 | Pull Request | #2 |
 
 ## Betroffene Anforderungen
@@ -57,9 +57,9 @@ Keine Änderung.
 - [ ] Ein freier Tag, der nur durch den Puffer belegt ist, zählt nicht als frei (gleiche Zahl wie im Kalender auf der Artikelseite)
 - [ ] Ohne Preis > 0 gibt es weiterhin kein Angebot (SEO-02)
 - [ ] Ausgabe mit Rank Math (im Graph) und ohne Rank Math (eigenes Skript) unverändert bis auf `availability` (SEO-03)
-- [ ] Version im Plugin-Kopf und in `MSB_VERSION` erhöht
-- [ ] `CHANGELOG.md` ergänzt (Neu / Geändert / Behoben / Update-Hinweise)
-- [ ] Status der Anforderungen auf `umgesetzt in 1.8.5` gesetzt
+- [x] Version im Plugin-Kopf und in `MSB_VERSION` erhöht
+- [x] `CHANGELOG.md` ergänzt (Neu / Geändert / Behoben / Update-Hinweise)
+- [x] Status der Anforderungen auf `umgesetzt in 1.8.5` gesetzt
 
 ## Testschritte
 
@@ -73,10 +73,14 @@ Keine Änderung.
 |---|---|---|
 | Plan bestätigt von Moritz | 28.10.2026 | Prüfzeitraum 30 Tage |
 | netcup-Snapshot | 31.10.2026 | Name des Snapshots nachtragen |
-| Bridge-Vorschläge | 31.10.2026 | 9fcc4127 (class-msb-schema.php), d9de319e und e49549e3 (msb-rental.php), 3326439d (CHANGELOG.md) |
-| Freigegeben | | |
-| Live-Abgleich SHA-256 | | alle Dateien gleich |
+| Bridge-Vorschläge | 31.10.2026 | 9fcc4127 (class-msb-schema.php), d9de319e und e49549e3 (msb-rental.php), 3326439d (CHANGELOG.md); e49549e3 fehlgeschlagen, ersetzt durch bc5476fb |
+| Freigegeben | 31.10.2026 | 9fcc4127, d9de319e, 3326439d, bc5476fb |
+| Live-Abgleich SHA-256 | 31.10.2026 | alle drei Dateien gleich dem Branch |
 | Merge und Tag | | `msb-rental-v1.8.5` |
 
 ## Nachher
+
+- Live-Prüfung am 31.10.2026: Alle drei Artikelseiten (Kinderkraxe, Fahrradträger, Fahrradanhänger) liefern `InStock` mit Preis im JSON-LD. Die Startseite antwortet mit 200, ein `debug.log` gibt es nicht. Der Test mit einem Sperrzeitraum (`OutOfStock`) und der Rich-Results-Test von Google stehen noch aus. Der Fall `OutOfStock` ist lokal durch den Test abgedeckt.
+- Seiten-Cache: Bei der Prüfung lieferte `x-cache-status` MISS und STALE. Die Lebensdauer ist weiter unbekannt.
+- Bridge: Zwei Vorschläge für dieselbe Datei gehen nicht. Nach der ersten Freigabe ändert sich die Datei, und der zweite Vorschlag schlägt fehl. Künftig je Datei nur ein Vorschlag.
 
