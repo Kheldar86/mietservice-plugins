@@ -81,11 +81,11 @@ specs/anforderungen/
 
 ## Abnahmekriterien
 
-- [ ] Prüfungen aus [quickstart.md](quickstart.md) für SC-001, SC-002 und SC-004 ohne Fehler
-- [ ] Stichprobe von drei Nummern gegen den Code (FR-006) ohne Befund
-- [ ] A-01 und A-02 im Status vermerkt
-- [ ] B-14 bis B-16 in `befunde-und-fragen.md` mit Status `offen`
-- [ ] Pull Request mit Link auf diesen Ordner; Moritz bestätigt den Plan vor der Umsetzung
+- [x] Prüfungen aus [quickstart.md](quickstart.md) für SC-001, SC-002 und SC-004 ohne Fehler
+- [x] Stichprobe von drei Nummern gegen den Code (FR-006) ohne Befund
+- [x] A-01 und A-02 im Status vermerkt
+- [x] B-14 bis B-16 in `befunde-und-fragen.md` mit Status `offen`
+- [x] Pull Request mit Link auf diesen Ordner; Moritz bestätigt den Plan vor der Umsetzung (31.10.2026)
 
 ## Freigabe
 
