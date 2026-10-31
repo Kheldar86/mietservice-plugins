@@ -76,7 +76,7 @@ Keine Änderung.
 | Bridge-Vorschläge | 31.10.2026 | 9fcc4127 (class-msb-schema.php), d9de319e und e49549e3 (msb-rental.php), 3326439d (CHANGELOG.md); e49549e3 fehlgeschlagen, ersetzt durch bc5476fb |
 | Freigegeben | 31.10.2026 | 9fcc4127, d9de319e, 3326439d, bc5476fb |
 | Live-Abgleich SHA-256 | 31.10.2026 | alle drei Dateien gleich dem Branch |
-| Merge und Tag | | `msb-rental-v1.8.5` |
+| Merge und Tag | 31.10.2026 | PR #2 gemergt (ee214b5), Tag `msb-rental-v1.8.5` |
 
 ## Nachher
 
