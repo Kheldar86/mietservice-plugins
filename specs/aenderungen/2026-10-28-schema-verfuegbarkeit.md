@@ -38,6 +38,7 @@ Nicht Teil dieser Änderung: `availabilityStarts` oder der nächste freie Tag im
 - `plugins/msb-rental/CHANGELOG.md`
 - `specs/anforderungen/SEO-produkt-schema.md`
 - `specs/anforderungen/befunde-und-fragen.md`
+- `tests/msb-rental/test-schema-availability.php` (neu, wird nicht live eingespielt)
 
 ### Datenbank
 
@@ -62,7 +63,7 @@ Keine Änderung.
 
 ## Testschritte
 
-1. Lokal: `php -l` auf die geänderten Dateien.
+1. Lokal: `php -l` auf die geänderten Dateien und `php tests/msb-rental/test-schema-availability.php`. Ergebnis am 31.10.2026: keine Syntaxfehler, 19 von 19 Fällen bestanden. Gegen 1.8.4 schlagen 6 Fälle fehl (buchbar, aber kein freier Tag).
 2. Lokal oder auf einer Staging-Kopie: Artikel A mit Bestand 1 anlegen, Quelltext der Artikelseite prüfen, Ergebnis `InStock`. Einen Sperrzeitraum über die nächsten 30 Tage ab Vorlauf eintragen, Ergebnis `OutOfStock`. Den Sperrzeitraum um einen Tag kürzen, Ergebnis `InStock`.
 3. Nach der Freigabe live: Den Quelltext von zwei echten Artikelseiten prüfen (`availability` im JSON-LD) und die Seiten im Rich-Results-Test von Google ohne Fehler prüfen. Dabei keine Testbuchung anlegen, sondern höchstens einen Sperrzeitraum an einem Testartikel setzen und danach wieder entfernen.
 
