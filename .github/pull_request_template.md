@@ -1,6 +1,6 @@
 ## Änderung
 
-<!-- Link auf die Datei unter specs/aenderungen/, falls es eine gibt -->
+<!-- Link auf den Feature-Ordner specs/NNN-kurzname/, falls es einen gibt -->
 
 ## Betroffene Anforderungen
 
@@ -11,6 +11,7 @@
 - [ ] Plugin-Version erhöht (Kopf und bei msb-rental `MSB_VERSION`)
 - [ ] `CHANGELOG.md` ergänzt
 - [ ] Status der Anforderungen in `specs/anforderungen/` nachgetragen
+- [ ] Constitution eingehalten (`.specify/memory/constitution.md`)
 - [ ] Keine Schlüssel, Secrets, Werte aus `msb_settings` oder Kundendaten im Diff
 
 ## Test

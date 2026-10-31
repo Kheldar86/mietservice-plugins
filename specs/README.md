@@ -7,7 +7,8 @@ Hier steht, **was** die Plugins können müssen. Der Code unter `plugins/` setzt
 | Ordner | Inhalt |
 |---|---|
 | [`anforderungen/`](anforderungen) | Alle Anforderungen mit fester Nummer, eine Datei je Bereich. Jede Anforderung hat einen Status. |
-| [`aenderungen/`](aenderungen) | Eine Datei je geplanter oder umgesetzter Änderung, angelegt nach der [Vorlage](aenderungen/_vorlage.md). |
+| `NNN-kurzname/` | Ein Ordner je Feature oder Änderung, angelegt mit [Spec Kit](https://github.com/github/spec-kit): `spec.md`, `plan.md`, `tasks.md` und bei Bedarf `research.md`, `data-model.md`, `checklists/`. |
+| [`aenderungen/`](aenderungen) | Archiv: Änderungen vor Spec Kit, eine Datei je Änderung (z. B. msb-rental 1.8.5). Neue Änderungen kommen nicht mehr hierher. |
 
 ### Bereiche
 
@@ -45,23 +46,22 @@ Dazu kommen die [Befunde und Fragen](anforderungen/befunde-und-fragen.md) aus de
 - Entscheidungen von Moritz werden mit Datum vermerkt, z. B. „(Entscheidung 21.10.2026)“.
 - **Keine Geheimnisse**, auch nicht als Beispiel: keine Schlüssel, Secrets, Passwörter, Werte aus `msb_settings` oder Kundendaten.
 
-## Ablauf einer Änderung
+## Ablauf einer Änderung (Spec Kit)
 
-```
-1. Spec      →  2. Plan      →  3. Umsetzung (Pull Request)  →  4. Freigabe und Live
-```
+Die Grundregeln stehen in der [Constitution](../.specify/memory/constitution.md). Die Befehle laufen in Claude Code im Repository:
 
-1. **Spec.** Was soll sich ändern? Die betroffenen Anforderungen in `anforderungen/` ergänzen oder ändern und auf `offen` setzen. Neue Anforderungen bekommen eine Nummer.
-2. **Plan.** Unter `aenderungen/` eine Datei nach der [Vorlage](aenderungen/_vorlage.md) anlegen, Name `JJJJ-MM-TT-kurzname.md`. Sie nennt die Nummern, die neue Version, die betroffenen Dateien, Abnahmekriterien und Testschritte. Moritz bestätigt den Plan.
-3. **Umsetzung als Pull Request.** Ein Branch je Änderung. Der Pull Request enthält den Code, die neue Plugin-Version (Kopf und `MSB_VERSION`), den Eintrag im `CHANGELOG.md` und die auf `umgesetzt in X.Y.Z` gesetzten Status. Im Pull Request steht, wie getestet wurde.
-4. **Freigabe und Live.**
-   1. netcup-Snapshot anlegen.
-   2. Claude stellt die Dateien als Freigabe-Vorschläge in der Claude MCP Bridge ein. Moritz gibt sie im WordPress-Backend frei. Die Vorschläge laufen nach etwa einer Stunde ab.
-   3. Nach der Freigabe prüft Claude die Live-Dateien gegen den Branch (SHA-256 je Datei) und testet die Abnahmekriterien.
-   4. Pull Request mergen. Danach den Tag setzen, z. B. `msb-rental-v1.8.5` (macht Moritz in GitHub, weil die Cloud keine Tags pushen kann).
-   5. In der Änderungsdatei Snapshot, Freigabe und Datum eintragen.
+| Schritt | Befehl | Ergebnis |
+|---|---|---|
+| 1. Spec | `/speckit-specify <Beschreibung>` | `specs/NNN-kurzname/spec.md`. Nennt die betroffenen Anforderungsnummern, neue bekommen die nächste freie Nummer. |
+| 2. Klären | `/speckit-clarify` | Offene Punkte als Fragen an Moritz, Antworten mit Datum in der Spec |
+| 3. Plan | `/speckit-plan` | `plan.md` mit neuer Version, Dateien, Datenbank, Abnahmekriterien und Testschritten. Moritz bestätigt den Plan. |
+| 4. Aufgaben | `/speckit-tasks`, optional `/speckit-analyze` | `tasks.md`, Prüfung auf Widersprüche zwischen Spec, Plan und Constitution |
+| 5. Umsetzung | `/speckit-implement`, dann `/speckit-converge` | Code auf einem eigenen Branch als Pull Request, mit Version, CHANGELOG und nachgetragenem Status in `anforderungen/` |
+| 6. Freigabe | ohne Befehl | netcup-Snapshot, Freigabe-Vorschläge in der Claude MCP Bridge (laufen nach etwa einer Stunde ab, je Datei nur ein Vorschlag), SHA-256-Abgleich live gegen Branch, Merge, Tag `msb-rental-vX.Y.Z`. Snapshot, Vorschläge und Freigabe werden in `plan.md` eingetragen, **bevor** der Pull Request gemergt wird. |
 
-Kleine Korrekturen (Tippfehler, Text in einer Mail) brauchen keine eigene Änderungsdatei. Auch sie sind eine neue Version mit CHANGELOG-Eintrag und gehen über einen Pull Request.
+Kleine Korrekturen (Tippfehler, Text in einer Mail) brauchen keinen Feature-Ordner. Auch sie sind eine neue Version mit CHANGELOG-Eintrag und gehen über einen Pull Request.
+
+Spec Kit selbst (Version 1.2.4) liegt unter `.specify/` (Vorlagen, Skripte, Constitution) und `.claude/skills/speckit-*` (Befehle). Wer Spec Kit lokal installiert hat (`uv tool install specify-cli==1.2.4`), kann es mit `specify init --here --integration claude --script sh --force` neu einspielen. Danach die Constitution mit Git prüfen, weil sie dabei nicht überschrieben werden soll.
 
 ## Herkunft
 
