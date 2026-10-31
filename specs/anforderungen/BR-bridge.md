@@ -23,7 +23,7 @@
 | BR-15 | MUSS | umgesetzt (bis 0.4.0) |
 | BR-16 | MUSS | umgesetzt (bis 0.4.0) |
 | BR-17 | MUSS | umgesetzt (bis 0.4.0) |
-| BR-18 | MUSS | umgesetzt in 0.4.1; 0.4.2 schwärzt zusätzlich Kundendaten (abschaltbar) |
+| BR-18 | MUSS | umgesetzt in 0.4.1; 0.4.2 schwärzt zusätzlich Kundendaten (abschaltbar); Kundendaten siehe BR-19, BR-20 |
 | BR-19 | MUSS | umgesetzt in Bridge 0.4.2 |
 | BR-20 | MUSS | umgesetzt in Bridge 0.4.2 |
 
@@ -133,7 +133,7 @@ Audit-Log aller Aktionen, 90 Tage aufbewahrt.
 
 Lesende Werkzeuge (SQL, Dateien) schwärzen alle Geheimnisse, auch innerhalb serialisierter Optionen wie msb_settings und msb_ai_settings.
 
-**Status:** umgesetzt in 0.4.1; 0.4.2 schwärzt zusätzlich Kundendaten (abschaltbar)
+**Status:** umgesetzt in 0.4.1; 0.4.2 schwärzt zusätzlich Kundendaten (abschaltbar); Kundendaten siehe BR-19, BR-20
 
 ### BR-19 · MUSS
 

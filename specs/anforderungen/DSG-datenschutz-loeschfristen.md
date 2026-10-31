@@ -7,11 +7,11 @@
 | ID | Stufe | Status |
 |---|---|---|
 | DSG-01 | MUSS | umgesetzt in 1.7.0 |
-| DSG-02 | MUSS | umgesetzt in 1.7.0 (Regel „Buchungen mit Zahlung oder Beleg“, läuft im Probelauf) |
+| DSG-02 | MUSS | umgesetzt in 1.7.0 (Regel „Buchungen mit Zahlung oder Beleg“, läuft im Probelauf); siehe B-16 |
 | DSG-03 | MUSS | umgesetzt in 1.7.0 (Hinweis „gesperrt bis …“) |
 | DSG-04 | MUSS | umgesetzt in 1.7.0, läuft im Probelauf seit 25.10.2026 |
-| DSG-05 | MUSS | umgesetzt in 1.7.0, läuft im Probelauf seit 25.10.2026 |
-| DSG-06 | MUSS | umgesetzt in 1.7.0 (Kasten „Daten löschen“ am Kunden) |
+| DSG-05 | MUSS | umgesetzt in 1.7.0, läuft im Probelauf seit 25.10.2026; Buchungen ohne Zahlung nach Abschluss siehe DSG-08 |
+| DSG-06 | MUSS | umgesetzt in 1.7.0 (Kasten „Daten löschen“ am Kunden); Vorschau und Ablauf siehe DSG-10, Hinweis an gesperrten Buchungen siehe DSG-11 |
 | DSG-07 | MUSS | umgesetzt in 1.7.0, Probelauf; Umstellung auf „Löschung ausführen“ nach Blick ins Protokoll (Erinnerung 24.11.2026) |
 | DSG-08 | MUSS | umgesetzt in 1.7.0 (im CHANGELOG nicht genannt) |
 | DSG-09 | MUSS | umgesetzt in 1.7.0 |
@@ -30,7 +30,7 @@ Personenbezogene Daten werden nur so lange gespeichert, wie es für die Buchung 
 
 Buchungen mit Zahlung oder Rechnung, ihre Positionen, Zahlungen und Rechnungen werden 8 Jahre ab Ende des Kalenderjahres der Rechnung aufbewahrt (§ 147 AO, § 257 HGB) und danach automatisch gelöscht.
 
-**Status:** umgesetzt in 1.7.0 (Regel „Buchungen mit Zahlung oder Beleg“, läuft im Probelauf)
+**Status:** umgesetzt in 1.7.0 (Regel „Buchungen mit Zahlung oder Beleg“, läuft im Probelauf); siehe B-16
 
 ### DSG-03 · MUSS
 
@@ -48,13 +48,13 @@ Kundenkonto und Kundendatensatz ohne laufende Aufbewahrungspflicht werden 3 Jahr
 
 Abgebrochene Buchungen ohne Zahlung und nie bestätigte Kundenkonten werden nach 30 Tagen gelöscht.
 
-**Status:** umgesetzt in 1.7.0, läuft im Probelauf seit 25.10.2026
+**Status:** umgesetzt in 1.7.0, läuft im Probelauf seit 25.10.2026; Buchungen ohne Zahlung nach Abschluss siehe DSG-08
 
 ### DSG-06 · MUSS
 
 Auf Antrag eines Kunden (Art. 17 DSGVO) löscht der Admin dessen Daten sofort. Daten, die unter DSG-02 fallen, werden stattdessen gesperrt.
 
-**Status:** umgesetzt in 1.7.0 (Kasten „Daten löschen“ am Kunden)
+**Status:** umgesetzt in 1.7.0 (Kasten „Daten löschen“ am Kunden); Vorschau und Ablauf siehe DSG-10, Hinweis an gesperrten Buchungen siehe DSG-11
 
 ### DSG-07 · MUSS
 

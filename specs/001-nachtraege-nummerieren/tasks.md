@@ -84,12 +84,12 @@ Alle Pfade relativ zum Repository. Geändert werden nur Dateien unter `specs/` (
 
 **Independent Test**: Jede Zeile der Tabelle „Verweise an bestehenden Anforderungen“ im Nummernplan findet sich im Status der genannten Anforderung, in Übersicht und Abschnitt gleich (SC-002).
 
-- [ ] T014 [US3] Status von ADM-04 in Übersicht und Abschnitt von `specs/anforderungen/ADM-backend.md` um „; überholt in Teilen, siehe ADM-08 und ADM-11 (B-14)“ ergänzen. Text von ADM-04 nicht ändern (FR-012) (depends on T004).
-- [ ] T015 [US3] Status von PAY-14 um „; Barkaution siehe PAY-26 bis PAY-28“ und von PAY-23 um „; Kautionsabrechnung siehe PAY-29“ ergänzen, jeweils in Übersicht und Abschnitt von `specs/anforderungen/PAY-zahlung-kaution-storno.md` (depends on T006).
-- [ ] T016 [US3] Status von DSG-05 um „; Buchungen ohne Zahlung nach Abschluss siehe DSG-08“ und von DSG-06 um „; Vorschau und Ablauf siehe DSG-10, Hinweis an gesperrten Buchungen siehe DSG-11“ ergänzen, in Übersicht und Abschnitt von `specs/anforderungen/DSG-datenschutz-loeschfristen.md`. Bei DSG-02 „; siehe B-16“ ergänzen (depends on T008).
-- [ ] T017 [US3] Status von IF-06 in `specs/anforderungen/IF-schnittstellen.md` um „; siehe B-15“ ergänzen, in Übersicht und Abschnitt (depends on T007).
-- [ ] T018 [US3] Status von BR-18 in `specs/anforderungen/BR-bridge.md` um „; Kundendaten siehe BR-19, BR-20“ ergänzen, in Übersicht und Abschnitt (depends on T010).
-- [ ] T019 [P] [US3] In `specs/anforderungen/befunde-und-fragen.md` die Befunde B-14, B-15 und B-16 aus `specs/001-nachtraege-nummerieren/research.md` als neue Zeilen der Befundtabelle anlegen: Dringlichkeit `niedrig`, Spalte „Betrifft“ wie in research.md, Status `offen`.
+- [X] T014 [US3] Status von ADM-04 in Übersicht und Abschnitt von `specs/anforderungen/ADM-backend.md` um „; überholt in Teilen, siehe ADM-08 und ADM-11 (B-14)“ ergänzen. Text von ADM-04 nicht ändern (FR-012) (depends on T004).
+- [X] T015 [US3] Status von PAY-14 um „; Barkaution siehe PAY-26 bis PAY-28“ und von PAY-23 um „; Kautionsabrechnung siehe PAY-29“ ergänzen, jeweils in Übersicht und Abschnitt von `specs/anforderungen/PAY-zahlung-kaution-storno.md` (depends on T006).
+- [X] T016 [US3] Status von DSG-05 um „; Buchungen ohne Zahlung nach Abschluss siehe DSG-08“ und von DSG-06 um „; Vorschau und Ablauf siehe DSG-10, Hinweis an gesperrten Buchungen siehe DSG-11“ ergänzen, in Übersicht und Abschnitt von `specs/anforderungen/DSG-datenschutz-loeschfristen.md`. Bei DSG-02 „; siehe B-16“ ergänzen (depends on T008).
+- [X] T017 [US3] Status von IF-06 in `specs/anforderungen/IF-schnittstellen.md` um „; siehe B-15“ ergänzen, in Übersicht und Abschnitt (depends on T007).
+- [X] T018 [US3] Status von BR-18 in `specs/anforderungen/BR-bridge.md` um „; Kundendaten siehe BR-19, BR-20“ ergänzen, in Übersicht und Abschnitt (depends on T010).
+- [X] T019 [P] [US3] In `specs/anforderungen/befunde-und-fragen.md` die Befunde B-14, B-15 und B-16 aus `specs/001-nachtraege-nummerieren/research.md` als neue Zeilen der Befundtabelle anlegen: Dringlichkeit `niedrig`, Spalte „Betrifft“ wie in research.md, Status `offen`.
 
 **Checkpoint**: Alle User Stories fertig
 

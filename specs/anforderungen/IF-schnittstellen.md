@@ -11,7 +11,7 @@
 | IF-03 | MUSS | umgesetzt (bis 1.2.7) |
 | IF-04 | MUSS | umgesetzt (bis 1.2.7) |
 | IF-05 | MUSS | umgesetzt (bis 1.2.7) |
-| IF-06 | MUSS | umgesetzt (bis 1.2.7); seit 1.6.0 Beleg-Mails, seit 1.8.3 AGB und Widerrufsbelehrung als PDF an der Mail „Bestätigt“ |
+| IF-06 | MUSS | umgesetzt (bis 1.2.7); seit 1.6.0 Beleg-Mails, seit 1.8.3 AGB und Widerrufsbelehrung als PDF an der Mail „Bestätigt“; siehe B-15 |
 | IF-07 | MUSS | umgesetzt (bis 1.2.7) |
 | IF-08 | MUSS | umgesetzt (bis 1.2.7) |
 | IF-09 | MUSS | umgesetzt (bis 1.2.7) |
@@ -87,7 +87,7 @@ msb_start, msb_end, msb_cat (Vorauswahl Zeitraum und Kategorie); msb_pay, for, p
 
 Vorlagen in den Einstellungen: Admin-Benachrichtigung, Eingang, Bestätigung, Stornierung, Zahlungslink, Kaution freigegeben. Platzhalter laut Liste in den Einstellungen, inklusive {field:schlüssel} für Formularfelder.
 
-**Status:** umgesetzt (bis 1.2.7); seit 1.6.0 Beleg-Mails, seit 1.8.3 AGB und Widerrufsbelehrung als PDF an der Mail „Bestätigt“
+**Status:** umgesetzt (bis 1.2.7); seit 1.6.0 Beleg-Mails, seit 1.8.3 AGB und Widerrufsbelehrung als PDF an der Mail „Bestätigt“; siehe B-15
 
 ### IF-07 · MUSS
 

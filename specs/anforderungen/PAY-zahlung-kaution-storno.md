@@ -19,7 +19,7 @@
 | PAY-11 | MUSS | umgesetzt (bis 1.2.7) |
 | PAY-12 | MUSS | umgesetzt (bis 1.2.7) |
 | PAY-13 | MUSS | umgesetzt (bis 1.2.7) |
-| PAY-14 | MUSS | umgesetzt in 1.5.5 und 1.6.0 (Barkaution, Einbehalt mit Kautionsabrechnung) |
+| PAY-14 | MUSS | umgesetzt in 1.5.5 und 1.6.0 (Barkaution, Einbehalt mit Kautionsabrechnung); Barkaution siehe PAY-26 bis PAY-28 |
 | PAY-15 | MUSS | umgesetzt (bis 1.2.7); seit 1.5.0 Kasten „Stornieren“ im Backend, seit 1.7.1 Erstattungen einzeln mit Datum |
 | PAY-16 | MUSS | umgesetzt in 1.5.0 |
 | PAY-17 | MUSS | umgesetzt in 1.5.0 |
@@ -28,7 +28,7 @@
 | PAY-20 | MUSS | umgesetzt in 1.6.0 |
 | PAY-21 | MUSS | umgesetzt in 1.6.0 |
 | PAY-22 | MUSS | umgesetzt in 1.6.0 |
-| PAY-23 | MUSS | umgesetzt in 1.6.0, abweichend: Einbehalt als eigene Kautionsabrechnung (KAU-JJJJ-0001) statt Zeile auf der Rechnung. Offen: Bestätigung Steuerberater |
+| PAY-23 | MUSS | umgesetzt in 1.6.0, abweichend: Einbehalt als eigene Kautionsabrechnung (KAU-JJJJ-0001) statt Zeile auf der Rechnung. Offen: Bestätigung Steuerberater; Kautionsabrechnung siehe PAY-29 |
 | PAY-24 | MUSS | umgesetzt in 1.6.0 (auch Download in „Mein Konto“) |
 | PAY-25 | MUSS | umgesetzt in 1.6.0 |
 | PAY-26 | MUSS | umgesetzt in 1.5.5 |
@@ -131,7 +131,7 @@ Einbehalt (auch teilweise) ist höchstens bis zur Höhe der Kaution möglich.
 
 Bei Offline-Zahlung wird die Kaution bar bei Abholung genommen und als manuelle Kaution erfasst; bei Rückgabe wird sie manuell freigegeben. SOLL: Online-Zahlung bleibt die bevorzugte Zahlart, offline wird nur angeboten, wenn es in den Einstellungen aktiviert ist.
 
-**Status:** umgesetzt in 1.5.5 und 1.6.0 (Barkaution, Einbehalt mit Kautionsabrechnung)
+**Status:** umgesetzt in 1.5.5 und 1.6.0 (Barkaution, Einbehalt mit Kautionsabrechnung); Barkaution siehe PAY-26 bis PAY-28
 
 ## Stornierung und Erstattung
 
@@ -189,7 +189,7 @@ Eine erstellte Rechnung wird nie geändert oder gelöscht. Korrekturen und Ersta
 
 Die Kaution selbst ist kein Rechnungsposten. Ein Einbehalt aus der Kaution (z. B. bei Schaden) erscheint als eigene Zeile „Schadenersatz aus Kaution“ mit Begründung auf der Rechnung nach Rückgabe. Vom Steuerberater zu bestätigen.
 
-**Status:** umgesetzt in 1.6.0, abweichend: Einbehalt als eigene Kautionsabrechnung (KAU-JJJJ-0001) statt Zeile auf der Rechnung. Offen: Bestätigung Steuerberater
+**Status:** umgesetzt in 1.6.0, abweichend: Einbehalt als eigene Kautionsabrechnung (KAU-JJJJ-0001) statt Zeile auf der Rechnung. Offen: Bestätigung Steuerberater; Kautionsabrechnung siehe PAY-29
 
 ### PAY-24 · MUSS
 

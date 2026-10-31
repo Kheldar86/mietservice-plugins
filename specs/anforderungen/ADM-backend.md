@@ -9,7 +9,7 @@
 | ADM-01 | MUSS | umgesetzt (bis 1.2.7); seit 1.6.0 und 1.7.0 zusätzlich die Tabs Belege und Löschfristen |
 | ADM-02 | MUSS | umgesetzt (bis 1.2.7) |
 | ADM-03 | MUSS | umgesetzt (bis 1.2.7) |
-| ADM-04 | MUSS | umgesetzt (bis 1.2.7) |
+| ADM-04 | MUSS | umgesetzt (bis 1.2.7); überholt in Teilen, siehe ADM-08 und ADM-11 (B-14) |
 | ADM-05 | MUSS | umgesetzt (bis 1.2.7) |
 | ADM-06 | MUSS | umgesetzt in 1.7.0 (Löschsperre) |
 | ADM-07 | MUSS | umgesetzt in 1.5.1 |
@@ -43,7 +43,7 @@ Zahlungsaktionen je Buchung: Kaution freigeben, einbehalten (auch teilweise), er
 
 Manuelle Buchung durch den Admin: Regeln werden ignoriert, Prüfung optional abschaltbar, Zahlart offline, Standardstatus „bestätigt“.
 
-**Status:** umgesetzt (bis 1.2.7)
+**Status:** umgesetzt (bis 1.2.7); überholt in Teilen, siehe ADM-08 und ADM-11 (B-14)
 
 ### ADM-05 · MUSS
 

@@ -19,6 +19,9 @@
 | B-11 | niedrig | Schema-Verfügbarkeit ist nicht datumsbezogen. | SEO-02 | behoben in 1.8.5 ([Änderung 2026-10-28](../aenderungen/2026-10-28-schema-verfuegbarkeit.md)) |
 | B-12 | niedrig | Erledigt: Dass die Vollständigkeitsprüfung nur warnt, ist so gewollt. | KI-07 | erledigt |
 | B-13 | niedrig | Keine Rechnungserzeugung (PAY-19 bis PAY-24) und keine automatischen Löschfristen (DSG). | PAY-19 | behoben: Rechnungen 1.6.0, Löschfristen 1.7.0 |
+| B-14 | niedrig | ADM-04 sagt „Standardstatus bestätigt“. Seit 1.5.7 ist bei der manuellen Buchung „Angefragt“ vorausgewählt (ADM-08). (aus Feature 001, 31.10.2026) | ADM-04 | offen |
+| B-15 | niedrig | IF-06 zählt nicht alle heutigen Vorlagen auf: Es fehlen u. a. die Mail mit dem Bestätigungslink (1.5.2) und die Mails zu Belegen (1.6.0). (aus Feature 001, 31.10.2026) | IF-06 | offen |
+| B-16 | niedrig | DSG-02 rechnet die 8 Jahre ab dem Jahr „der Rechnung“. Der Code rechnet ab dem letzten Beleg bzw. der letzten Zahlung. (aus Feature 001, 31.10.2026) | DSG-02 | offen |
 
 ## Fragen an Moritz (alle beantwortet)
 
