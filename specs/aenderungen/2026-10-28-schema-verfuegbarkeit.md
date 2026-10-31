@@ -72,7 +72,7 @@ Keine Änderung.
 | Schritt | Wann | Notiz |
 |---|---|---|
 | Plan bestätigt von Moritz | 28.10.2026 | Prüfzeitraum 30 Tage |
-| netcup-Snapshot | 31.10.2026 | Name des Snapshots nachtragen |
+| netcup-Snapshot | 31.10.2026 | `mietservice-barnim.de__2026-10-31T15_00_04+0100.zip` |
 | Bridge-Vorschläge | 31.10.2026 | 9fcc4127 (class-msb-schema.php), d9de319e und e49549e3 (msb-rental.php), 3326439d (CHANGELOG.md); e49549e3 fehlgeschlagen, ersetzt durch bc5476fb |
 | Freigegeben | 31.10.2026 | 9fcc4127, d9de319e, 3326439d, bc5476fb |
 | Live-Abgleich SHA-256 | 31.10.2026 | alle drei Dateien gleich dem Branch |
