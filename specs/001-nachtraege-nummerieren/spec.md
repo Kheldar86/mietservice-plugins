@@ -58,7 +58,7 @@ Wo ein Nachtrag eine bestehende Anforderung berührt (z. B. Kautionsabrechnung u
 
 ### Edge Cases
 
-- Ein Nachtrag nennt zwei Bereiche (z. B. „ADM, BKG“): Er bekommt eine Nummer im Bereich, in dem das Verhalten hauptsächlich liegt, und der andere Bereich verweist darauf. Neue Nummern in beiden Bereichen gibt es nur, wenn dort wirklich unterschiedliche Regeln stehen.
+- Ein Nachtrag nennt zwei Bereiche (z. B. „ADM, BKG“): Er bekommt eine Nummer im Bereich, in dem das Verhalten hauptsächlich liegt, Einen eigenen Verweis im anderen Bereich gibt es nicht. Neue Nummern in beiden Bereichen gibt es nur, wenn dort wirklich unterschiedliche Regeln stehen, und Verweise nur an bestehenden Anforderungen (FR-009).
 - Ein Nachtrag fasst mehrere Funktionen zusammen (z. B. Kleinanzeigen: Vorlage, Kurzlinks, Aufrufzähler, Quelle): Jede prüfbare Regel bekommt eine eigene Nummer (FR-004).
 - Der CHANGELOG-Text und das tatsächliche Verhalten im Code weichen voneinander ab: Der Status wird `abweichend …` mit kurzer Begründung, statt das Verhalten stillschweigend anzupassen.
 - Eine Funktion wurde in einer späteren Version wieder geändert (z. B. Kartenstil 1.6.3 bis 1.6.7): Maßgeblich ist der Stand der letzten Version.
@@ -77,12 +77,12 @@ Wo ein Nachtrag eine bestehende Anforderung berührt (z. B. Kautionsabrechnung u
 ### Functional Requirements
 
 - **FR-001**: Jeder der 17 Einträge in `nachtraege.md` MUSS mindestens eine Anforderungsnummer in einer Bereichsdatei unter `specs/anforderungen/` bekommen.
-- **FR-002**: Neue Nummern MÜSSEN die nächste freie Nummer im Bereich sein (Stand heute: ADM-07, BKG-18, PAY-26, IF-12, DSG-08, ART-06, G-16, BR-19). Bestehende Nummern werden nicht umnummeriert.
+- **FR-002**: Neue Nummern MÜSSEN die nächste freie Nummer im Bereich sein (Stand heute: ADM-07, BKG-18, PAY-26, IF-12, DSG-08, ART-06, BR-19; G bekommt keine neue Nummer, siehe research.md R-02). Bestehende Nummern werden nicht umnummeriert.
 - **FR-003**: Jede neue Anforderung MUSS die gleiche Form haben wie die bestehenden: Zeile in der Übersicht (ID, Stufe, Status), Abschnitt `### ID · STUFE`, prüfbarer Text, Zeile `**Status:**`.
 - **FR-004**: Fasst ein Nachtrag mehrere unabhängige Regeln zusammen, MUSS jede prüfbare Regel eine eigene Nummer bekommen, nicht nur jede Zeile in `nachtraege.md` (Entscheidung 31.10.2026). Der Plan kommt mit FR-013 auf 39 neue Nummern.
 - **FR-005**: Der Status MUSS `umgesetzt in X.Y.Z` lauten, mit der Version aus dem CHANGELOG, ab der der heutige Stand gilt. Bei Abweichung zwischen CHANGELOG und Code gilt `abweichend …` mit Begründung.
 - **FR-006**: Der Text der Anforderung MUSS das heutige Verhalten beschreiben, das live ist (msb-rental 1.8.5, Bridge 0.4.2). Grundlage ist der CHANGELOG-Text, abgeglichen mit dem Code im Repository (Entscheidung 31.10.2026). Weicht der Code vom CHANGELOG ab, beschreibt der Text den Code, und der Status vermerkt die Abweichung.
-- **FR-007**: Die Stufe MUSS `MUSS` sein, außer der CHANGELOG beschreibt das Verhalten als optional oder abschaltbar. Dann ist sie `SOLL`.
+- **FR-007**: Die Stufe MUSS `MUSS` sein. `SOLL` ist sie nur, wenn die Funktion für den Nutzer freiwillig ist (z. B. ein Haken, den niemand setzen muss, oder ein Feld, das man leer lassen darf). Dass sich eine Funktion über eine Einstellung abschalten lässt, macht sie nicht zu `SOLL`; die Anforderung beschreibt dann das Verhalten bei eingeschalteter Einstellung.
 - **FR-008**: `nachtraege.md` MUSS danach je Eintrag die neue Nummer (mit Link) nennen und im Kopf vermerken, dass alle Einträge nummeriert sind.
 - **FR-009**: Berührt ein Nachtrag eine bestehende Anforderung, MÜSSEN beide aufeinander verweisen (z. B. PAY-23).
 - **FR-010**: Die Änderung DARF keinen Plugin-Code, keine Plugin-Version und kein CHANGELOG eines Plugins ändern.
@@ -109,7 +109,7 @@ Wo ein Nachtrag eine bestehende Anforderung berührt (z. B. Kautionsabrechnung u
 ## Assumptions
 
 - Maßgeblich sind die CHANGELOGs bis msb-rental 1.8.5 und Bridge 0.4.2.
-- Kurzlinks `/ka/…` (IF/ART) und Kleinanzeigen-Vorlage gehören fachlich zu ART, die Quelle „Webseite über Kleinanzeigen“ und die UTM-Parameter zu IF.
+- Die Kleinanzeigen-Vorlage gehört zu ART, Kurzlink `/ka/…` mit UTM-Parametern und Aufrufzähler zu IF und die Quelle „Webseite über Kleinanzeigen“ zur Buchung (BKG).
 - Die Bridge-Einstellung „Kundendaten schwärzen“ gehört zu BR, mit Verweis auf G-10.
 - Die Löschregel „Abgeschlossene Buchungen ohne Zahlung und Beleg nach 3 Jahren“ ergänzt DSG-01 bis DSG-07 und bekommt eine neue DSG-Nummer.
 - Die Zuordnung zu Bereichen im Einzelnen legt der Plan fest.

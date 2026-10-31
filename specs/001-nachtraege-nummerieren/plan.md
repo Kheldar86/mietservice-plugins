@@ -26,7 +26,7 @@ Die 17 Nachträge aus [nachtraege.md](../anforderungen/nachtraege.md) bekommen 3
 
 **Constraints**: Kein Plugin-Code, keine Plugin-Version, kein Plugin-CHANGELOG (FR-010). Keine Geheimnisse (FR-011). Bestehende Nummern bleiben unverändert (FR-002).
 
-**Scale/Scope**: 39 neue Anforderungen in 7 Dateien, Verweise an 6 bestehenden, 3 neue Befunde, Umbau von `nachtraege.md`
+**Scale/Scope**: 39 neue Anforderungen in 7 Dateien, Verweise an 8 bestehenden (ADM-04, PAY-14, PAY-23, IF-06, DSG-02, DSG-05, DSG-06, BR-18), 3 neue Befunde, Umbau von `nachtraege.md`
 
 ## Constitution Check
 
@@ -69,8 +69,8 @@ specs/anforderungen/
 ├── ADM-backend.md                  # ADM-07 bis ADM-14, Verweis an ADM-04
 ├── BKG-buchungsprozess.md          # BKG-18 bis BKG-21
 ├── PAY-zahlung-kaution-storno.md   # PAY-26 bis PAY-36, Verweise an PAY-14, PAY-23
-├── IF-schnittstellen.md            # IF-12 bis IF-19
-├── DSG-datenschutz-loeschfristen.md# DSG-08 bis DSG-11, Verweise an DSG-05, DSG-06
+├── IF-schnittstellen.md            # IF-12 bis IF-19, Verweis an IF-06 (B-15)
+├── DSG-datenschutz-loeschfristen.md# DSG-08 bis DSG-11, Verweise an DSG-02 (B-16), DSG-05, DSG-06
 ├── ART-mietartikel.md              # ART-06, ART-07
 ├── BR-bridge.md                    # BR-19, BR-20, Verweis an BR-18
 ├── nachtraege.md                   # je Zeile die neuen Nummern, Kopf „alle nummeriert“

@@ -31,5 +31,9 @@ Ein Einbehalt aus der Kaution ergibt einen eigenen Beleg „Kautionsabrechnung�
   - `umgesetzt in X.Y.Z (seit A.B.C)`
   - `umgesetzt in X.Y.Z, abweichend vom CHANGELOG: …`
   - `umgesetzt in Bridge X.Y.Z`
+  - `umgesetzt in X.Y.Z (seit A.B.C, D.E.F)`: mehrere frühere Versionen
+  - `umgesetzt in X.Y.Z (<Teil> seit A.B.C)`: ein Teil der Regel ist älter, z. B. `(Zahlung seit 1.5.5)`
+  - `umgesetzt in X.Y.Z (im CHANGELOG nicht genannt)`: die Regel ist im Code, fehlt aber im CHANGELOG
+  - `umgesetzt in X.Y.Z; Abweichung zu <ID>`: die Regel weicht bewusst von einer bestehenden Anforderung ab
 - Verweise auf andere Anforderungen stehen als ID im Text, z. B. „(siehe G-10)“.
 - Keine Schlüssel, Secrets, Werte aus `msb_settings` und keine Kundendaten (FR-011). Links wie der zur Google-Bewertung werden nicht eingetragen.
