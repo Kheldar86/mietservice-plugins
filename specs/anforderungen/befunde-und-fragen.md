@@ -16,7 +16,7 @@
 | B-08 | mittel | Jeder Statuswechsel ist erlaubt. | BKG-16 | behoben in 1.3.0 |
 | B-09 | niedrig | Die Plugin-Anleitung (ANLEITUNG.md) empfiehlt ein Backup-Plugin; Backups laufen laut Projektregel nur über netcup. | Doku msb-rental | behoben in 1.2.8 |
 | B-10 | niedrig | Buchungsnummer ist die globale ID, kein Jahreszähler. | BKG-07 | behoben in 1.3.0 |
-| B-11 | niedrig | Schema-Verfügbarkeit ist nicht datumsbezogen. | SEO-02 | offen |
+| B-11 | niedrig | Schema-Verfügbarkeit ist nicht datumsbezogen. | SEO-02 | behoben in 1.8.5 ([Änderung 2026-10-28](../aenderungen/2026-10-28-schema-verfuegbarkeit.md)) |
 | B-12 | niedrig | Erledigt: Dass die Vollständigkeitsprüfung nur warnt, ist so gewollt. | KI-07 | erledigt |
 | B-13 | niedrig | Keine Rechnungserzeugung (PAY-19 bis PAY-24) und keine automatischen Löschfristen (DSG). | PAY-19 | behoben: Rechnungen 1.6.0, Löschfristen 1.7.0 |
 

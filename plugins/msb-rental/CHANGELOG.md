@@ -2,6 +2,16 @@
 
 Alle Änderungen pro Version. Die neueste Version steht oben. Dieselben Hinweise finden Sie im Backend unter **Vermietung → Hilfe & Doku → Versionshinweise**.
 
+## 1.8.5 – 28.10.2026
+
+### Geändert
+- Strukturierte Daten (Google): Die Verfügbarkeit eines Artikels richtet sich jetzt nach dem Buchungskalender. „Auf Lager“ (InStock) steht nur noch, wenn der Artikel in den nächsten 30 Tagen (ab heute + Vorlauf) an mindestens einem Tag frei ist. Ist er in dieser Zeit ausgebucht oder gesperrt, steht „Nicht verfügbar“ (OutOfStock). Bisher reichten „buchbar“ und Bestand > 0
+- Der Zeitraum lässt sich per Filter `msb_schema_availability_days` ändern
+
+### Update-Hinweise
+- Keine Datenbankänderung
+- Die Seiten liegen im Seiten-Cache des Servers. Die neue Angabe erscheint, sobald eine Seite neu aufgebaut wird
+
 ## 1.8.4 – 26.10.2026
 
 ### Neu

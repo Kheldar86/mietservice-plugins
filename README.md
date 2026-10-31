@@ -13,6 +13,14 @@ Der erste Stand wurde am 27.10.2026 direkt von der Live-Seite übernommen und Da
 
 Was die Plugins können müssen, steht unter [`specs/`](specs): alle Anforderungen mit fester Nummer und Status, dazu der Ablauf einer Änderung (Spec → Plan → Pull Request → Freigabe) und eine Vorlage für neue Änderungen.
 
+## Tests
+
+Unter [`tests/`](tests) liegen Tests, die die Plugin-Dateien mit nachgebildetem WordPress laden. Sie brauchen nur PHP auf der Kommandozeile und werden nicht live eingespielt.
+
+```
+php tests/msb-rental/test-schema-availability.php
+```
+
 ## Regeln
 
 1. **Jede Änderung ist eine neue Plugin-Version** mit Eintrag im `CHANGELOG.md` (Neu / Geändert / Behoben / Update-Hinweise) und hochgezählter Version im Plugin-Kopf (bei msb-rental auch `MSB_VERSION`).

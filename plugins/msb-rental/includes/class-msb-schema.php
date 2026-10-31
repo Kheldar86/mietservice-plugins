@@ -5,6 +5,7 @@
  * Gibt auf jeder Artikelseite ein „Product“ mit Mietangebot (Tagespreis) aus.
  * Mit Rank Math wird das Produkt in dessen JSON-LD-Graph eingefügt, sonst als eigenes Skript.
  * Ab 1.2.7: Feld „Marke“ je Artikel (Meta-Box „Suchmaschinen“), ausgegeben als Product.brand.
+ * Ab 1.8.5: Verfügbarkeit datumsbezogen – InStock nur mit mindestens einem freien Tag in den nächsten 30 Tagen (SEO-02).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,6 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 class MSB_Schema {
 
 	const META_BRAND = '_msb_brand';
+
+	// Ab 1.8.5: Prüfzeitraum für die Verfügbarkeit in Tagen, ab heute + Vorlauf.
+	const AVAILABILITY_DAYS = 30;
 
 	public static function init() {
 		add_filter( 'rank_math/json_ld', array( __CLASS__, 'rank_math' ), 99, 2 );
@@ -72,6 +76,23 @@ class MSB_Schema {
 	 * ------------------------------------------------------------------ */
 
 	/**
+	 * Ab 1.8.5: Ist der Artikel im Prüfzeitraum an mindestens einem Tag frei?
+	 * Nutzt den Buchungskalender (buchbar, Bestand, Buchungen mit Puffer, Sperrzeiten, Vorausbuchung).
+	 * Schliesstage (keine Abholung/Rückgabe) zählen als frei.
+	 */
+	public static function available( $id ) {
+		$days = max( 1, (int) apply_filters( 'msb_schema_availability_days', self::AVAILABILITY_DAYS, $id ) );
+		$from = msb_add_days( msb_today(), max( 0, (int) msb_setting( 'lead_days' ) ) );
+		$to   = msb_add_days( $from, $days - 1 );
+		foreach ( MSB_Availability::calendar( $id, $from, $to ) as $day ) {
+			if ( ! $day['x'] && $day['a'] > 0 ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Product-Daten eines Mietartikels.
 	 */
 	public static function product( $id ) {
@@ -122,7 +143,7 @@ class MSB_Schema {
 		if ( $price > 0 ) {
 			$currency          = (string) msb_setting( 'currency_code', 'EUR' );
 			$formatted         = number_format( (float) $price, 2, '.', '' );
-			$available         = $item['bookable'] && $item['stock'] > 0;
+			$available         = self::available( $id );
 			$product['offers'] = array(
 				'@type'              => 'Offer',
 				'url'                => $url,
