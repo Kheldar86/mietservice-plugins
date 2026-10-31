@@ -6,7 +6,7 @@
 | Plugin | msb-rental |
 | Neue Version | 1.8.5 (vorher 1.8.4) |
 | Status | in Arbeit |
-| Pull Request | #… |
+| Pull Request | #2 |
 
 ## Betroffene Anforderungen
 
