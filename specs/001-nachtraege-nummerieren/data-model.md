@@ -76,3 +76,5 @@ Regeln: Jede Nummer kommt genau einmal vor. Jeder Nachtrag hat mindestens eine N
 | DSG-05 | „Buchungen ohne Zahlung nach Abschluss siehe DSG-08“ |
 | DSG-06 | „Vorschau und Ablauf siehe DSG-10, Hinweis an gesperrten Buchungen siehe DSG-11“ |
 | BR-18 | „Kundendaten siehe BR-19, BR-20“ |
+| IF-06 | „siehe B-15“ |
+| DSG-02 | „siehe B-16“ |
