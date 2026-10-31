@@ -31,8 +31,8 @@ Alle Pfade relativ zum Repository. Geändert werden nur Dateien unter `specs/` (
 
 **Purpose**: Ausgangslage sichern
 
-- [ ] T001 Bestätigung des Plans durch Moritz mit Datum in der Freigabetabelle von `specs/001-nachtraege-nummerieren/plan.md` eintragen (Zeile „Plan bestätigt von Moritz“). Ohne Bestätigung nicht weitermachen.
-- [ ] T002 Konsistenzprüfung SC-002 aus `specs/001-nachtraege-nummerieren/quickstart.md` am unveränderten Stand ausführen; erwartet: alle sieben Bereichsdateien `OK`.
+- [X] T001 Bestätigung des Plans durch Moritz mit Datum in der Freigabetabelle von `specs/001-nachtraege-nummerieren/plan.md` eintragen (Zeile „Plan bestätigt von Moritz“). Ohne Bestätigung nicht weitermachen.
+- [X] T002 Konsistenzprüfung SC-002 aus `specs/001-nachtraege-nummerieren/quickstart.md` am unveränderten Stand ausführen; erwartet: alle sieben Bereichsdateien `OK`.
 
 ---
 
@@ -40,7 +40,7 @@ Alle Pfade relativ zum Repository. Geändert werden nur Dateien unter `specs/` (
 
 **Purpose**: Nummern gegen den aktuellen Stand absichern, bevor geschrieben wird
 
-- [ ] T003 In `specs/anforderungen/{ADM,BKG,PAY,IF,DSG,ART,BR}-*.md` die letzte vergebene Nummer je Bereich prüfen. Erwartet: ADM-06, BKG-17, PAY-25, IF-11, DSG-07, ART-05, BR-18. Weicht eine ab, abbrechen und den Nummernplan in `specs/001-nachtraege-nummerieren/data-model.md` zuerst anpassen.
+- [X] T003 In `specs/anforderungen/{ADM,BKG,PAY,IF,DSG,ART,BR}-*.md` die letzte vergebene Nummer je Bereich prüfen. Erwartet: ADM-06, BKG-17, PAY-25, IF-11, DSG-07, ART-05, BR-18. Weicht eine ab, abbrechen und den Nummernplan in `specs/001-nachtraege-nummerieren/data-model.md` zuerst anpassen.
 
 **Checkpoint**: Nummern frei, Ausgangsdateien konsistent
 
@@ -52,14 +52,14 @@ Alle Pfade relativ zum Repository. Geändert werden nur Dateien unter `specs/` (
 
 **Independent Test**: Prüfung SC-001 und SC-005 aus [quickstart.md](quickstart.md): 39 Zeilen mit `1`, keine doppelte ID.
 
-- [ ] T004 [P] [US1] ADM-07 bis ADM-14 (8 Nummern) in `specs/anforderungen/ADM-backend.md` anlegen. Stufe überall `MUSS`.
-- [ ] T005 [P] [US1] BKG-18 bis BKG-21 (4 Nummern) in `specs/anforderungen/BKG-buchungsprozess.md` anlegen. BKG-21 hat Stufe `SOLL`, die anderen `MUSS`.
-- [ ] T006 [P] [US1] PAY-26 bis PAY-36 (11 Nummern) in `specs/anforderungen/PAY-zahlung-kaution-storno.md` anlegen. PAY-29 mit Verweis „(siehe PAY-23)“ im Text und Status `umgesetzt in 1.6.0; Abweichung zu PAY-23`. PAY-31 mit Status `umgesetzt in 1.6.1, abweichend vom CHANGELOG: zuerst Theme-Logo` (A-01).
-- [ ] T007 [P] [US1] IF-12 bis IF-19 (8 Nummern) in `specs/anforderungen/IF-schnittstellen.md` anlegen. IF-15 mit Status `umgesetzt in 1.6.1, abweichend vom CHANGELOG: zuerst Theme-Logo` (A-01). IF-18 mit Verweis „(§ 312f BGB, siehe G-03)“ im Text.
-- [ ] T008 [P] [US1] DSG-08 bis DSG-11 (4 Nummern) in `specs/anforderungen/DSG-datenschutz-loeschfristen.md` anlegen. DSG-08 mit Status `umgesetzt in 1.7.0 (im CHANGELOG nicht genannt)` (A-02). DSG-10 und DSG-11 stammen aus FR-013.
-- [ ] T009 [P] [US1] ART-06 und ART-07 in `specs/anforderungen/ART-mietartikel.md` anlegen. ART-07 hat Stufe `SOLL`.
-- [ ] T010 [P] [US1] BR-19 und BR-20 in `specs/anforderungen/BR-bridge.md` anlegen, Status `umgesetzt in Bridge 0.4.2`. BR-19 mit Verweis „(siehe G-10, BR-18)“ im Text.
-- [ ] T011 [US1] Prüfungen SC-001 (39 × `1`, keine Doppelten) und SC-002 (alle `OK`) aus `specs/001-nachtraege-nummerieren/quickstart.md` ausführen. Fehler in der betroffenen Datei beheben (depends on T004–T010).
+- [X] T004 [P] [US1] ADM-07 bis ADM-14 (8 Nummern) in `specs/anforderungen/ADM-backend.md` anlegen. Stufe überall `MUSS`.
+- [X] T005 [P] [US1] BKG-18 bis BKG-21 (4 Nummern) in `specs/anforderungen/BKG-buchungsprozess.md` anlegen. BKG-21 hat Stufe `SOLL`, die anderen `MUSS`.
+- [X] T006 [P] [US1] PAY-26 bis PAY-36 (11 Nummern) in `specs/anforderungen/PAY-zahlung-kaution-storno.md` anlegen. PAY-29 mit Verweis „(siehe PAY-23)“ im Text und Status `umgesetzt in 1.6.0; Abweichung zu PAY-23`. PAY-31 mit Status `umgesetzt in 1.6.1, abweichend vom CHANGELOG: zuerst Theme-Logo` (A-01).
+- [X] T007 [P] [US1] IF-12 bis IF-19 (8 Nummern) in `specs/anforderungen/IF-schnittstellen.md` anlegen. IF-15 mit Status `umgesetzt in 1.6.1, abweichend vom CHANGELOG: zuerst Theme-Logo` (A-01). IF-18 mit Verweis „(§ 312f BGB, siehe G-03)“ im Text.
+- [X] T008 [P] [US1] DSG-08 bis DSG-11 (4 Nummern) in `specs/anforderungen/DSG-datenschutz-loeschfristen.md` anlegen. DSG-08 mit Status `umgesetzt in 1.7.0 (im CHANGELOG nicht genannt)` (A-02). DSG-10 und DSG-11 stammen aus FR-013.
+- [X] T009 [P] [US1] ART-06 und ART-07 in `specs/anforderungen/ART-mietartikel.md` anlegen. ART-07 hat Stufe `SOLL`.
+- [X] T010 [P] [US1] BR-19 und BR-20 in `specs/anforderungen/BR-bridge.md` anlegen, Status `umgesetzt in Bridge 0.4.2`. BR-19 mit Verweis „(siehe G-10, BR-18)“ im Text.
+- [X] T011 [US1] Prüfungen SC-001 (39 × `1`, keine Doppelten) und SC-002 (alle `OK`) aus `specs/001-nachtraege-nummerieren/quickstart.md` ausführen. Fehler in der betroffenen Datei beheben (depends on T004–T010).
 
 **Checkpoint**: US1 vollständig und prüfbar. Damit ist das MVP erreicht.
 

@@ -26,14 +26,14 @@ Regeln: Jede Nummer kommt genau einmal vor. Jeder Nachtrag hat mindestens eine N
 | N-04 | IF-12 | MUSS | Versandprotokoll der letzten 30 Mails der Webseite, ohne automatisches Laden. | umgesetzt in 1.5.1 |
 | N-05 Barbuchung | PAY-27 | MUSS | Bei Barzahlung stehen beim Wechsel auf „Abgeholt“ die Häkchen „Miete bar erhalten“ und „Kaution bar erhalten“. Sie vermerken die Zahlungen, das Datum erscheint im Zahlungsvermerk der Rechnung. | umgesetzt in 1.6.0 |
 | N-05 | PAY-28 | MUSS | Eine Barkaution wird bei „Zurückgegeben“ nicht automatisch freigegeben. „Einbehalten“ mit Betrag und Grund erzeugt die Kautionsabrechnung. | umgesetzt in 1.6.0 |
-| N-06 Kautionsabrechnung | PAY-29 | MUSS | Ein Einbehalt aus der Kaution ergibt einen eigenen Beleg „Kautionsabrechnung“ (Schadenersatz, keine Rechnung) mit Nummernkreis KAU-JJJJ-0001, jährlich ab 0001. | umgesetzt in 1.6.0; Abweichung zu PAY-23 |
+| N-06 Kautionsabrechnung | PAY-29 | MUSS | Ein Einbehalt aus der Kaution ergibt einen eigenen Beleg „Kautionsabrechnung“ (Schadenersatz, keine Rechnung) mit Nummernkreis KAU-JJJJ-0001, jährlich ab 0001 (siehe PAY-23). | umgesetzt in 1.6.0; Abweichung zu PAY-23 |
 | N-07 Seite Belege | PAY-30 | MUSS | Seite „Belege“ mit Jahres- und Artfilter, Summen und CSV-Export. | umgesetzt in 1.6.0 |
-| N-08 Logo | PAY-31 | MUSS | Logo oben links auf allen Belegen: Auswahl aus der Mediathek, sonst Theme-Logo, sonst Website-Icon. | umgesetzt in 1.6.1, abweichend vom CHANGELOG (A-01) |
-| N-08 | IF-15 | MUSS | Dasselbe Logo oben in allen Mails des Plugins. | umgesetzt in 1.6.1, abweichend vom CHANGELOG (A-01) |
+| N-08 Logo | PAY-31 | MUSS | Logo oben links auf allen Belegen: Auswahl aus der Mediathek, sonst Theme-Logo, sonst Website-Icon. | umgesetzt in 1.6.1, abweichend vom CHANGELOG: zuerst Theme-Logo |
+| N-08 | IF-15 | MUSS | Dasselbe Logo oben in allen Mails des Plugins. | umgesetzt in 1.6.1, abweichend vom CHANGELOG: zuerst Theme-Logo |
 | N-09 Mail zum Beleg | IF-16 | MUSS | Mail zum Beleg mit Kasten (Nummer, Datum, Buchung, Zeitraum, Betrag, Zahlungsvermerk, Knopf „PDF ansehen“) und einem Satz je Belegart. Platzhalter `{document_summary}` und `{document_note}`; fehlt der Kasten in der Vorlage, steht er vor „Viele Grüße“. Der Betreff der Kautionsmail nennt die Belegart. | umgesetzt in 1.6.2 |
 | N-10 Kartenstil | ADM-12 | MUSS | Unter 782 px Breite zeigen alle Vermietungsseiten im Backend Tabellen als Karten. Am Computer bleiben die Tabellen. | umgesetzt in 1.6.7 (seit 1.6.3) |
 | N-10 | ADM-13 | MUSS | Auf dem Handy stehen harmlose Aktionen links, unwiderrufliche rechts und deutlich getrennt. | umgesetzt in 1.6.5 |
-| N-11 Löschregel, Probelauf | DSG-08 | MUSS | Buchungen mit Status „zurückgegeben“ oder „storniert“ ohne Zahlung und Beleg werden 3 Jahre nach Ende des Jahres der letzten Änderung bzw. des Mietendes gelöscht. | umgesetzt in 1.7.0 (im CHANGELOG nicht genannt, A-02) |
+| N-11 Löschregel, Probelauf | DSG-08 | MUSS | Buchungen mit Status „zurückgegeben“ oder „storniert“ ohne Zahlung und Beleg werden 3 Jahre nach Ende des Jahres der letzten Änderung bzw. des Mietendes gelöscht. | umgesetzt in 1.7.0 (im CHANGELOG nicht genannt) |
 | N-11 | DSG-09 | MUSS | Die Löschfristen laufen zuerst im Probelauf: Es wird nur gezählt und protokolliert. „Löschung ausführen“ wird unter Einstellungen → Löschfristen eingeschaltet. Knopf „Jetzt prüfen“. | umgesetzt in 1.7.0 |
 | N-12 EÜR | PAY-32 | MUSS | Kasten „Zahlungen für die EÜR“ auf der Seite Belege mit Jahressummen (Bar, Stripe brutto, Erstattungen, Kautionseinbehalte) und CSV mit jeder Bewegung einzeln. | umgesetzt in 1.7.1 |
 | N-12 | PAY-33 | MUSS | Erstattungen werden einzeln mit Datum gespeichert. | umgesetzt in 1.7.1 |

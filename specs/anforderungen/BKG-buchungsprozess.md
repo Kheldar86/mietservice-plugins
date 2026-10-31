@@ -22,6 +22,10 @@
 | BKG-15 | MUSS | umgesetzt (bis 1.2.7) |
 | BKG-16 | MUSS | umgesetzt in 1.3.0 |
 | BKG-17 | MUSS | umgesetzt in 1.5.0 |
+| BKG-18 | MUSS | umgesetzt in 1.5.7 (seit 1.5.2, 1.5.6) |
+| BKG-19 | MUSS | umgesetzt in 1.5.7 |
+| BKG-20 | MUSS | umgesetzt in 1.8.0 |
+| BKG-21 | SOLL | umgesetzt in 1.8.4 |
 
 ## Ablauf aus Kundensicht
 
@@ -139,3 +143,31 @@ Erlaubt sind nur diese Statusübergänge: awaiting_payment → pending/confirmed
 Stornierung durch den Kunden mit Gebühr nach G-04.
 
 **Status:** umgesetzt in 1.5.0
+
+## Ergänzt am 31.10.2026 (Funktionen seit 1.5.1)
+
+Diese Nummern wurden nachträglich für Funktionen vergeben, die schon live waren (Feature 001).
+
+### BKG-18 · MUSS
+
+Bei einer manuellen Buchung bestätigt der Kunde Mietbedingungen und Datenschutz selbst über einen Link per Mail. Bis dahin stehen die Felder auf „Offen“, danach auf „Ja“ mit Zeitpunkt. Der Link steht in der Mail „Bestätigt“ bzw. „Eingegangen“, eine eigene Mail nur bei abgeschalteter Vorlage oder über „Link erneut senden“.
+
+**Status:** umgesetzt in 1.5.7 (seit 1.5.2, 1.5.6)
+
+### BKG-19 · MUSS
+
+Bestätigt der Kunde per Link, wird eine angefragte Buchung „Bestätigt“. Er erhält die Mail „Bestätigt“, das Team eine Info an die Buchungsadresse.
+
+**Status:** umgesetzt in 1.5.7
+
+### BKG-20 · MUSS
+
+Buchungen nach einem Klick auf den Kurzlink tragen die Quelle „Webseite über Kleinanzeigen“ (Liste, Buchung, Team-Mail). Die Herkunft hängt am Warenkorb, kein neues Cookie.
+
+**Status:** umgesetzt in 1.8.0
+
+### BKG-21 · SOLL
+
+Freiwilliger, nicht verpflichtender Haken im Buchungsformular und auf der Bestätigungsseite für Telefonbuchungen: Einwilligung in eine einmalige Bewertungsbitte.
+
+**Status:** umgesetzt in 1.8.4

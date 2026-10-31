@@ -31,6 +31,17 @@
 | PAY-23 | MUSS | umgesetzt in 1.6.0, abweichend: Einbehalt als eigene Kautionsabrechnung (KAU-JJJJ-0001) statt Zeile auf der Rechnung. Offen: Bestätigung Steuerberater |
 | PAY-24 | MUSS | umgesetzt in 1.6.0 (auch Download in „Mein Konto“) |
 | PAY-25 | MUSS | umgesetzt in 1.6.0 |
+| PAY-26 | MUSS | umgesetzt in 1.5.5 |
+| PAY-27 | MUSS | umgesetzt in 1.6.0 |
+| PAY-28 | MUSS | umgesetzt in 1.6.0 |
+| PAY-29 | MUSS | umgesetzt in 1.6.0; Abweichung zu PAY-23 |
+| PAY-30 | MUSS | umgesetzt in 1.6.0 |
+| PAY-31 | MUSS | umgesetzt in 1.6.1, abweichend vom CHANGELOG: zuerst Theme-Logo |
+| PAY-32 | MUSS | umgesetzt in 1.7.1 |
+| PAY-33 | MUSS | umgesetzt in 1.7.1 |
+| PAY-34 | MUSS | umgesetzt in 1.7.2 |
+| PAY-35 | MUSS | umgesetzt in 1.7.2 |
+| PAY-36 | MUSS | umgesetzt in 1.7.2 |
 
 ## Zahlarten und Anzahlung
 
@@ -191,3 +202,73 @@ Rechnungs-PDFs sind nicht öffentlich abrufbar und stehen im Backend zur Verfüg
 Die Rechnung wird erstellt und verschickt, sobald die Buchung den Status „zurückgegeben“ erreicht; pro Buchung gibt es genau eine Rechnung. Bei einer Stornierung mit Gebühr > 0 wird sofort eine Rechnung über die Stornogebühr erstellt; kostenlose Stornierungen erhalten keine Rechnung. Als Zahlungsbestätigung bei der Buchung dient die Quittung des Zahlungsanbieters.
 
 **Status:** umgesetzt in 1.6.0
+
+## Ergänzt am 31.10.2026 (Funktionen seit 1.5.1)
+
+Diese Nummern wurden nachträglich für Funktionen vergeben, die schon live waren (Feature 001).
+
+### PAY-26 · MUSS
+
+Bei Barzahlung wird kein automatischer Kautions-Zahlungslink verschickt. Die Kaution steht als „bar bei Abholung“. Von Hand reservieren bleibt möglich.
+
+**Status:** umgesetzt in 1.5.5
+
+### PAY-27 · MUSS
+
+Bei Barzahlung stehen beim Wechsel auf „Abgeholt“ die Häkchen „Miete bar erhalten“ und „Kaution bar erhalten“. Sie vermerken die Zahlungen, das Datum erscheint im Zahlungsvermerk der Rechnung.
+
+**Status:** umgesetzt in 1.6.0
+
+### PAY-28 · MUSS
+
+Eine Barkaution wird bei „Zurückgegeben“ nicht automatisch freigegeben. „Einbehalten“ mit Betrag und Grund erzeugt die Kautionsabrechnung.
+
+**Status:** umgesetzt in 1.6.0
+
+### PAY-29 · MUSS
+
+Ein Einbehalt aus der Kaution ergibt einen eigenen Beleg „Kautionsabrechnung“ (Schadenersatz, keine Rechnung) mit Nummernkreis KAU-JJJJ-0001, jährlich ab 0001 (siehe PAY-23).
+
+**Status:** umgesetzt in 1.6.0; Abweichung zu PAY-23
+
+### PAY-30 · MUSS
+
+Seite „Belege“ mit Jahres- und Artfilter, Summen und CSV-Export.
+
+**Status:** umgesetzt in 1.6.0
+
+### PAY-31 · MUSS
+
+Logo oben links auf allen Belegen: Auswahl aus der Mediathek, sonst Theme-Logo, sonst Website-Icon.
+
+**Status:** umgesetzt in 1.6.1, abweichend vom CHANGELOG: zuerst Theme-Logo
+
+### PAY-32 · MUSS
+
+Kasten „Zahlungen für die EÜR“ auf der Seite Belege mit Jahressummen (Bar, Stripe brutto, Erstattungen, Kautionseinbehalte) und CSV mit jeder Bewegung einzeln.
+
+**Status:** umgesetzt in 1.7.1
+
+### PAY-33 · MUSS
+
+Erstattungen werden einzeln mit Datum gespeichert.
+
+**Status:** umgesetzt in 1.7.1
+
+### PAY-34 · MUSS
+
+„Als Testbuchung markieren“ ändert nur die Buchhaltung, Ablauf, Mails und Zahlungen bleiben echt. Änderbar nur, solange die Buchung keine gültigen Belege hat.
+
+**Status:** umgesetzt in 1.7.2
+
+### PAY-35 · MUSS
+
+Belege einer Testbuchung bekommen TEST-JJJJ-0001 und zählen nicht in Summen und Beleg-CSV.
+
+**Status:** umgesetzt in 1.7.2
+
+### PAY-36 · MUSS
+
+EÜR-Export: Bargeld aus Testbuchungen fehlt, Online-Zahlungen bleiben mit „ja“ in der Spalte „Test“.
+
+**Status:** umgesetzt in 1.7.2
