@@ -77,7 +77,7 @@ Wo ein Nachtrag eine bestehende Anforderung berührt (z. B. Kautionsabrechnung u
 - **FR-001**: Jeder der 17 Einträge in `nachtraege.md` MUSS mindestens eine Anforderungsnummer in einer Bereichsdatei unter `specs/anforderungen/` bekommen.
 - **FR-002**: Neue Nummern MÜSSEN die nächste freie Nummer im Bereich sein (Stand heute: ADM-07, BKG-18, PAY-26, IF-12, DSG-08, ART-06, G-16, BR-19). Bestehende Nummern werden nicht umnummeriert.
 - **FR-003**: Jede neue Anforderung MUSS die gleiche Form haben wie die bestehenden: Zeile in der Übersicht (ID, Stufe, Status), Abschnitt `### ID · STUFE`, prüfbarer Text, Zeile `**Status:**`.
-- **FR-004**: Fasst ein Nachtrag mehrere unabhängige Regeln zusammen, MUSS jede prüfbare Regel eine eigene Nummer bekommen, nicht nur jede Zeile in `nachtraege.md` (Entscheidung 31.10.2026). Erwartet werden etwa 25 bis 30 neue Nummern.
+- **FR-004**: Fasst ein Nachtrag mehrere unabhängige Regeln zusammen, MUSS jede prüfbare Regel eine eigene Nummer bekommen, nicht nur jede Zeile in `nachtraege.md` (Entscheidung 31.10.2026). Der Plan kommt auf 37 neue Nummern.
 - **FR-005**: Der Status MUSS `umgesetzt in X.Y.Z` lauten, mit der Version aus dem CHANGELOG, ab der der heutige Stand gilt. Bei Abweichung zwischen CHANGELOG und Code gilt `abweichend …` mit Begründung.
 - **FR-006**: Der Text der Anforderung MUSS das heutige Verhalten beschreiben, das live ist (msb-rental 1.8.5, Bridge 0.4.2). Grundlage ist der CHANGELOG-Text, abgeglichen mit dem Code im Repository (Entscheidung 31.10.2026). Weicht der Code vom CHANGELOG ab, beschreibt der Text den Code, und der Status vermerkt die Abweichung.
 - **FR-007**: Die Stufe MUSS `MUSS` sein, außer der CHANGELOG beschreibt das Verhalten als optional oder abschaltbar. Dann ist sie `SOLL`.
