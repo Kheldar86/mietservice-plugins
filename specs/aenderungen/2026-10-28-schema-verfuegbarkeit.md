@@ -72,7 +72,7 @@ Keine Änderung.
 | Schritt | Wann | Notiz |
 |---|---|---|
 | Plan bestätigt von Moritz | 28.10.2026 | Prüfzeitraum 30 Tage |
-| netcup-Snapshot | | |
+| netcup-Snapshot | 31.10.2026 | Name des Snapshots nachtragen |
 | Bridge-Vorschläge | | |
 | Freigegeben | | |
 | Live-Abgleich SHA-256 | | alle Dateien gleich |
