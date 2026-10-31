@@ -8,6 +8,7 @@ Hier steht, **was** die Plugins können müssen. Der Code unter `plugins/` setzt
 |---|---|
 | [`anforderungen/`](anforderungen) | Alle Anforderungen mit fester Nummer, eine Datei je Bereich. Jede Anforderung hat einen Status. |
 | `NNN-kurzname/` | Ein Ordner je Feature oder Änderung, angelegt mit [Spec Kit](https://github.com/github/spec-kit): `spec.md`, `plan.md`, `tasks.md` und bei Bedarf `research.md`, `data-model.md`, `checklists/`. |
+| [`aenderungen/`](aenderungen) | Archiv: Änderungen vor Spec Kit, eine Datei je Änderung (z. B. msb-rental 1.8.5). Neue Änderungen kommen nicht mehr hierher. |
 
 ### Bereiche
 
@@ -56,7 +57,7 @@ Die Grundregeln stehen in der [Constitution](../.specify/memory/constitution.md)
 | 3. Plan | `/speckit-plan` | `plan.md` mit neuer Version, Dateien, Datenbank, Abnahmekriterien und Testschritten. Moritz bestätigt den Plan. |
 | 4. Aufgaben | `/speckit-tasks`, optional `/speckit-analyze` | `tasks.md`, Prüfung auf Widersprüche zwischen Spec, Plan und Constitution |
 | 5. Umsetzung | `/speckit-implement`, dann `/speckit-converge` | Code auf einem eigenen Branch als Pull Request, mit Version, CHANGELOG und nachgetragenem Status in `anforderungen/` |
-| 6. Freigabe | ohne Befehl | netcup-Snapshot, Freigabe-Vorschläge in der Claude MCP Bridge (laufen nach etwa einer Stunde ab), SHA-256-Abgleich live gegen Branch, Merge, Tag `msb-rental-vX.Y.Z` (setzt Moritz in GitHub) |
+| 6. Freigabe | ohne Befehl | netcup-Snapshot, Freigabe-Vorschläge in der Claude MCP Bridge (laufen nach etwa einer Stunde ab, je Datei nur ein Vorschlag), SHA-256-Abgleich live gegen Branch, Merge, Tag `msb-rental-vX.Y.Z`. Snapshot, Vorschläge und Freigabe werden in `plan.md` eingetragen, **bevor** der Pull Request gemergt wird. |
 
 Kleine Korrekturen (Tippfehler, Text in einer Mail) brauchen keinen Feature-Ordner. Auch sie sind eine neue Version mit CHANGELOG-Eintrag und gehen über einen Pull Request.
 
