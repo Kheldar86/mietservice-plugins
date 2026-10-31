@@ -32,17 +32,19 @@ Die 17 Nachträge aus [nachtraege.md](../anforderungen/nachtraege.md) bekommen 3
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
+Geprüft gegen Constitution **1.1.0** (beschlossen mit #5).
+
 | Grundsatz | Prüfung | Ergebnis |
 |---|---|---|
 | I. Die Spezifikation ist die Quelle | Das Feature schließt genau die Lücke „Code ohne Anforderung“. Keine Nummer wird neu vergeben. | erfüllt |
 | II. Jede Änderung ist eine neue Version | Gilt für Codeänderungen. Hier ändert sich kein Code, deshalb keine neue Version (FR-010). | entfällt, begründet |
 | III. Keine Geheimnisse | Texte ohne Schlüssel und ohne Werte aus `msb_settings`. Der vorbelegte Link zur Google-Bewertung wird bewusst nicht übernommen. | erfüllt |
-| IV. Live nur über Snapshot und Freigabe | Nichts geht live. Keine Bridge-Vorschläge. | entfällt |
-| V. Prüfbar und getestet | Jede neue Anforderung ist einzeln prüfbar. Die Prüfung steht in [quickstart.md](quickstart.md) und wurde am heutigen Stand getestet. | erfüllt |
+| IV. Live nur über Snapshot und Freigabe | Nichts geht live, keine Bridge-Vorschläge. Laut Ablauf Schritt 5 brauchen reine Doku-Änderungen weder Freigabe noch Tag. | entfällt, durch 1.1.0 ausdrücklich gedeckt |
+| V. Prüfbar und getestet | Jede neue Anforderung ist einzeln prüfbar. Die Prüfung steht in [quickstart.md](quickstart.md) und wurde am heutigen Stand getestet. Sie besteht aus Shell-Befehlen und braucht keine Datei unter `tests/`. | erfüllt |
 | VI. Recht und Geld zuerst | Texte zu Belegen, EÜR und Löschfristen geben das live laufende Verhalten wieder und entscheiden nichts Neues. Die offene Frage an den Steuerberater bei PAY-23 bleibt stehen. | erfüllt |
 | VII. Einfach und passend zum Bestand | Gleiches Format wie die bestehenden Anforderungen ([Format](contracts/anforderung-format.md)). | erfüllt |
 
-**Nach Phase 1 erneut geprüft**: keine Änderung. Die Zahl der Nummern (39 statt geschätzt 25 bis 30) folgt aus der Entscheidung „je prüfbarer Regel“ und verletzt keinen Grundsatz.
+**Nach Phase 1 erneut geprüft** (31.10.2026, nach der Klärung): keine Verstöße. Die Zahl der Nummern (39 statt geschätzt 25 bis 30) folgt aus „je prüfbarer Regel“ und FR-013. FR-012 (bestehende Texte bleiben) stützt Grundsatz I: Nummern und Texte bestehender Anforderungen werden nicht stillschweigend geändert.
 
 ## Project Structure
 
@@ -87,7 +89,7 @@ specs/anforderungen/
 
 ## Freigabe
 
-Reine Doku: kein Snapshot, keine Bridge, kein Tag. Nach dem Merge ist das Feature abgeschlossen.
+Reine Doku: kein Snapshot, keine Bridge, kein Tag (Constitution 1.1.0, Ablauf Schritt 5). Nach dem Merge ist das Feature abgeschlossen.
 
 | Schritt | Wann | Notiz |
 |---|---|---|
