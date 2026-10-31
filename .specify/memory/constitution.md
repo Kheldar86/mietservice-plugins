@@ -18,11 +18,11 @@ Ins Repository, in Spezifikationen, Pläne, Aufgaben, Tests, Commits und Pull Re
 
 ### IV. Live nur über Snapshot und Freigabe (nicht verhandelbar)
 
-Code geht nur über die Claude MCP Bridge live. Vorher wird ein netcup-Snapshot angelegt. Claude stellt Freigabe-Vorschläge ein, Moritz gibt sie im WordPress-Backend frei. Vorschläge laufen nach etwa einer Stunde ab. Nach der Freigabe werden die Live-Dateien per SHA-256 mit dem Branch abgeglichen. Kein anderes Werkzeug ändert die Live-Seite.
+Code geht nur über die Claude MCP Bridge live. Vorher wird ein netcup-Snapshot angelegt. Claude stellt Freigabe-Vorschläge ein, Moritz gibt sie im WordPress-Backend frei. Vorschläge laufen nach etwa einer Stunde ab. Je Datei gibt es höchstens einen offenen Vorschlag. Mehrere Änderungen an einer Datei werden zusammengefasst, weil ein zweiter Vorschlag nach Freigabe des ersten verworfen wird. Nach der Freigabe werden die Live-Dateien per SHA-256 mit dem Branch abgeglichen. Snapshot, Vorschläge, Freigabe und Abgleich werden im Feature-Ordner vermerkt, bevor der Pull Request gemergt wird. Kein anderes Werkzeug ändert die Live-Seite.
 
 ### V. Prüfbar und getestet
 
-Jede Anforderung ist so formuliert, dass sie sich prüfen lässt. Jeder Plan nennt Abnahmekriterien und Testschritte. Getestet wird zuerst lokal, live nur mit Buchungen, die als Testbuchung markiert sind (Belege `TEST-JJJJ-0001`). Echte Kunden bekommen keine Testmails.
+Jede Anforderung ist so formuliert, dass sie sich prüfen lässt. Jeder Plan nennt Abnahmekriterien und Testschritte. Getestet wird zuerst lokal. Lokale Tests liegen unter `tests/` außerhalb der Plugin-Ordner und werden nie live eingespielt. Live wird nur mit Buchungen getestet, die als Testbuchung markiert sind (Belege `TEST-JJJJ-0001`). Echte Kunden bekommen keine Testmails.
 
 ### VI. Recht und Geld zuerst
 
@@ -44,10 +44,10 @@ Die Plugins bleiben eigenständiges WordPress-PHP ohne Build-Schritt und ohne ne
 2. `/speckit-clarify` klärt offene Punkte. Entscheidungen von Moritz werden mit Datum vermerkt.
 3. `/speckit-plan` erstellt den Plan mit neuer Version, betroffenen Dateien, Datenbankänderung, Abnahmekriterien und Testschritten. Moritz bestätigt den Plan.
 4. `/speckit-tasks` und `/speckit-implement` setzen ihn um, auf einem eigenen Branch als Pull Request. Der PR enthält Code, Version, CHANGELOG und die nachgetragenen Status in `specs/anforderungen/`.
-5. Freigabe nach Grundsatz IV, dann Merge und Tag `msb-rental-vX.Y.Z` bzw. `claude-mcp-bridge-vX.Y.Z`.
+5. Freigabe nach Grundsatz IV und Vermerk im Feature-Ordner, dann Merge und Tag `msb-rental-vX.Y.Z` bzw. `claude-mcp-bridge-vX.Y.Z`. Reine Doku-Änderungen ohne Code brauchen weder Freigabe noch Tag.
 
 ## Governance
 
-Diese Constitution geht allen anderen Vorgaben im Repository vor. Jeder Plan prüft sie im Abschnitt „Constitution Check“, und jeder Pull Request bestätigt sie über die PR-Vorlage. Änderungen an der Constitution beschließt Moritz. Sie erhöhen deren Version: MAJOR, wenn ein Grundsatz wegfällt oder sich grundlegend ändert, MINOR für einen neuen Grundsatz oder Abschnitt, PATCH für Klarstellungen.
+Diese Constitution geht allen anderen Vorgaben im Repository vor. Jeder Plan prüft sie im Abschnitt „Constitution Check“, und jeder Pull Request bestätigt sie über die PR-Vorlage. Arbeitshilfen sind `CLAUDE.md` (Hinweise für Claude) und `specs/README.md` (Ablauf im Einzelnen). Bei Widerspruch gilt die Constitution. Änderungen an der Constitution beschließt Moritz. Sie erhöhen deren Version: MAJOR, wenn ein Grundsatz wegfällt oder sich grundlegend ändert, MINOR für einen neuen Grundsatz oder Abschnitt, PATCH für Klarstellungen.
 
-**Version**: 1.0.0 | **Ratified**: 2026-10-27 | **Last Amended**: 2026-10-27
+**Version**: 1.1.0 | **Ratified**: 2026-10-27 | **Last Amended**: 2026-10-31
