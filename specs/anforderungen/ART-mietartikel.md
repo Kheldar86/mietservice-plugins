@@ -11,6 +11,8 @@
 | ART-03 | MUSS | umgesetzt (bis 1.2.7) |
 | ART-04 | MUSS | umgesetzt (bis 1.2.7) |
 | ART-05 | SOLL | umgesetzt (bis 1.2.7) |
+| ART-06 | MUSS | umgesetzt in 1.8.2 (seit 1.8.0, 1.8.1) |
+| ART-07 | SOLL | umgesetzt in 1.8.0 |
 
 ### ART-01 · MUSS
 
@@ -41,3 +43,15 @@ Nur veröffentlichte Artikel sind buchbar und erscheinen im Warenkorb. Ein Artik
 Mietbedingungen stehen nicht im Artikeltext (G-03).
 
 **Status:** umgesetzt (bis 1.2.7)
+
+### ART-06 · MUSS
+
+Kasten „Kleinanzeigen-Vorlage“ in jedem veröffentlichten Artikel: Titel (höchstens 65 Zeichen), Beschreibung aus den vorhandenen Feldern mit aktiven Preisregeln und „Abholung und Rückgabe in Bernau.“, Tagespreis, Fotos als ZIP. Kein automatisches Einstellen.
+
+**Status:** umgesetzt in 1.8.2 (seit 1.8.0, 1.8.1)
+
+### ART-07 · SOLL
+
+Haken „Anzeige ist auf dem Stand dieser Vorlage“. Ändern sich danach Text, Preis oder Fotos, zeigt die Artikelliste „veraltet“. Optionales Feld für den Link zur Anzeige.
+
+**Status:** umgesetzt in 1.8.0

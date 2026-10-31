@@ -11,12 +11,20 @@
 | IF-03 | MUSS | umgesetzt (bis 1.2.7) |
 | IF-04 | MUSS | umgesetzt (bis 1.2.7) |
 | IF-05 | MUSS | umgesetzt (bis 1.2.7) |
-| IF-06 | MUSS | umgesetzt (bis 1.2.7); seit 1.6.0 Beleg-Mails, seit 1.8.3 AGB und Widerrufsbelehrung als PDF an der Mail „Bestätigt“ |
+| IF-06 | MUSS | umgesetzt (bis 1.2.7); seit 1.6.0 Beleg-Mails, seit 1.8.3 AGB und Widerrufsbelehrung als PDF an der Mail „Bestätigt“; siehe B-15 |
 | IF-07 | MUSS | umgesetzt (bis 1.2.7) |
 | IF-08 | MUSS | umgesetzt (bis 1.2.7) |
 | IF-09 | MUSS | umgesetzt (bis 1.2.7) |
 | IF-10 | MUSS | umgesetzt (bis 1.2.7) |
 | IF-11 | MUSS | umgesetzt (bis 1.2.7) |
+| IF-12 | MUSS | umgesetzt in 1.5.1 |
+| IF-13 | MUSS | umgesetzt in 1.5.3 |
+| IF-14 | MUSS | umgesetzt in 1.5.8 (seit 1.5.5) |
+| IF-15 | MUSS | umgesetzt in 1.6.1, abweichend vom CHANGELOG: zuerst Theme-Logo |
+| IF-16 | MUSS | umgesetzt in 1.6.2 |
+| IF-17 | MUSS | umgesetzt in 1.8.0 |
+| IF-18 | MUSS | umgesetzt in 1.8.3 |
+| IF-19 | MUSS | umgesetzt in 1.8.4 |
 
 ## Shortcodes (msb-rental)
 
@@ -79,7 +87,7 @@ msb_start, msb_end, msb_cat (Vorauswahl Zeitraum und Kategorie); msb_pay, for, p
 
 Vorlagen in den Einstellungen: Admin-Benachrichtigung, Eingang, Bestätigung, Stornierung, Zahlungslink, Kaution freigegeben. Platzhalter laut Liste in den Einstellungen, inklusive {field:schlüssel} für Formularfelder.
 
-**Status:** umgesetzt (bis 1.2.7); seit 1.6.0 Beleg-Mails, seit 1.8.3 AGB und Widerrufsbelehrung als PDF an der Mail „Bestätigt“
+**Status:** umgesetzt (bis 1.2.7); seit 1.6.0 Beleg-Mails, seit 1.8.3 AGB und Widerrufsbelehrung als PDF an der Mail „Bestätigt“; siehe B-15
 
 ### IF-07 · MUSS
 
@@ -116,3 +124,55 @@ msb-rental nutzt Stripe (API 2024-06-20: Checkout Sessions, PaymentIntents, Webh
 Zugangsdaten zu allen Diensten liegen nur in den Einstellungen und werden nach G-10 geschützt.
 
 **Status:** umgesetzt (bis 1.2.7)
+
+## Ergänzt am 31.10.2026 (Funktionen seit 1.5.1)
+
+Diese Nummern wurden nachträglich für Funktionen vergeben, die schon live waren (Feature 001).
+
+### IF-12 · MUSS
+
+Versandprotokoll der letzten 30 Mails der Webseite, ohne automatisches Laden.
+
+**Status:** umgesetzt in 1.5.1
+
+### IF-13 · MUSS
+
+Platzhalter `{source}` und `{created_by}`. Nutzt die Vorlage einen davon, entfällt der automatische Zusatz.
+
+**Status:** umgesetzt in 1.5.3
+
+### IF-14 · MUSS
+
+Platzhalter `{payment_info}` mit dem Absatz zur Zahlungsart. Fehlt er in „Eingegangen“ oder „Bestätigt“ und ist eine Online-Zahlung offen, wird der Bezahlknopf angehängt.
+
+**Status:** umgesetzt in 1.5.8 (seit 1.5.5)
+
+### IF-15 · MUSS
+
+Dasselbe Logo oben in allen Mails des Plugins.
+
+**Status:** umgesetzt in 1.6.1, abweichend vom CHANGELOG: zuerst Theme-Logo
+
+### IF-16 · MUSS
+
+Mail zum Beleg mit Kasten (Nummer, Datum, Buchung, Zeitraum, Betrag, Zahlungsvermerk, Knopf „PDF ansehen“) und einem Satz je Belegart. Platzhalter `{document_summary}` und `{document_note}`; fehlt der Kasten in der Vorlage, steht er vor „Viele Grüße“. Der Betreff der Kautionsmail nennt die Belegart.
+
+**Status:** umgesetzt in 1.6.2
+
+### IF-17 · MUSS
+
+Kurzlink `/ka/…` je Artikel mit Weiterleitung und `utm_source=kleinanzeigen`. Aufrufe je Monat, ohne HEAD-Anfragen, Bots und Vorschauen und ohne Nutzer, die Artikel bearbeiten dürfen.
+
+**Status:** umgesetzt in 1.8.0
+
+### IF-18 · MUSS
+
+Die Mail „Bestätigt“ hängt AGB und Widerrufsbelehrung als PDF an (§ 312f BGB, siehe G-03). Das PDF wird neu erzeugt, sobald sich eine der Seiten ändert. Ältere Fassungen bleiben geschützt erhalten.
+
+**Status:** umgesetzt in 1.8.3
+
+### IF-19 · MUSS
+
+Die Bewertungsbitte steht nur in der Mail zur Rechnung, nur mit Haken und nur, wenn der Link „Google-Bewertung“ gesetzt ist. Stornorechnung, Korrektur und Kautionsabrechnung bleiben ohne Bitte.
+
+**Status:** umgesetzt in 1.8.4
