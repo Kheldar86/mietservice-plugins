@@ -101,7 +101,7 @@ Alle Pfade relativ zum Repository. Geändert werden nur Dateien unter `specs/` (
 - [X] T021 Stichprobe FR-006: drei zufällige neue Nummern gegen den Code in `plugins/` prüfen. Außerdem PAY-31, IF-15 und DSG-08 auf den Abweichungsvermerk prüfen. Für dieselben drei Nummern die Version aus dem Status im CHANGELOG nachschlagen; das muss je Nummer in unter einer Minute gelingen (SC-003).
 - [X] T022 Mit `grep -rnE 'sk_live|whsec_|g\.page/r/'` unter `specs/anforderungen/` und `specs/001-nachtraege-nummerieren/` sicherstellen, dass keine Schlüssel und keine Links aus `msb_settings` im Diff stehen (FR-011).
 - [X] T023 In `specs/001-nachtraege-nummerieren/plan.md` die Abnahmekriterien abhaken und in der Freigabetabelle „Pull Request“ eintragen.
-- [ ] T024 Branch `001-nachtraege-nummerieren` pushen und einen Pull Request nach der PR-Vorlage öffnen: Link auf `specs/001-nachtraege-nummerieren/`, Betroffene Anforderungen = 39 neue IDs plus die Verweise aus US3, keine Version, Prüfergebnisse aus T020 bis T022.
+- [X] T024 Branch `001-nachtraege-nummerieren` pushen und einen Pull Request nach der PR-Vorlage öffnen: Link auf `specs/001-nachtraege-nummerieren/`, Betroffene Anforderungen = 39 neue IDs plus die Verweise aus US3, keine Version, Prüfergebnisse aus T020 bis T022.
 
 ---
 
