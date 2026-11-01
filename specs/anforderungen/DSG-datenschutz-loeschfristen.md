@@ -28,7 +28,7 @@ Personenbezogene Daten werden nur so lange gespeichert, wie es für die Buchung 
 
 ### DSG-02 · MUSS
 
-Buchungen mit Zahlung oder Beleg, ihre Positionen, Zahlungen und Belege werden 8 Jahre ab Ende des Kalenderjahres aufbewahrt, in dem der letzte Beleg ausgestellt oder die letzte Zahlung gebucht wurde, je nachdem, was später liegt (§ 147 AO, § 257 HGB). Danach werden sie automatisch gelöscht. Siehe F-13.
+Buchungen mit Zahlung oder Beleg, ihre Positionen, Zahlungen und Belege werden 8 Jahre ab Ende des Kalenderjahres aufbewahrt, in dem der letzte Beleg ausgestellt oder die letzte Zahlung gebucht wurde, je nachdem, was später liegt (§ 147 AO, § 257 HGB). Danach werden sie automatisch gelöscht. Die gemeinsame Aufbewahrung aller Belege einer Buchung bis zum Ablauf der jüngsten Frist ist gewollt (Entscheidung 01.11.2026, F-13).
 
 **Status:** umgesetzt in 1.7.0 (Regel „Buchungen mit Zahlung oder Beleg“, läuft im Probelauf, Text angepasst am 01.11.2026, B-16)
 
