@@ -46,7 +46,7 @@ Wer die Befundliste öffnet, sieht B-14 bis B-16 als behoben, mit Datum. Die Ver
 
 **Acceptance Scenarios**:
 
-1. **Given** die Befundliste, **When** man B-14 bis B-16 liest, **Then** steht in „Status heute“ jeweils „behoben am 31.10.2026 (Spec angepasst)“.
+1. **Given** die Befundliste, **When** man B-14 bis B-16 liest, **Then** steht in „Status heute“ jeweils „behoben am <Datum der Umsetzung> (Spec angepasst)“.
 
 ### Edge Cases
 
@@ -62,8 +62,8 @@ Wer die Befundliste öffnet, sieht B-14 bis B-16 als behoben, mit Datum. Die Ver
 - **FR-002**: Der Text von IF-06 MUSS alle Mailvorlagen nennen, die sich in den Einstellungen pflegen lassen: unter „E-Mails“ Team-Benachrichtigung, Eingang, Bestätigung, Stornierung, Zahlungslink, Kaution freigegeben; unter „Belege“ die Vorlagen für die Mail zur Rechnung und zur Kautionsabrechnung. Die Platzhalter und `{field:schlüssel}` bleiben erwähnt.
 - **FR-003**: IF-06 MUSS zusätzlich die Mails mit festem Text nennen, die sich nicht über Vorlagen ändern lassen: Bitte um Bestätigung bei manuellen Buchungen (BKG-18), Info an das Team nach dieser Bestätigung (BKG-19), Storno-Info an das Team, Bestätigung der E-Mail-Adresse beim Kundenkonto und Kopie eines Belegs an die Buchungsadresse.
 - **FR-004**: Der Text von DSG-02 MUSS die Frist so beschreiben, wie sie berechnet wird: 8 Jahre ab Ende des Kalenderjahres des letzten Belegs oder der letzten Zahlung der Buchung, je nachdem, was später liegt. Die Rechtsgrundlagen (§ 147 AO, § 257 HGB) bleiben genannt.
-- **FR-005**: Der Status der drei Anforderungen MUSS die Anpassung mit Datum und Befund vermerken, z. B. `umgesetzt in 1.5.7 (Text angepasst am 31.10.2026, B-14)`. Die Verweise „siehe B-14/15/16“ und „überholt in Teilen …“ entfallen.
-- **FR-006**: In `befunde-und-fragen.md` MUSS der Status von B-14, B-15 und B-16 auf `behoben am 31.10.2026 (Spec angepasst)` gesetzt werden.
+- **FR-005**: Der Status der drei Anforderungen MUSS die Anpassung mit Datum und Befund vermerken, mit dem Datum der Umsetzung, z. B. `umgesetzt in 1.5.7 (Text angepasst am 01.11.2026, B-14)`. Die Verweise „siehe B-14/15/16“ und „überholt in Teilen …“ entfallen.
+- **FR-006**: In `befunde-und-fragen.md` MUSS der Status von B-14, B-15 und B-16 auf `behoben am <Datum der Umsetzung> (Spec angepasst)` gesetzt werden.
 - **FR-007**: Nummern bleiben unverändert. Es entstehen keine neuen Anforderungen.
 - **FR-008**: Die Änderung DARF keinen Plugin-Code, keine Plugin-Version und kein Plugin-CHANGELOG ändern.
 
@@ -84,6 +84,7 @@ Wer die Befundliste öffnet, sieht B-14 bis B-16 als behoben, mit Datum. Die Ver
 ## Assumptions
 
 - Maßgeblich ist der Code auf `main` (msb-rental 1.8.5).
+- Datum in Status und Befundliste ist der Tag der Umsetzung, nicht der Tag der Spec.
 - Die Frist nach DSG-02 läuft im Code nie kürzer als ab dem Jahr der Rechnung, weil das spätere von letztem Beleg und letzter Zahlung nie vor dem Jahr der Rechnung liegt. Die gesetzliche Mindestfrist ist damit eingehalten. Ob die etwas längere Aufbewahrung einzelner Belege derselben Buchung mit der Datenminimierung vereinbar ist, entscheidet dieses Feature nicht (Constitution VI). Die Frage wird als offene Frage an den Steuerberater bzw. Datenschutz vermerkt, nicht beantwortet.
 - Die Status-Version für ADM-04 ist 1.5.7, weil seitdem der heutige Stand gilt (Zahlung seit 1.5.5). IF-06 bekommt 1.6.2 (letzte Änderung an Vorlagen), DSG-02 bleibt bei 1.7.0.
 - Reine Doku: weder Freigabe noch Tag (Constitution 1.1.0, Ablauf Schritt 5).
