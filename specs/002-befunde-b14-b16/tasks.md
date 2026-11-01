@@ -56,9 +56,9 @@ Keine Aufgaben: Es gibt keine gemeinsame Vorarbeit, die User Stories blockiert.
 
 **Independent Test**: SC-002 aus [quickstart.md](quickstart.md): keine Ausgabe, `3`, `1`.
 
-- [ ] T007 [US2] In `specs/anforderungen/befunde-und-fragen.md` die Spalte „Status heute“ von B-14, B-15 und B-16 wie in der Tabelle „Befundliste“ in data-model.md setzen (B-16 mit „offene Frage F-13“).
-- [ ] T008 [US2] In `specs/anforderungen/befunde-und-fragen.md` die Überschrift „## Fragen an Moritz (alle beantwortet)“ in „## Fragen an Moritz“ ändern und F-13 wörtlich aus data-model.md als letzten Eintrag der Fragenliste anfügen (depends on T007, gleiche Datei).
-- [ ] T009 [US2] SC-002 aus `specs/002-befunde-b14-b16/quickstart.md` ausführen (depends on T003–T005, T007, T008, weil die Prüfung auch die Bereichsdateien auf „siehe B-1x“ durchsucht).
+- [X] T007 [US2] In `specs/anforderungen/befunde-und-fragen.md` die Spalte „Status heute“ von B-14, B-15 und B-16 wie in der Tabelle „Befundliste“ in data-model.md setzen (B-16 mit „offene Frage F-13“).
+- [X] T008 [US2] In `specs/anforderungen/befunde-und-fragen.md` die Überschrift „## Fragen an Moritz (alle beantwortet)“ in „## Fragen an Moritz“ ändern und F-13 wörtlich aus data-model.md als letzten Eintrag der Fragenliste anfügen (depends on T007, gleiche Datei).
+- [X] T009 [US2] SC-002 aus `specs/002-befunde-b14-b16/quickstart.md` ausführen (depends on T003–T005, T007, T008, weil die Prüfung auch die Bereichsdateien auf „siehe B-1x“ durchsucht).
 
 **Checkpoint**: Beide User Stories fertig
 
