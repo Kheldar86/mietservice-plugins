@@ -11,7 +11,7 @@
 | IF-03 | MUSS | umgesetzt (bis 1.2.7) |
 | IF-04 | MUSS | umgesetzt (bis 1.2.7) |
 | IF-05 | MUSS | umgesetzt (bis 1.2.7) |
-| IF-06 | MUSS | umgesetzt (bis 1.2.7); seit 1.6.0 Beleg-Mails, seit 1.8.3 AGB und Widerrufsbelehrung als PDF an der Mail „Bestätigt“; siehe B-15 |
+| IF-06 | MUSS | umgesetzt in 1.6.2 (E-Mail-Vorlagen seit 1.2.7, Beleg-Vorlagen seit 1.6.0, Text angepasst am 01.11.2026, B-15) |
 | IF-07 | MUSS | umgesetzt (bis 1.2.7) |
 | IF-08 | MUSS | umgesetzt (bis 1.2.7) |
 | IF-09 | MUSS | umgesetzt (bis 1.2.7) |
@@ -85,9 +85,9 @@ msb_start, msb_end, msb_cat (Vorauswahl Zeitraum und Kategorie); msb_pay, for, p
 
 ### IF-06 · MUSS
 
-Vorlagen in den Einstellungen: Admin-Benachrichtigung, Eingang, Bestätigung, Stornierung, Zahlungslink, Kaution freigegeben. Platzhalter laut Liste in den Einstellungen, inklusive {field:schlüssel} für Formularfelder.
+Mailvorlagen mit Betreff und Text in den Einstellungen: unter „E-Mails“ Team-Benachrichtigung, Eingang, Bestätigung, Stornierung, Zahlungslink und Kaution freigegeben, jede einzeln abschaltbar; unter „Belege“ die Mail zu „Rechnung, Stornorechnung, Korrektur“ und zur „Kautionsabrechnung“, gemeinsam abschaltbar (IF-16). Platzhalter laut Liste in den Einstellungen, inklusive {field:schlüssel} für Formularfelder. Einen festen Text ohne Vorlage haben: die Bitte um Bestätigung bei manuellen Buchungen (BKG-18), die Info an das Team nach dieser Bestätigung (BKG-19), die Storno-Info an das Team, die Bestätigung der E-Mail-Adresse beim Kundenkonto und die Kopie eines Belegs an die Buchungsadresse.
 
-**Status:** umgesetzt (bis 1.2.7); seit 1.6.0 Beleg-Mails, seit 1.8.3 AGB und Widerrufsbelehrung als PDF an der Mail „Bestätigt“; siehe B-15
+**Status:** umgesetzt in 1.6.2 (E-Mail-Vorlagen seit 1.2.7, Beleg-Vorlagen seit 1.6.0, Text angepasst am 01.11.2026, B-15)
 
 ### IF-07 · MUSS
 

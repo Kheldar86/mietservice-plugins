@@ -24,8 +24,8 @@
 
 ## Phase 1: Setup
 
-- [ ] T001 Bestätigung des Plans durch Moritz mit Datum in der Freigabetabelle von `specs/002-befunde-b14-b16/plan.md` eintragen. Ohne Bestätigung nicht weitermachen.
-- [ ] T002 Prüfen, dass ADM-04, IF-06 und DSG-02 in `specs/anforderungen/ADM-backend.md`, `specs/anforderungen/IF-schnittstellen.md` und `specs/anforderungen/DSG-datenschutz-loeschfristen.md` im Status noch die Teile enthalten, die unter „Entfällt“ in `specs/002-befunde-b14-b16/data-model.md` genannt sind (also seit Feature 001 unverändert sind). Weicht einer ab, abbrechen und data-model.md zuerst anpassen.
+- [X] T001 Bestätigung des Plans durch Moritz mit Datum in der Freigabetabelle von `specs/002-befunde-b14-b16/plan.md` eintragen. Ohne Bestätigung nicht weitermachen.
+- [X] T002 Prüfen, dass ADM-04, IF-06 und DSG-02 in `specs/anforderungen/ADM-backend.md`, `specs/anforderungen/IF-schnittstellen.md` und `specs/anforderungen/DSG-datenschutz-loeschfristen.md` im Status noch die Teile enthalten, die unter „Entfällt“ in `specs/002-befunde-b14-b16/data-model.md` genannt sind (also seit Feature 001 unverändert sind). Weicht einer ab, abbrechen und data-model.md zuerst anpassen.
 
 ---
 
@@ -41,10 +41,10 @@ Keine Aufgaben: Es gibt keine gemeinsame Vorarbeit, die User Stories blockiert.
 
 **Independent Test**: SC-001 aus [quickstart.md](quickstart.md) (Abgleich mit R-01 bis R-06) und SC-003 (Übersicht = Abschnitte für ADM, IF, DSG).
 
-- [ ] T003 [P] [US1] In `specs/anforderungen/ADM-backend.md` den Text von ADM-04 durch „Text neu“ aus data-model.md ersetzen und den Status in Übersicht und Abschnitt auf `umgesetzt in 1.5.7 (Zahlung seit 1.5.5, Text angepasst am 01.11.2026, B-14)` setzen.
-- [ ] T004 [P] [US1] In `specs/anforderungen/IF-schnittstellen.md` den Text von IF-06 durch „Text neu“ aus data-model.md ersetzen und den Status in Übersicht und Abschnitt auf `umgesetzt in 1.6.2 (E-Mail-Vorlagen seit 1.2.7, Beleg-Vorlagen seit 1.6.0, Text angepasst am 01.11.2026, B-15)` setzen.
-- [ ] T005 [P] [US1] In `specs/anforderungen/DSG-datenschutz-loeschfristen.md` den Text von DSG-02 durch „Text neu“ aus data-model.md ersetzen und den Status in Übersicht und Abschnitt auf `umgesetzt in 1.7.0 (Regel „Buchungen mit Zahlung oder Beleg“, läuft im Probelauf, Text angepasst am 01.11.2026, B-16)` setzen.
-- [ ] T006 [US1] SC-001 und SC-003 aus `specs/002-befunde-b14-b16/quickstart.md` ausführen. Rechenbeispiel DSG-02 nachvollziehen: Rechnung 2026, Kautionsabrechnung 2027 → 31.12.2035 (depends on T003–T005).
+- [X] T003 [P] [US1] In `specs/anforderungen/ADM-backend.md` den Text von ADM-04 durch „Text neu“ aus data-model.md ersetzen und den Status in Übersicht und Abschnitt auf `umgesetzt in 1.5.7 (Zahlung seit 1.5.5, Text angepasst am 01.11.2026, B-14)` setzen.
+- [X] T004 [P] [US1] In `specs/anforderungen/IF-schnittstellen.md` den Text von IF-06 durch „Text neu“ aus data-model.md ersetzen und den Status in Übersicht und Abschnitt auf `umgesetzt in 1.6.2 (E-Mail-Vorlagen seit 1.2.7, Beleg-Vorlagen seit 1.6.0, Text angepasst am 01.11.2026, B-15)` setzen.
+- [X] T005 [P] [US1] In `specs/anforderungen/DSG-datenschutz-loeschfristen.md` den Text von DSG-02 durch „Text neu“ aus data-model.md ersetzen und den Status in Übersicht und Abschnitt auf `umgesetzt in 1.7.0 (Regel „Buchungen mit Zahlung oder Beleg“, läuft im Probelauf, Text angepasst am 01.11.2026, B-16)` setzen.
+- [X] T006 [US1] SC-001 und SC-003 aus `specs/002-befunde-b14-b16/quickstart.md` ausführen. Rechenbeispiel DSG-02 nachvollziehen: Rechnung 2026, Kautionsabrechnung 2027 → 31.12.2035 (depends on T003–T005).
 
 **Checkpoint**: Die drei Anforderungen sind richtig. Damit ist das MVP erreicht.
 

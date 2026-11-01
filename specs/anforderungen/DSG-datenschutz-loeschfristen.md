@@ -7,7 +7,7 @@
 | ID | Stufe | Status |
 |---|---|---|
 | DSG-01 | MUSS | umgesetzt in 1.7.0 |
-| DSG-02 | MUSS | umgesetzt in 1.7.0 (Regel „Buchungen mit Zahlung oder Beleg“, läuft im Probelauf); siehe B-16 |
+| DSG-02 | MUSS | umgesetzt in 1.7.0 (Regel „Buchungen mit Zahlung oder Beleg“, läuft im Probelauf, Text angepasst am 01.11.2026, B-16) |
 | DSG-03 | MUSS | umgesetzt in 1.7.0 (Hinweis „gesperrt bis …“) |
 | DSG-04 | MUSS | umgesetzt in 1.7.0, läuft im Probelauf seit 25.10.2026 |
 | DSG-05 | MUSS | umgesetzt in 1.7.0, läuft im Probelauf seit 25.10.2026; Buchungen ohne Zahlung nach Abschluss siehe DSG-08 |
@@ -28,9 +28,9 @@ Personenbezogene Daten werden nur so lange gespeichert, wie es für die Buchung 
 
 ### DSG-02 · MUSS
 
-Buchungen mit Zahlung oder Rechnung, ihre Positionen, Zahlungen und Rechnungen werden 8 Jahre ab Ende des Kalenderjahres der Rechnung aufbewahrt (§ 147 AO, § 257 HGB) und danach automatisch gelöscht.
+Buchungen mit Zahlung oder Beleg, ihre Positionen, Zahlungen und Belege werden 8 Jahre ab Ende des Kalenderjahres aufbewahrt, in dem der letzte Beleg ausgestellt oder die letzte Zahlung gebucht wurde, je nachdem, was später liegt (§ 147 AO, § 257 HGB). Danach werden sie automatisch gelöscht. Siehe F-13.
 
-**Status:** umgesetzt in 1.7.0 (Regel „Buchungen mit Zahlung oder Beleg“, läuft im Probelauf); siehe B-16
+**Status:** umgesetzt in 1.7.0 (Regel „Buchungen mit Zahlung oder Beleg“, läuft im Probelauf, Text angepasst am 01.11.2026, B-16)
 
 ### DSG-03 · MUSS
 
