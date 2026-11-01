@@ -90,7 +90,7 @@ Reine Doku: kein Snapshot, keine Bridge, kein Tag (Constitution 1.1.0, Ablauf Sc
 |---|---|---|
 | Plan bestätigt von Moritz | 01.11.2026 | |
 | Pull Request | 01.11.2026 | #7 |
-| Merge | | |
+| Merge | 01.11.2026 | #7 gemergt; F-13 am 01.11.2026 entschieden (gemeinsame Aufbewahrung), nachgetragen in befunde-und-fragen.md und DSG-02 |
 
 ## Complexity Tracking
 

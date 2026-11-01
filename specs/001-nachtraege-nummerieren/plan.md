@@ -95,7 +95,7 @@ Reine Doku: kein Snapshot, keine Bridge, kein Tag (Constitution 1.1.0, Ablauf Sc
 |---|---|---|
 | Plan bestätigt von Moritz | 31.10.2026 | nach /speckit-analyze und Behebung I1–I5 |
 | Pull Request | 31.10.2026 | #6 |
-| Merge | | |
+| Merge | 31.10.2026 | #6 gemergt |
 
 ## Complexity Tracking
 

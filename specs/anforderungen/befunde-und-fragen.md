@@ -21,9 +21,9 @@
 | B-13 | niedrig | Keine Rechnungserzeugung (PAY-19 bis PAY-24) und keine automatischen Löschfristen (DSG). | PAY-19 | behoben: Rechnungen 1.6.0, Löschfristen 1.7.0 |
 | B-14 | niedrig | ADM-04 sagt „Standardstatus bestätigt“. Seit 1.5.7 ist bei der manuellen Buchung „Angefragt“ vorausgewählt (ADM-08). (aus Feature 001, 31.10.2026) | ADM-04 | behoben am 01.11.2026 (Spec angepasst) |
 | B-15 | niedrig | IF-06 zählt nicht alle heutigen Vorlagen auf: Es fehlen u. a. die Mail mit dem Bestätigungslink (1.5.2) und die Mails zu Belegen (1.6.0). (aus Feature 001, 31.10.2026) | IF-06 | behoben am 01.11.2026 (Spec angepasst) |
-| B-16 | niedrig | DSG-02 rechnet die 8 Jahre ab dem Jahr „der Rechnung“. Der Code rechnet ab dem letzten Beleg bzw. der letzten Zahlung. (aus Feature 001, 31.10.2026) | DSG-02 | behoben am 01.11.2026 (Spec angepasst), offene Frage F-13 |
+| B-16 | niedrig | DSG-02 rechnet die 8 Jahre ab dem Jahr „der Rechnung“. Der Code rechnet ab dem letzten Beleg bzw. der letzten Zahlung. (aus Feature 001, 31.10.2026) | DSG-02 | behoben am 01.11.2026 (Spec angepasst), F-13 entschieden am 01.11.2026 |
 
-## Fragen an Moritz
+## Fragen an Moritz (alle beantwortet)
 
 - **F-01** Stornierung: Entschieden am 21.10.2026: Der Kunde storniert selbst in „Mein Konto“, mit gestaffelter Stornogebühr. Staffel: bis 7 Tage vorher kostenlos, 7 Tage bis 48 h 25 %, unter 48 h 50 % der Miete. Außerdem: Grundlage ist nur die Tagesmiete, ohne Grundgebühr. Bezugspunkt ist der Mietbeginn um 0 Uhr. Erstattung automatisch über Stripe, mit Info-Mail (PAY-17).
 - **F-02** Entschieden: Die Kleinunternehmerregelung gilt.
@@ -37,4 +37,4 @@
 - **F-10** Entschieden: nein, nur warnen.
 - **F-11** Rechnung: Entschieden, siehe PAY-20, PAY-23 und PAY-25.
 - **F-12** Rolle „Gesellschafter“: Entschieden, siehe ROL-01.
-- **F-13** Offen (01.11.2026): DSG-02 bewahrt alle Belege einer Buchung bis 8 Jahre nach dem letzten Beleg bzw. der letzten Zahlung auf. Ein früher Beleg derselben Buchung bleibt damit ggf. länger als gesetzlich nötig. Ist das mit der Datenminimierung (Art. 5 DSGVO) vereinbar, oder soll jeder Beleg nach seiner eigenen Frist gelöscht werden? Mit Steuerberater bzw. Datenschutz klären.
+- **F-13** Aufbewahrung der Belege einer Buchung: Entschieden am 01.11.2026: Alle Belege einer Buchung werden gemeinsam aufbewahrt, bis die Frist des jüngsten Belegs bzw. der letzten Zahlung abläuft (DSG-02). Begründung: Die Belege werden für einen steuer- und handelsrechtlichen Zweck vorgehalten, die Vollständigkeit der Buchführung bis zum Ablauf der letzten Frist. Die gemeinsame Aufbewahrung ist damit datenschutzrechtlich unbedenklich. Keine Codeänderung nötig.
