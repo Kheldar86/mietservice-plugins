@@ -77,10 +77,10 @@ specs/anforderungen/
 
 ## Abnahmekriterien
 
-- [ ] Prüfungen aus [quickstart.md](quickstart.md) für SC-001 bis SC-004 ohne Befund
-- [ ] Texte und Status zeichengleich mit [data-model.md](data-model.md)
-- [ ] F-13 steht in der Fragenliste, die Überschrift ist angepasst
-- [ ] Pull Request mit Link auf diesen Ordner; Moritz bestätigt den Plan vor der Umsetzung
+- [x] Prüfungen aus [quickstart.md](quickstart.md) für SC-001 bis SC-004 ohne Befund
+- [x] Texte und Status zeichengleich mit [data-model.md](data-model.md)
+- [x] F-13 steht in der Fragenliste, die Überschrift ist angepasst
+- [x] Pull Request mit Link auf diesen Ordner; Moritz bestätigt den Plan vor der Umsetzung
 
 ## Freigabe
 
