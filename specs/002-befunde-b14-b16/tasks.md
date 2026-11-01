@@ -69,7 +69,7 @@ Keine Aufgaben: Es gibt keine gemeinsame Vorarbeit, die User Stories blockiert.
 - [X] T010 SC-004 aus `specs/002-befunde-b14-b16/quickstart.md` ausführen (nur `specs/` im Diff gegen `origin/main`).
 - [X] T011 Mit `grep -nE 'sk_live|sk_test|whsec_|g\.page/r/'` in `specs/anforderungen/` und `specs/002-befunde-b14-b16/` sicherstellen, dass keine Schlüssel und keine Werte aus `msb_settings` im Diff stehen.
 - [X] T012 In `specs/002-befunde-b14-b16/plan.md` die Abnahmekriterien abhaken und in der Freigabetabelle „Pull Request“ eintragen.
-- [ ] T013 Branch `002-befunde-b14-b16` pushen und einen Pull Request nach der PR-Vorlage öffnen: Link auf `specs/002-befunde-b14-b16/`, Betroffene Anforderungen ADM-04, IF-06, DSG-02 (geändert), Befunde B-14 bis B-16, neue Frage F-13, keine Version, Prüfergebnisse aus T006, T009 bis T011. Danach die PR-Nummer in `specs/002-befunde-b14-b16/plan.md` eintragen und pushen.
+- [X] T013 Branch `002-befunde-b14-b16` pushen und einen Pull Request nach der PR-Vorlage öffnen: Link auf `specs/002-befunde-b14-b16/`, Betroffene Anforderungen ADM-04, IF-06, DSG-02 (geändert), Befunde B-14 bis B-16, neue Frage F-13, keine Version, Prüfergebnisse aus T006, T009 bis T011. Danach die PR-Nummer in `specs/002-befunde-b14-b16/plan.md` eintragen und pushen.
 
 ---
 
