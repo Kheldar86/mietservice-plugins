@@ -6,6 +6,7 @@
  * Außerdem: Vollständigkeitsprüfung auf der Bearbeitungsseite jedes Mietartikels.
  * Einstellungen (ab 1.2.1): Vermietung → Einstellungen → KI-Assistent.
  * SEO-Aufbau (ab 1.2.2): Produktart, SEO-Titel, Keyword-Zwischenüberschrift und interne Links.
+ * Ab 1.8.6: Antwortgrenze 16000 Tokens und Denkaufwand „medium“, weil die aktuellen Modelle vor der Antwort denken (KI-03).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,6 +21,8 @@ class MSB_Assistant {
 	const API_VERSION = '2023-06-01';
 	const MAX_IMAGES  = 6;
 	const MAX_BYTES   = 4718592; // 4,5 MB pro Bild.
+	const MAX_TOKENS  = 16000; // Denken + JSON-Antwort zusammen (ab 1.8.6, vorher 3000).
+	const EFFORT      = 'medium'; // Denkaufwand, gleich für alle drei Modelle.
 
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'menu' ), 10 );
@@ -487,7 +490,7 @@ class MSB_Assistant {
 	public static function ajax_generate() {
 		self::check_request();
 		if ( function_exists( 'set_time_limit' ) ) {
-			@set_time_limit( 180 ); // phpcs:ignore -- KI-Antwort kann bis zu einer Minute dauern.
+			@set_time_limit( 240 ); // phpcs:ignore -- KI-Antwort kann bis zu zwei Minuten dauern.
 		}
 		$s = self::settings();
 		if ( '' === $s['api_key'] ) {
@@ -519,7 +522,7 @@ class MSB_Assistant {
 
 		$body = array(
 			'model'         => $s['model'],
-			'max_tokens'    => 3000,
+			'max_tokens'    => self::MAX_TOKENS,
 			'system'        => self::system_prompt( $s['styleguide'] ),
 			'messages'      => array(
 				array(
@@ -528,6 +531,7 @@ class MSB_Assistant {
 				),
 			),
 			'output_config' => array(
+				'effort' => self::EFFORT,
 				'format' => array(
 					'type'   => 'json_schema',
 					'schema' => self::schema(),
@@ -538,7 +542,7 @@ class MSB_Assistant {
 		$res = wp_remote_post(
 			self::API_URL,
 			array(
-				'timeout' => 120,
+				'timeout' => 170,
 				'headers' => array(
 					'x-api-key'         => $s['api_key'],
 					'anthropic-version' => self::API_VERSION,
@@ -579,7 +583,13 @@ class MSB_Assistant {
 		}
 		$stop = is_array( $json ) && isset( $json['stop_reason'] ) ? $json['stop_reason'] : '';
 		$out  = json_decode( $text, true );
-		if ( 'refusal' === $stop || ! is_array( $out ) ) {
+		if ( 'max_tokens' === $stop ) {
+			wp_send_json_error( array( 'message' => 'Die Antwort der KI war zu lang und wurde abgeschnitten (max_tokens). Bitte erneut versuchen, bei Bedarf mit weniger Fotos oder kürzeren Notizen.' ) );
+		}
+		if ( 'refusal' === $stop ) {
+			wp_send_json_error( array( 'message' => 'Die KI hat die Anfrage abgelehnt (refusal). Bitte Fotos und Angaben prüfen und erneut versuchen.' ) );
+		}
+		if ( ! is_array( $out ) ) {
 			wp_send_json_error( array( 'message' => 'Die Antwort der KI war unvollständig (' . ( $stop ? $stop : 'kein Text' ) . '). Bitte erneut versuchen.' ) );
 		}
 
