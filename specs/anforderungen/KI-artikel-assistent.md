@@ -8,7 +8,7 @@
 |---|---|---|
 | KI-01 | MUSS | umgesetzt in 1.4.0 |
 | KI-02 | MUSS | umgesetzt (bis 1.2.7) |
-| KI-03 | MUSS | umgesetzt (bis 1.2.7) |
+| KI-03 | MUSS | geändert, umgesetzt in 1.8.6 |
 | KI-04 | MUSS | umgesetzt (bis 1.2.7) |
 | KI-05 | MUSS | umgesetzt (bis 1.2.7) |
 | KI-06 | MUSS | umgesetzt (bis 1.2.7) |
@@ -29,9 +29,9 @@ Eingabe: Kategorie und 1 bis 6 Fotos (JPEG, PNG, GIF, WebP, je höchstens 4,5 MB
 
 ### KI-03 · MUSS
 
-Modellwahl in den Einstellungen: Sonnet (Standard), Haiku, Opus. Antwort als festes JSON-Schema, höchstens 3000 Tokens, Zeitlimit 120 s. Bis zu 3 veröffentlichte Artikel dienen als Stilbeispiele.
+Modellwahl in den Einstellungen: Sonnet (Standard), Haiku, Opus. Antwort als festes JSON-Schema, höchstens 16000 Tokens (Denken und Antwort zusammen), Denkaufwand „medium“, Zeitlimit 170 s. Bricht die Antwort an der Grenze ab (`max_tokens`) oder lehnt die KI ab (`refusal`), nennt die Fehlermeldung den Grund. Bis zu 3 veröffentlichte Artikel dienen als Stilbeispiele.
 
-**Status:** umgesetzt (bis 1.2.7)
+**Status:** umgesetzt in 1.8.6 (vorher höchstens 3000 Tokens und Zeitlimit 120 s, umgesetzt bis 1.2.7; geändert mit [003-ki-max-tokens](../003-ki-max-tokens/spec.md))
 
 ### KI-04 · MUSS
 

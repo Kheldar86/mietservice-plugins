@@ -2,6 +2,20 @@
 
 Alle Änderungen pro Version. Die neueste Version steht oben. Dieselben Hinweise finden Sie im Backend unter **Vermietung → Hilfe & Doku → Versionshinweise**.
 
+## 1.8.6 – 08.11.2026
+
+### Behoben
+- KI-Artikelassistent: Der Vorschlag brach mit „Die Antwort der KI war unvollständig (max_tokens)“ ab. Die aktuellen Modelle (Sonnet 5.5, Haiku 5.5, Opus 5.5) denken vor der Antwort, und dieses Denken zählt zur Antwortgrenze. Die Grenze von 3000 Tokens reichte dafür und für den JSON-Text zusammen nicht mehr. Sie liegt jetzt bei 16000 Tokens
+
+### Geändert
+- Der Denkaufwand ist fest auf „medium“ gestellt. Das hält Dauer und Kosten je Vorschlag niedrig, auch mit Sonnet 5.5 (Standard dort wäre „high“)
+- Zeitlimit der Anfrage 170 s statt 120 s, PHP-Laufzeit 240 s statt 180 s
+- Eigene Fehlermeldungen: „zu lang und abgeschnitten (max_tokens)“ und „hat die Anfrage abgelehnt (refusal)“ statt einer gemeinsamen Meldung
+
+### Update-Hinweise
+- Keine Datenbankänderung, keine neue Einstellung
+- Ein Vorschlag kostet etwas mehr Ausgabe-Tokens als früher, weil das Denken mitbezahlt wird. Die Zahl steht wie bisher unter dem Vorschlag
+
 ## 1.8.5 – 28.10.2026
 
 ### Geändert
