@@ -4,7 +4,7 @@
 
 **Created**: 2026-11-08
 
-**Status**: Umgesetzt, wartet auf Freigabe
+**Status**: Live seit 08.11.2026 (msb-rental 1.8.6)
 
 **Input**: Meldung von Moritz (08.11.2026): „Ich wollte grade einen Artikel mit der KI Funktion erstellen, erhalte aber die Rückmeldung: Die Antwort war unvollständig (max_tokens). Bitte erneut versuchen.“
 

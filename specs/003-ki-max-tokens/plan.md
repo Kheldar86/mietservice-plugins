@@ -61,9 +61,9 @@ Keine Änderung.
 
 | Schritt | Wann | Notiz |
 |---|---|---|
-| Plan bestätigt von Moritz | | |
-| netcup-Snapshot | | |
-| Bridge-Vorschläge | | |
-| Freigegeben | | |
-| Live-Abgleich SHA-256 | | |
-| Merge und Tag | | |
+| Plan bestätigt von Moritz | 08.11.2026 | durch Merge von PR #9 |
+| netcup-Snapshot | 08.11.2026 | von Moritz angelegt (Name nicht notiert) |
+| Bridge-Vorschläge | 08.11.2026 | 87a18564 (class-msb-assistant.php), 0cc7fb29 (msb-rental.php), 93861ea3 (CHANGELOG.md), je Datei einer |
+| Freigegeben | 08.11.2026 | alle drei |
+| Live-Abgleich SHA-256 | 08.11.2026 | alle drei Dateien gleich dem Branch (83d62de2…, 80cf218a…, c1e23546…) |
+| Merge und Tag | 08.11.2026 | PR #9 gemergt vor der Freigabe; Tag `msb-rental-v1.8.6` legt Moritz in GitHub an |
