@@ -55,9 +55,6 @@ if ( file_exists( MSB_DIR . 'includes/class-msb-kleinanzeigen.php' ) ) {
 if ( file_exists( MSB_DIR . 'includes/class-msb-reviews.php' ) ) {
 	require_once MSB_DIR . 'includes/class-msb-reviews.php';
 }
-if ( file_exists( MSB_DIR . 'includes/class-msb-qr.php' ) ) {
-	require_once MSB_DIR . 'includes/class-msb-qr.php';
-}
 if ( file_exists( MSB_DIR . 'includes/class-msb-promo-links.php' ) ) {
 	require_once MSB_DIR . 'includes/class-msb-promo-links.php';
 }

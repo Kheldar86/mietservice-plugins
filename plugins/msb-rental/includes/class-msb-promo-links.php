@@ -11,6 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( file_exists( __DIR__ . '/class-msb-qr.php' ) ) {
+	require_once __DIR__ . '/class-msb-qr.php';
+}
+
 class MSB_Promo_Links {
 
 	const OPTION     = 'msb_promo_links';
