@@ -2,6 +2,11 @@
 
 Alle Änderungen pro Version. Die neueste Version steht oben. Dieselben Hinweise finden Sie im Backend unter **Vermietung → Hilfe & Doku → Versionshinweise**.
 
+## 1.9.1 – 10.11.2026
+
+### Neu
+- **Vermietung → Werbe-Links** zeigt zu jedem Link den QR-Code mit „SVG herunterladen“ (für Druckerei oder Plotter). Der Code wird im Plugin selbst erzeugt, ohne externen Dienst (Fehlerkorrektur Q, 25 %)
+
 ## 1.9.0 – 10.11.2026
 
 ### Neu

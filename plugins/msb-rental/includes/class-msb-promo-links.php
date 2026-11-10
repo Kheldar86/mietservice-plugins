@@ -1,6 +1,7 @@
 <?php
 /**
- * Werbe-Kurzlinks (1.9.0): /qr/<name> für QR-Codes und Aufkleber, z. B. am Mietanhänger.
+ * Werbe-Kurzlinks (1.9.0): /qr/<name> für QR-Codes und Aufkleber, z. B. je Mietanhänger (/qr/anhaenger-1, /qr/anhaenger-2 …).
+ * Seit 1.9.1 zeigt die Seite Werbe-Links den QR-Code je Link (MSB_QR).
  * Leitet mit UTM-Parametern auf ein frei wählbares Ziel der eigenen Seite weiter und zählt die Aufrufe je Monat.
  * Landet der Besucher direkt auf einem Artikel und legt ihn in den Warenkorb, trägt die Buchung die Quelle
  * „Webseite über QR-Code“ (Herkunft hängt am Warenkorb, kein eigenes Cookie, wie bei den Kleinanzeigen-Kurzlinks).
@@ -242,15 +243,16 @@ class MSB_Promo_Links {
 				<div class="notice notice-<?php echo in_array( $msg, array( 'saved', 'deleted' ), true ) ? 'success' : 'error'; ?> is-dismissible"><p><?php echo esc_html( $texts[ $msg ] ); ?></p></div>
 			<?php endif; ?>
 			<table class="widefat striped msb-promo-table">
-				<thead><tr><th>Bezeichnung</th><th>Kurzlink</th><th>Ziel</th><th>Aufrufe <?php echo esc_html( date_i18n( 'F', strtotime( $month . '-01' ) ) ); ?></th><th>Aufrufe gesamt</th><th>Buchungen</th><th>Aktionen</th></tr></thead>
+				<thead><tr><th>Bezeichnung</th><th>Kurzlink</th><th>QR-Code</th><th>Ziel</th><th>Aufrufe <?php echo esc_html( date_i18n( 'F', strtotime( $month . '-01' ) ) ); ?></th><th>Aufrufe gesamt</th><th>Buchungen</th><th>Aktionen</th></tr></thead>
 				<tbody>
 				<?php if ( ! $links ) : ?>
-					<tr><td colspan="7">Noch keine Werbe-Links.</td></tr>
+					<tr><td colspan="8">Noch keine Werbe-Links.</td></tr>
 				<?php endif; ?>
 				<?php foreach ( $links as $slug => $l ) : ?>
 					<tr>
 						<td data-label="Bezeichnung"><strong><?php echo esc_html( $l['label'] ); ?></strong></td>
 						<td data-label="Kurzlink"><code><?php echo esc_html( self::short_url( $slug ) ); ?></code></td>
+						<td data-label="QR-Code"><?php self::qr_cell( $slug ); ?></td>
 						<td data-label="Ziel"><?php echo esc_html( $l['target'] ); ?></td>
 						<td data-label="Aufrufe diesen Monat"><?php echo (int) self::total( $l, $month ); ?></td>
 						<td data-label="Aufrufe gesamt"><?php echo (int) self::total( $l ); ?></td>
@@ -317,6 +319,24 @@ class MSB_Promo_Links {
 				.msb-promo-table td::before { content: attr(data-label); display: block; font-size: 12px; color: #646970; }
 			}
 		</style>
+		<?php
+	}
+
+	/**
+	 * QR-Code des Kurzlinks als Bild mit Download (SVG, für Druckerei und Plotter), 1.9.1.
+	 */
+	private static function qr_cell( $slug ) {
+		if ( ! class_exists( 'MSB_QR' ) ) {
+			return;
+		}
+		$svg = MSB_QR::svg( self::short_url( $slug ) );
+		if ( '' === $svg ) {
+			return;
+		}
+		$src = 'data:image/svg+xml;base64,' . base64_encode( $svg ); // phpcs:ignore
+		?>
+		<img src="<?php echo esc_attr( $src ); ?>" width="96" height="96" alt="<?php echo esc_attr( 'QR-Code für ' . self::short_url( $slug ) ); ?>" style="display:block">
+		<a href="<?php echo esc_attr( $src ); ?>" download="<?php echo esc_attr( 'QR-' . $slug . '.svg' ); ?>">SVG herunterladen</a>
 		<?php
 	}
 

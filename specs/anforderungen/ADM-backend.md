@@ -20,7 +20,7 @@
 | ADM-12 | MUSS | umgesetzt in 1.6.7 (seit 1.6.3) |
 | ADM-13 | MUSS | umgesetzt in 1.6.5 |
 | ADM-14 | MUSS | umgesetzt in 1.7.2 |
-| ADM-15 | MUSS | umgesetzt in 1.9.0 |
+| ADM-15 | MUSS | umgesetzt in 1.9.0, QR-Code in 1.9.1 |
 
 ### ADM-01 · MUSS
 
@@ -108,6 +108,6 @@ Buchungsliste: „Test“ hinter der Buchungsnummer, Filter „Tests ausblenden 
 
 ### ADM-15 · MUSS
 
-Seite Vermietung → Werbe-Links (nur mit Recht für Einstellungen): Liste mit Bezeichnung, Kurzlink, Ziel, Aufrufen im laufenden Monat und gesamt, Buchungen (ohne Tests und abgebrochene Online-Zahlungen). Anlegen und Bearbeiten (Bezeichnung, Ziel), „Öffnen“ und „Bearbeiten“ links, „Löschen“ rechts abgesetzt mit Rückfrage. Auf dem Handy Kartenstil.
+Seite Vermietung → Werbe-Links (nur mit Recht für Einstellungen): Liste mit Bezeichnung, Kurzlink, Ziel, Aufrufen im laufenden Monat und gesamt, Buchungen (ohne Tests und abgebrochene Online-Zahlungen). Anlegen und Bearbeiten (Bezeichnung, Ziel), „Öffnen“ und „Bearbeiten“ links, „Löschen“ rechts abgesetzt mit Rückfrage. Auf dem Handy Kartenstil. Seit 1.9.1 zeigt jede Zeile den QR-Code des Kurzlinks (im Plugin erzeugt, Fehlerkorrektur Q) mit „SVG herunterladen“.
 
-**Status:** umgesetzt in 1.9.0
+**Status:** umgesetzt in 1.9.0, QR-Code in 1.9.1
