@@ -20,6 +20,7 @@
 | ADM-12 | MUSS | umgesetzt in 1.6.7 (seit 1.6.3) |
 | ADM-13 | MUSS | umgesetzt in 1.6.5 |
 | ADM-14 | MUSS | umgesetzt in 1.7.2 |
+| ADM-15 | MUSS | umgesetzt in 1.9.0 |
 
 ### ADM-01 · MUSS
 
@@ -104,3 +105,9 @@ Auf dem Handy stehen harmlose Aktionen links, unwiderrufliche rechts und deutlic
 Buchungsliste: „Test“ hinter der Buchungsnummer, Filter „Tests ausblenden / Nur Tests“.
 
 **Status:** umgesetzt in 1.7.2
+
+### ADM-15 · MUSS
+
+Seite Vermietung → Werbe-Links (nur mit Recht für Einstellungen): Liste mit Bezeichnung, Kurzlink, Ziel, Aufrufen im laufenden Monat und gesamt, Buchungen (ohne Tests und abgebrochene Online-Zahlungen). Anlegen und Bearbeiten (Bezeichnung, Ziel), „Öffnen“ und „Bearbeiten“ links, „Löschen“ rechts abgesetzt mit Rückfrage. Auf dem Handy Kartenstil.
+
+**Status:** umgesetzt in 1.9.0

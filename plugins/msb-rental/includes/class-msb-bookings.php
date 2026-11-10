@@ -209,6 +209,9 @@ class MSB_Bookings {
 	 */
 	public static function source_label( array $b ) {
 		if ( 'admin' !== $b['source'] ) {
+			if ( ! empty( $b['channel'] ) && 'qr-' === substr( $b['channel'], 0, 3 ) && class_exists( 'MSB_Promo_Links' ) ) {
+				return MSB_Promo_Links::channel_label( $b['channel'] );
+			}
 			return ! empty( $b['channel'] ) && 'kleinanzeigen' === $b['channel'] ? 'Webseite über Kleinanzeigen' : 'Webseite';
 		}
 		$name = self::creator_name( $b );
