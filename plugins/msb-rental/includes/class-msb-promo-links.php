@@ -1,6 +1,6 @@
 <?php
 /**
- * Werbe-Kurzlinks (1.9.0): /qr/<name> für QR-Codes und Aufkleber, z. B. je Mietanhänger (/qr/anhaenger-1, /qr/anhaenger-2 …).
+ * Werbe-Kurzlinks (1.9.0): /qr/<name> für QR-Codes und Aufkleber, z. B. am Mietanhänger.
  * Leitet mit UTM-Parametern auf ein frei wählbares Ziel der eigenen Seite weiter und zählt die Aufrufe je Monat.
  * Landet der Besucher direkt auf einem Artikel und legt ihn in den Warenkorb, trägt die Buchung die Quelle
  * „Webseite über QR-Code“ (Herkunft hängt am Warenkorb, kein eigenes Cookie, wie bei den Kleinanzeigen-Kurzlinks).
