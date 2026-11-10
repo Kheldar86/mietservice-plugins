@@ -72,28 +72,28 @@ function visit( $slug, $agent = 'Mozilla/5.0 (iPhone)', $method = 'GET' ) {
 	try { MSB_Promo_Links::redirect(); } catch ( Redirected $e ) {}
 	return $GLOBALS['T']['redirect'];
 }
-function clicks() { $l = get_option( 'msb_promo_links' ); return MSB_Promo_Links::total( $l['anhaenger'] ); }
+function clicks() { $l = get_option( 'msb_promo_links' ); return MSB_Promo_Links::total( $l['anhaenger-1'] ); }
 
 // Anlegen beim ersten Aufruf
 $links = MSB_Promo_Links::links();
-check( 'Anhänger-Link wird angelegt', isset( $links['anhaenger'] ) && '/#neu' === $links['anhaenger']['target'] );
+check( 'Anhänger-Link wird angelegt', isset( $links['anhaenger-1'] ) && '/#neu' === $links['anhaenger-1']['target'] );
 
 // Weiterleitung mit UTM und Anker
-$to = visit( 'anhaenger' );
-check( 'Weiterleitung auf Startseite #neu mit UTM', 'https://mietservice-barnim.de/?utm_source=qr&utm_medium=offline&utm_campaign=anhaenger#neu' === $to );
+$to = visit( 'anhaenger-1' );
+check( 'Weiterleitung auf Startseite #neu mit UTM', 'https://mietservice-barnim.de/?utm_source=qr&utm_medium=offline&utm_campaign=anhaenger-1#neu' === $to );
 check( 'Aufruf gezählt', 1 === clicks() );
 
-visit( 'anhaenger', 'Googlebot/2.1' );
+visit( 'anhaenger-1', 'Googlebot/2.1' );
 check( 'Bot zählt nicht', 1 === clicks() );
-visit( 'anhaenger', 'Mozilla/5.0', 'HEAD' );
+visit( 'anhaenger-1', 'Mozilla/5.0', 'HEAD' );
 check( 'HEAD zählt nicht', 1 === clicks() );
-visit( 'anhaenger', 'WhatsApp/2.23' );
+visit( 'anhaenger-1', 'WhatsApp/2.23' );
 check( 'Vorschau zählt nicht', 1 === clicks() );
 $GLOBALS['T']['can'] = true;
-visit( 'anhaenger' );
+visit( 'anhaenger-1' );
 check( 'Eigener Aufruf im Backend zählt nicht', 1 === clicks() );
 $GLOBALS['T']['can'] = false;
-visit( 'ANHAENGER' );
+visit( 'ANHAENGER-1' );
 check( 'Großschreibung wird erkannt und gezählt', 2 === clicks() );
 
 check( 'Unbekannter Link führt auf Startseite', 'https://mietservice-barnim.de/' === visit( 'gibtsnicht' ) );
@@ -108,21 +108,21 @@ check( 'javascript: abgelehnt', '' === MSB_Promo_Links::sanitize_target( 'javasc
 check( 'Name auf 17 Zeichen gekürzt', 17 === strlen( MSB_Promo_Links::sanitize_slug( str_repeat( 'a', 30 ) ) ) );
 
 // Herkunft bis zur Buchung
-$GLOBALS['T']['referer'] = 'https://mietservice-barnim.de/mieten/x/?utm_source=qr&utm_medium=offline&utm_campaign=anhaenger';
+$GLOBALS['T']['referer'] = 'https://mietservice-barnim.de/mieten/x/?utm_source=qr&utm_medium=offline&utm_campaign=anhaenger-1';
 MSB_Promo_Links::remember_ref();
-check( 'Herkunft am Warenkorb gemerkt', 'qr-anhaenger' === $GLOBALS['T']['ref'] );
+check( 'Herkunft am Warenkorb gemerkt', 'qr-anhaenger-1' === $GLOBALS['T']['ref'] );
 MSB_Promo_Links::on_booking_created( 7, array( 'source' => 'web' ) );
-check( 'Buchung bekommt channel qr-anhaenger', isset( $GLOBALS['T']['updates'][0] ) && 'qr-anhaenger' === $GLOBALS['T']['updates'][0][1]['channel'] && 7 === $GLOBALS['T']['updates'][0][2]['id'] );
+check( 'Buchung bekommt channel qr-anhaenger-1', isset( $GLOBALS['T']['updates'][0] ) && 'qr-anhaenger-1' === $GLOBALS['T']['updates'][0][1]['channel'] && 7 === $GLOBALS['T']['updates'][0][2]['id'] );
 MSB_Promo_Links::on_booking_created( 8, array( 'source' => 'admin' ) );
 check( 'Manuelle Buchung bleibt ohne Quelle', 1 === count( $GLOBALS['T']['updates'] ) );
 $GLOBALS['T']['ref']     = '';
 $GLOBALS['T']['referer'] = 'https://mietservice-barnim.de/?utm_source=qr&utm_campaign=unbekannt';
 MSB_Promo_Links::remember_ref();
 check( 'Unbekannter Link setzt keine Herkunft', '' === $GLOBALS['T']['ref'] );
-$GLOBALS['T']['referer'] = 'https://mietservice-barnim.de/?utm_source=kleinanzeigen&utm_campaign=anhaenger';
+$GLOBALS['T']['referer'] = 'https://mietservice-barnim.de/?utm_source=kleinanzeigen&utm_campaign=anhaenger-1';
 MSB_Promo_Links::remember_ref();
 check( 'Kleinanzeigen-Herkunft bleibt unberührt', '' === $GLOBALS['T']['ref'] );
-check( 'Quelle als Text', 'Webseite über QR-Code (Aufkleber am PKW-Anhänger)' === MSB_Promo_Links::channel_label( 'qr-anhaenger' ) );
+check( 'Quelle als Text', 'Webseite über QR-Code (Aufkleber PKW-Anhänger 1 (Neptun N7-236))' === MSB_Promo_Links::channel_label( 'qr-anhaenger-1' ) );
 
 echo "\n$pass bestanden, $fail fehlgeschlagen\n";
 exit( $fail ? 1 : 0 );

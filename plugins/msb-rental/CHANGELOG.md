@@ -5,9 +5,9 @@ Alle Änderungen pro Version. Die neueste Version steht oben. Dieselben Hinweise
 ## 1.9.0 – 10.11.2026
 
 ### Neu
-- Werbe-Links für QR-Codes und Aufkleber: Kurze Adressen wie `mietservice-barnim.de/qr/anhaenger` leiten auf ein frei wählbares Ziel der eigenen Seite weiter und zählen die Aufrufe je Monat (ohne Bots, Vorschauen und eigene Aufrufe im Backend)
+- Werbe-Links für QR-Codes und Aufkleber: Kurze Adressen wie `mietservice-barnim.de/qr/anhaenger-1` leiten auf ein frei wählbares Ziel der eigenen Seite weiter und zählen die Aufrufe je Monat (ohne Bots, Vorschauen und eigene Aufrufe im Backend)
 - Neue Seite **Vermietung → Werbe-Links** mit Aufrufen im Monat und gesamt sowie Buchungen je Link. Links anlegen, Ziel ändern, löschen
-- Der erste Link `anhaenger` (Aufkleber am PKW-Anhänger) wird automatisch angelegt und zeigt auf den Abschnitt „Neu“ der Startseite
+- Der erste Link `anhaenger-1` (Aufkleber am ersten PKW-Anhänger) wird automatisch angelegt und zeigt auf den Abschnitt „Neu“ der Startseite. Weitere Anhänger bekommen `anhaenger-2`, `anhaenger-3` …
 - Buchungen, die direkt auf der Zielseite eines Werbe-Links in den Warenkorb gelegt werden, tragen die Quelle „Webseite über QR-Code (Bezeichnung)“
 
 ### Update-Hinweise

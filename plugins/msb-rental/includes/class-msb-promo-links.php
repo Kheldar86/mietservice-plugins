@@ -1,6 +1,6 @@
 <?php
 /**
- * Werbe-Kurzlinks (1.9.0): /qr/<name> für QR-Codes und Aufkleber, z. B. am Mietanhänger.
+ * Werbe-Kurzlinks (1.9.0): /qr/<name> für QR-Codes und Aufkleber, z. B. je Mietanhänger (/qr/anhaenger-1, /qr/anhaenger-2 …).
  * Leitet mit UTM-Parametern auf ein frei wählbares Ziel der eigenen Seite weiter und zählt die Aufrufe je Monat.
  * Landet der Besucher direkt auf einem Artikel und legt ihn in den Warenkorb, trägt die Buchung die Quelle
  * „Webseite über QR-Code“ (Herkunft hängt am Warenkorb, kein eigenes Cookie, wie bei den Kleinanzeigen-Kurzlinks).
@@ -41,14 +41,14 @@ class MSB_Promo_Links {
 
 	/**
 	 * Alle Kurzlinks: name => array( label, target, clicks => array( 'JJJJ-MM' => Anzahl ) ).
-	 * Beim ersten Aufruf nach dem Update wird der Link für den Anhänger angelegt.
+	 * Beim ersten Aufruf nach dem Update wird der Link für den ersten Anhänger angelegt (weitere: anhaenger-2 …).
 	 */
 	public static function links() {
 		$links = get_option( self::OPTION, null );
 		if ( null === $links ) {
 			$links = array(
-				'anhaenger' => array(
-					'label'  => 'Aufkleber am PKW-Anhänger',
+				'anhaenger-1' => array(
+					'label'  => 'Aufkleber PKW-Anhänger 1 (Neptun N7-236)',
 					'target' => '/#neu',
 					'clicks' => array(),
 				),

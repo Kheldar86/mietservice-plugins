@@ -4,7 +4,7 @@
 
 ## Summary
 
-Neue Klasse `MSB_Promo_Links` (`includes/class-msb-promo-links.php`) mit Rewrite `^qr/([a-z0-9-]+)/?$`, Weiterleitung mit UTM, Zähler je Monat in der Option `msb_promo_links` (nicht autoload), Herkunft über `MSB_Cart::set_ref()` wie bei den Kleinanzeigen-Kurzlinks und Backend-Seite „Werbe-Links“. Beim ersten Aufruf wird `anhaenger` → `/#neu` angelegt. `MSB_Bookings::source_label()` kennt `qr-…`. Version msb-rental **1.9.0** (vorher 1.8.6).
+Neue Klasse `MSB_Promo_Links` (`includes/class-msb-promo-links.php`) mit Rewrite `^qr/([a-z0-9-]+)/?$`, Weiterleitung mit UTM, Zähler je Monat in der Option `msb_promo_links` (nicht autoload), Herkunft über `MSB_Cart::set_ref()` wie bei den Kleinanzeigen-Kurzlinks und Backend-Seite „Werbe-Links“. Beim ersten Aufruf wird `anhaenger-1` → `/#neu` angelegt. `MSB_Bookings::source_label()` kennt `qr-…`. Version msb-rental **1.9.0** (vorher 1.8.6).
 
 ## Technical Context
 
@@ -24,7 +24,7 @@ Geprüft gegen Constitution **1.1.0**.
 | II. Jede Änderung ist eine neue Version | 1.9.0 im Kopf und in `MSB_VERSION`, CHANGELOG | erfüllt |
 | III. Keine Geheimnisse | keine | erfüllt |
 | IV. Live nur über Snapshot und Freigabe | Snapshot, je Datei ein Vorschlag, SHA-256-Abgleich | offen, siehe Freigabe |
-| V. Prüfbar und getestet | 22 Fälle lokal, Abnahme live mit Aufruf von `/qr/anhaenger` | erfüllt |
+| V. Prüfbar und getestet | 22 Fälle lokal, Abnahme live mit Aufruf von `/qr/anhaenger-1` | erfüllt |
 | VI. Recht und Geld zuerst | Kein neues Cookie (TTDSG § 25), UTM nur in der Adresse. Belege unberührt | erfüllt |
 | VII. Einfach und passend zum Bestand | Aufbau wie `MSB_Kleinanzeigen`, keine Abhängigkeit, Kartenstil auf dem Handy, „Löschen“ rechts | erfüllt |
 
@@ -43,12 +43,12 @@ Keine Schemaänderung, keine neue Datenbankversion. Neue Optionen siehe oben.
 
 ## Abnahmekriterien
 
-- [x] `/qr/anhaenger` leitet auf `/?utm_source=qr&utm_medium=offline&utm_campaign=anhaenger#neu`
+- [x] `/qr/anhaenger-1` leitet auf `/?utm_source=qr&utm_medium=offline&utm_campaign=anhaenger-1#neu`
 - [x] Zählung ohne Bots, Vorschauen, HEAD und Bearbeiter
 - [x] Fremde Ziele abgelehnt
 - [x] Quelle an der Buchung bei Warenkorb direkt auf der Zielseite
 - [x] Version 1.9.0, CHANGELOG, Status IF-20, BKG-22, ADM-15
-- [ ] Live: `/qr/anhaenger` vom Handy aufrufen, Zähler unter Vermietung → Werbe-Links steht auf 1
+- [ ] Live: `/qr/anhaenger-1` vom Handy aufrufen, Zähler unter Vermietung → Werbe-Links steht auf 1
 
 ## Testschritte
 

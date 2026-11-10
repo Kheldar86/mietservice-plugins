@@ -28,7 +28,7 @@ Ein Passant scannt den QR-Code am Anhänger und landet auf der Startseite im Abs
 
 **Acceptance Scenarios**:
 
-1. **Given** Link `anhaenger` mit Ziel `/#neu`, **When** jemand `/qr/anhaenger` aufruft, **Then** Weiterleitung auf `/?utm_source=qr&utm_medium=offline&utm_campaign=anhaenger#neu` und der Zähler steigt um 1.
+1. **Given** Link `anhaenger-1` mit Ziel `/#neu`, **When** jemand `/qr/anhaenger-1` aufruft, **Then** Weiterleitung auf `/?utm_source=qr&utm_medium=offline&utm_campaign=anhaenger-1#neu` und der Zähler steigt um 1.
 2. **Given** ein Bot, eine Messenger-Vorschau, eine HEAD-Anfrage oder ein angemeldeter Bearbeiter, **When** Aufruf, **Then** Weiterleitung ohne Zählung.
 
 ### User Story 2 – Ziel später ändern (Priority: P1)
@@ -37,7 +37,7 @@ Sobald der Anhänger veröffentlicht ist, stellt Moritz das Ziel auf die Artikel
 
 ### User Story 3 – Buchung über den QR-Code erkennen (Priority: P2)
 
-Zeigt das Ziel auf einen Artikel und bucht der Besucher, steht an der Buchung „Webseite über QR-Code (Aufkleber am PKW-Anhänger)“.
+Zeigt das Ziel auf einen Artikel und bucht der Besucher, steht an der Buchung „Webseite über QR-Code (Aufkleber PKW-Anhänger 1 (Neptun N7-236))“.
 
 ### Edge Cases
 
