@@ -23,7 +23,7 @@ Geprüft gegen Constitution **1.1.0**.
 | I. Die Spezifikation ist die Quelle | IF-20, BKG-22, ADM-15 neu, Status nachgetragen | erfüllt |
 | II. Jede Änderung ist eine neue Version | 1.9.0 im Kopf und in `MSB_VERSION`, CHANGELOG | erfüllt |
 | III. Keine Geheimnisse | keine | erfüllt |
-| IV. Live nur über Snapshot und Freigabe | Snapshot, je Datei ein Vorschlag, SHA-256-Abgleich | offen, siehe Freigabe |
+| IV. Live nur über Snapshot und Freigabe | Snapshot, je Datei ein Vorschlag, SHA-256-Abgleich | erfüllt, siehe Freigabe |
 | V. Prüfbar und getestet | 22 Fälle lokal, Abnahme live mit Aufruf von `/qr/anhaenger-1` | erfüllt |
 | VI. Recht und Geld zuerst | Kein neues Cookie (TTDSG § 25), UTM nur in der Adresse. Belege unberührt | erfüllt |
 | VII. Einfach und passend zum Bestand | Aufbau wie `MSB_Kleinanzeigen`, keine Abhängigkeit, Kartenstil auf dem Handy, „Löschen“ rechts | erfüllt |
@@ -60,8 +60,10 @@ Keine Schemaänderung, keine neue Datenbankversion. Neue Optionen siehe oben.
 | Schritt | Wann | Notiz |
 |---|---|---|
 | Plan bestätigt von Moritz | 10.11.2026 | Auftrag „Bitte setze das für mich um“ |
-| netcup-Snapshot | | |
-| Bridge-Vorschläge | | |
-| Freigegeben | | |
-| Live-Abgleich SHA-256 | | |
-| Merge und Tag | | |
+| netcup-Snapshot | 10.11.2026 | vor der Freigabe von Moritz verlangt, nicht gesondert bestätigt |
+| Bridge-Vorschläge 1.9.0 | 10.11.2026 | class-msb-promo-links.php `381638ec…`, CHANGELOG `5310fc3d…`, msb-rental.php und class-msb-bookings.php |
+| Freigegeben 1.9.0 | 10.11.2026 ca. 22:30 | Moritz; Link hieß da noch `anhaenger`, Ziel `/` von Moritz im Backend gesetzt |
+| Bridge-Vorschläge 1.9.1 | 10.11.2026 | SQL Umbenennung `6ae0603d…`, class-msb-qr.php `539641a6…`, class-msb-promo-links.php `53fc2643…`, msb-rental.php `1a25becc…`, CHANGELOG `cc1734a1…` |
+| Freigegeben 1.9.1 | 10.11.2026 22:43 | Moritz („Freigegeben“) |
+| Live-Abgleich SHA-256 | 10.11.2026 | identisch: class-msb-qr.php `cd784e7b…`, class-msb-promo-links.php `4315858d…` (Branch an Live angeglichen: nur Zeilenende am Dateiende), msb-rental.php `854979c0…`, CHANGELOG `acdf9953…`, class-msb-bookings.php `f05bf2ca…`. Option `msb_promo_links` hat `anhaenger-1`, Rewrite-Regel `qr/([a-z0-9-]+)` aktiv, `/qr/anhaenger-1` landet auf der Startseite |
+| Merge und Tag | | Tag `msb-rental-v1.9.1` legt Moritz in GitHub an |
