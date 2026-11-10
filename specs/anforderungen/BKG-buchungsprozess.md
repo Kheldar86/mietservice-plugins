@@ -26,6 +26,7 @@
 | BKG-19 | MUSS | umgesetzt in 1.5.7 |
 | BKG-20 | MUSS | umgesetzt in 1.8.0 |
 | BKG-21 | SOLL | umgesetzt in 1.8.4 |
+| BKG-22 | SOLL | umgesetzt in 1.9.0 |
 
 ## Ablauf aus Kundensicht
 
@@ -171,3 +172,9 @@ Buchungen nach einem Klick auf den Kurzlink tragen die Quelle „Webseite über 
 Freiwilliger, nicht verpflichtender Haken im Buchungsformular und auf der Bestätigungsseite für Telefonbuchungen: Einwilligung in eine einmalige Bewertungsbitte.
 
 **Status:** umgesetzt in 1.8.4
+
+### BKG-22 · SOLL
+
+Legt jemand nach einem Werbe-Kurzlink (IF-20) einen Artikel direkt auf der Zielseite in den Warenkorb, trägt die Buchung die Quelle „Webseite über QR-Code (<Bezeichnung>)“ (Liste, Buchung, Team-Mail, `channel` = `qr-<name>`). Die Herkunft hängt am Warenkorb wie bei BKG-20, kein neues Cookie. Zeigt das Ziel nicht direkt auf einen Artikel, wird nur der Aufruf gezählt.
+
+**Status:** umgesetzt in 1.9.0

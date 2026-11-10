@@ -3,7 +3,7 @@
  * Plugin Name:       Mietservice Barnim – Vermietung
  * Plugin URI:        https://www.mietservice-barnim.de
  * Description:       Vermietung von Outdoor- und Transportartikeln: Inventar, Buchungskalender, dynamische Preise, Bildergalerien, Online-Zahlung (Stripe, PayPal) mit Anzahlung und Kaution, Kundenverwaltung mit optionalem Kundenkonto, Buchungsübersicht, Shortcodes und KI-Artikelassistent.
- * Version:           1.8.6
+ * Version:           1.9.0
  * Author:            Mietservice Barnim
  * Text Domain:       msb-rental
  * Requires at least: 6.0
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MSB_VERSION', '1.8.6' );
+define( 'MSB_VERSION', '1.9.0' );
 define( 'MSB_FILE', __FILE__ );
 define( 'MSB_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MSB_URL', plugin_dir_url( __FILE__ ) );
@@ -54,6 +54,9 @@ if ( file_exists( MSB_DIR . 'includes/class-msb-kleinanzeigen.php' ) ) {
 }
 if ( file_exists( MSB_DIR . 'includes/class-msb-reviews.php' ) ) {
 	require_once MSB_DIR . 'includes/class-msb-reviews.php';
+}
+if ( file_exists( MSB_DIR . 'includes/class-msb-promo-links.php' ) ) {
+	require_once MSB_DIR . 'includes/class-msb-promo-links.php';
 }
 
 if ( is_admin() ) {
@@ -96,6 +99,9 @@ function msb_boot() {
 	}
 	if ( class_exists( 'MSB_Reviews' ) ) {
 		MSB_Reviews::init();
+	}
+	if ( class_exists( 'MSB_Promo_Links' ) ) {
+		MSB_Promo_Links::init();
 	}
 
 	if ( is_admin() ) {

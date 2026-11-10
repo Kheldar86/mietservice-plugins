@@ -2,6 +2,19 @@
 
 Alle Änderungen pro Version. Die neueste Version steht oben. Dieselben Hinweise finden Sie im Backend unter **Vermietung → Hilfe & Doku → Versionshinweise**.
 
+## 1.9.0 – 10.11.2026
+
+### Neu
+- Werbe-Links für QR-Codes und Aufkleber: Kurze Adressen wie `mietservice-barnim.de/qr/anhaenger` leiten auf ein frei wählbares Ziel der eigenen Seite weiter und zählen die Aufrufe je Monat (ohne Bots, Vorschauen und eigene Aufrufe im Backend)
+- Neue Seite **Vermietung → Werbe-Links** mit Aufrufen im Monat und gesamt sowie Buchungen je Link. Links anlegen, Ziel ändern, löschen
+- Der erste Link `anhaenger` (Aufkleber am PKW-Anhänger) wird automatisch angelegt und zeigt auf den Abschnitt „Neu“ der Startseite
+- Buchungen, die direkt auf der Zielseite eines Werbe-Links in den Warenkorb gelegt werden, tragen die Quelle „Webseite über QR-Code (Bezeichnung)“
+
+### Update-Hinweise
+- Keine Datenbankänderung. Neue Optionen `msb_promo_links` und `msb_qr_rules`
+- Die Permalinks werden beim ersten Seitenaufruf nach dem Update einmal neu aufgebaut
+- Sobald der Anhänger veröffentlicht ist, das Ziel des Links auf die Artikelseite stellen. Der gedruckte QR-Code bleibt gültig
+
 ## 1.8.6 – 08.11.2026
 
 ### Behoben

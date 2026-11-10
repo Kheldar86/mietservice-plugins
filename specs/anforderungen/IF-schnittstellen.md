@@ -25,6 +25,7 @@
 | IF-17 | MUSS | umgesetzt in 1.8.0 |
 | IF-18 | MUSS | umgesetzt in 1.8.3 |
 | IF-19 | MUSS | umgesetzt in 1.8.4 |
+| IF-20 | MUSS | umgesetzt in 1.9.0 |
 
 ## Shortcodes (msb-rental)
 
@@ -176,3 +177,9 @@ Die Mail „Bestätigt“ hängt AGB und Widerrufsbelehrung als PDF an (§ 312f 
 Die Bewertungsbitte steht nur in der Mail zur Rechnung, nur mit Haken und nur, wenn der Link „Google-Bewertung“ gesetzt ist. Stornorechnung, Korrektur und Kautionsabrechnung bleiben ohne Bitte.
 
 **Status:** umgesetzt in 1.8.4
+
+### IF-20 · MUSS
+
+Werbe-Kurzlinks `/qr/<name>` für QR-Codes und Aufkleber (Entscheidung 10.11.2026, erster Link `/qr/anhaenger` für den Mietanhänger). Jeder Link hat Bezeichnung und Ziel auf der eigenen Seite (Pfad oder Adresse mit eigenem Host, sonst abgelehnt) und leitet mit `utm_source=qr`, `utm_medium=offline` und `utm_campaign=<name>` weiter. Aufrufe je Monat, ohne HEAD-Anfragen, Bots und Vorschauen und ohne Nutzer, die Artikel bearbeiten dürfen. Ein unbekannter Name führt auf die Startseite. Der Name bleibt nach dem Anlegen fest, das Ziel ist änderbar.
+
+**Status:** umgesetzt in 1.9.0
