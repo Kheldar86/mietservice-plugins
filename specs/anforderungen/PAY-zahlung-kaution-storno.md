@@ -301,7 +301,7 @@ Zu jeder nicht ausgezahlten Abrechnung zeigt das Backend Empfänger, IBAN, Betra
 
 ### PAY-40 · SOLL
 
-Ist unter Einstellungen → Belege ein Finom-Beleg-Postfach eingetragen, geht jede neue Abrechnung als PDF dorthin, PDF-Belege und nicht umwandelbare Fotos als zusätzliche Anhänge, Kopie an die Admin-Adresse. Der Versand wird mit Zeit vermerkt und kann wiederholt werden. Eine Überweisung löst das Plugin nicht aus (Finom hat keine Schnittstelle, die Zahlung bestätigt ein Gesellschafter).
+Ist unter Vermietung → Auslagen → Abrechnungen ein Finom-Beleg-Postfach eingetragen (ändern nur Nutzer mit Recht für Einstellungen), geht jede neue Abrechnung als PDF dorthin, PDF-Belege und nicht umwandelbare Fotos als zusätzliche Anhänge, Kopie an die Admin-Adresse. Der Versand wird mit Zeit vermerkt und kann wiederholt werden. Eine Überweisung löst das Plugin nicht aus (Finom hat keine Schnittstelle, die Zahlung bestätigt ein Gesellschafter).
 
 **Status:** umgesetzt in 1.10.0
 
@@ -313,6 +313,6 @@ Eine Abrechnung hat den Status „nicht ausgezahlt“, „ausgezahlt“ (mit Dat
 
 ### PAY-42 · MUSS
 
-Auf der Seite Belege gibt es den Kasten „Auslagen JJJJ für die EÜR“ mit Summen (gesamt, ausgezahlt, offen) und CSV: jede Position einer nicht stornierten Abrechnung mit Belegdatum im Jahr, mit Zweck, Betrag brutto, Gesellschafter, Abrechnungsnummer, Status, Erstattungsdatum und Kennzeichen Eigenbeleg. Ob Beleg- oder Erstattungsdatum maßgeblich ist, klärt der Steuerberater (Frage offen, siehe specs/005-auslagenabrechnung/plan.md).
+Unter Vermietung → Auslagen → Abrechnungen gibt es den Kasten „Auslagen JJJJ für die EÜR“ (mit Jahresauswahl) mit Summen (gesamt, ausgezahlt, offen) und CSV: jede Position einer nicht stornierten Abrechnung mit Belegdatum im Jahr, mit Zweck, Betrag brutto, Gesellschafter, Abrechnungsnummer, Status, Erstattungsdatum und Kennzeichen Eigenbeleg. Ob Beleg- oder Erstattungsdatum maßgeblich ist, klärt der Steuerberater (Frage offen, siehe specs/005-auslagenabrechnung/plan.md).
 
 **Status:** umgesetzt in 1.10.0

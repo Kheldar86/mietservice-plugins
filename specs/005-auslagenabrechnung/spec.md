@@ -62,12 +62,12 @@ Moritz öffnet die Abrechnung. Er sieht Empfänger, IBAN, Betrag und Verwendungs
 
 **Acceptance Scenarios**:
 
-1. **Given** im Tab Belege ist die Finom-Beleg-Adresse eingetragen, **When** eine Abrechnung entsteht, **Then** geht sie automatisch als PDF an diese Adresse, PDF-Belege als zusätzliche Anhänge; die Versandzeit steht an der Abrechnung, „Erneut senden“ ist möglich.
+1. **Given** unter Vermietung → Auslagen → Abrechnungen ist die Finom-Beleg-Adresse eingetragen, **When** eine Abrechnung entsteht, **Then** geht sie automatisch als PDF an diese Adresse, PDF-Belege als zusätzliche Anhänge; die Versandzeit steht an der Abrechnung, „Erneut senden“ ist möglich.
 2. **When** „Als ausgezahlt markieren“ mit Datum, **Then** Status „ausgezahlt“ mit Datum und Bearbeiter.
 
 ### User Story 4 – Jahresabschluss (Priority: P2)
 
-Unter Belege gibt es einen Kasten „Auslagen JJJJ für die EÜR“ mit Summe und CSV: jede Position einzeln mit Belegdatum, Zweck, Betrag, Gesellschafter, AUS-Nummer, Status und Erstattungsdatum.
+Unter Vermietung → Auslagen → Abrechnungen gibt es einen Kasten „Auslagen JJJJ für die EÜR“ mit Summe und CSV: jede Position einzeln mit Belegdatum, Zweck, Betrag, Gesellschafter, AUS-Nummer, Status und Erstattungsdatum.
 
 ### Edge Cases
 

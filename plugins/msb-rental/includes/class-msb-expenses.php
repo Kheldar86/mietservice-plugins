@@ -825,13 +825,13 @@ class MSB_Expenses {
 				$open += $r['amount'];
 			}
 		}
-		$url = wp_nonce_url( admin_url( 'admin.php?page=msb-documents&expenses=csv&year=' . (int) $year ), 'msb_expense_export' );
+		$url = wp_nonce_url( admin_url( 'admin.php?page=' . self::PAGE . '&euer=csv&year=' . (int) $year ), 'msb_expense_export' );
 		ob_start();
 		?>
 		<div class="msb-card-box">
 			<h2>Auslagen <?php echo (int) $year; ?> für die EÜR</h2>
 			<p>Abgerechnete Auslagen mit Belegdatum <?php echo (int) $year; ?>: <strong><?php echo esc_html( msb_price( $paid + $open ) ); ?></strong> · davon ausgezahlt: <strong><?php echo esc_html( msb_price( $paid ) ); ?></strong> · noch nicht ausgezahlt: <strong><?php echo esc_html( msb_price( $open ) ); ?></strong></p>
-			<p><a class="button" href="<?php echo esc_url( $url ); ?>">Auslagen <?php echo (int) $year; ?> als CSV (EÜR)</a> <a class="button" href="<?php echo esc_url( admin_url( 'admin.php?page=' . self::PAGE . '&tab=claims' ) ); ?>">Zu den Abrechnungen</a></p>
+			<p><a class="button" href="<?php echo esc_url( $url ); ?>">Auslagen <?php echo (int) $year; ?> als CSV (EÜR)</a></p>
 			<p class="description">Jede Position einzeln mit Belegdatum, Zweck, Betrag (brutto), Gesellschafter, Abrechnungsnummer und Erstattungsdatum. Stornierte Abrechnungen fehlen, ihre Positionen zählen mit der neuen Abrechnung. Ob das Belegdatum oder das Erstattungsdatum maßgeblich ist, klärt der Steuerberater.</p>
 		</div>
 		<?php
@@ -840,7 +840,7 @@ class MSB_Expenses {
 
 	public static function handle_euer_export() {
 		// phpcs:disable WordPress.Security.NonceVerification
-		if ( ! isset( $_GET['page'], $_GET['expenses'] ) || 'msb-documents' !== $_GET['page'] ) {
+		if ( ! isset( $_GET['page'], $_GET['euer'] ) || self::PAGE !== $_GET['page'] ) {
 			return;
 		}
 		check_admin_referer( 'msb_expense_export' );

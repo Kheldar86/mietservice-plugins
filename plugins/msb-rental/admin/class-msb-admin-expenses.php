@@ -12,7 +12,7 @@ class MSB_Admin_Expenses {
 
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'menu' ), 11 );
-		foreach ( array( 'save', 'delete', 'claim', 'bank', 'paid', 'send', 'cancel', 'file' ) as $a ) {
+		foreach ( array( 'save', 'delete', 'claim', 'bank', 'paid', 'send', 'cancel', 'file', 'finom' ) as $a ) {
 			add_action( 'admin_post_msb_exp_' . $a, array( __CLASS__, 'handle_' . $a ) );
 		}
 	}
@@ -70,7 +70,7 @@ class MSB_Admin_Expenses {
 		?>
 		<div class="wrap msb-admin msb-expenses">
 			<h1>Auslagen der Gesellschafter</h1>
-			<p>Privat bezahlte Ausgaben für die GbR erfassen, als Auslagenabrechnung (<code>AUS-JJJJ-0001</code>) abrechnen und vom Finom-Geschäftskonto erstatten. Die Überweisung bestätigt ihr selbst in Finom.</p>
+			<p>Privat bezahlte Ausgaben für die GbR erfassen, als Auslagenabrechnung (<code>AUS-JJJJ-0001</code>) abrechnen und vom Finom-Geschäftskonto erstatten. Die Überweisung bestätigt ihr selbst in Finom. <a href="<?php echo esc_url( admin_url( 'admin.php?page=msb-docs#auslagen' ) ); ?>">Hilfe</a></p>
 			<?php if ( '' !== $msg ) : ?>
 				<div class="notice notice-<?php echo $err ? 'error' : 'success'; ?> is-dismissible"><p><?php echo esc_html( $msg ); ?></p></div>
 			<?php endif; ?>
@@ -214,7 +214,7 @@ class MSB_Admin_Expenses {
 					<p><strong>Zuerst die <a href="<?php echo esc_url( self::url( array( 'tab' => 'bank' ) ) ); ?>">Bankverbindung</a> eintragen.</strong></p>
 				<?php endif; ?>
 				<p><button type="submit" class="button button-primary" <?php disabled( ! $bank ); ?>>Abrechnung erstellen</button></p>
-				<p class="description">Es entsteht eine PDF nach der Vorlage mit allen Fotobelegen als Folgeseiten. <?php echo is_email( msb_setting( 'expense_finom_email' ) ) ? 'Sie geht automatisch an das Finom-Beleg-Postfach.' : 'Ein Finom-Beleg-Postfach ist noch nicht eingetragen (Einstellungen → Belege), die PDF wird deshalb nicht automatisch verschickt.'; ?></p>
+				<p class="description">Es entsteht eine PDF nach der Vorlage mit allen Fotobelegen als Folgeseiten. <?php echo is_email( msb_setting( 'expense_finom_email' ) ) ? 'Sie geht automatisch an das Finom-Beleg-Postfach.' : 'Ein Finom-Beleg-Postfach ist noch nicht eingetragen (Abrechnungen, ganz unten), die PDF wird deshalb nicht automatisch verschickt.'; ?></p>
 			</form>
 		<?php endif; ?>
 		<?php
@@ -265,6 +265,41 @@ class MSB_Admin_Expenses {
 		if ( $c && 'issued' === $c['status'] ) {
 			self::pay_box( $c );
 		}
+		// phpcs:ignore WordPress.Security.NonceVerification
+		$year = isset( $_GET['year'] ) ? absint( $_GET['year'] ) : (int) current_time( 'Y' );
+		echo MSB_Expenses::box( $year ); // phpcs:ignore
+		?>
+		<form method="get" style="margin:-8px 0 16px">
+			<input type="hidden" name="page" value="<?php echo esc_attr( MSB_Expenses::PAGE ); ?>">
+			<input type="hidden" name="tab" value="claims">
+			<label>Jahr <input type="number" name="year" min="2026" max="<?php echo (int) current_time( 'Y' ) + 1; ?>" value="<?php echo (int) $year; ?>" class="small-text"></label>
+			<button class="button">Anzeigen</button>
+		</form>
+		<?php
+		self::finom_box();
+	}
+
+	/**
+	 * Finom-Beleg-Postfach (PAY-40). Ändern dürfen nur Nutzer mit Zugriff auf die Einstellungen (ROL-04).
+	 */
+	private static function finom_box() {
+		$to  = (string) msb_setting( 'expense_finom_email' );
+		$can = current_user_can( msb_capability( 'settings' ) );
+		?>
+		<div class="msb-card-box">
+			<h2>Finom-Beleg-Postfach</h2>
+			<?php if ( $can ) : ?>
+				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+					<input type="hidden" name="action" value="msb_exp_finom">
+					<?php wp_nonce_field( 'msb_exp_finom' ); ?>
+					<p><input type="email" name="expense_finom_email" class="regular-text" value="<?php echo esc_attr( $to ); ?>" placeholder="Adresse aus Finom → Invoices"> <button type="submit" class="button">Speichern</button></p>
+				</form>
+			<?php else : ?>
+				<p><?php echo '' !== $to ? esc_html( $to ) : 'Noch nicht eingetragen.'; ?></p>
+			<?php endif; ?>
+			<p class="description">Neue Abrechnungen gehen automatisch als PDF an diese Adresse, PDF-Belege als zusätzliche Anhänge, Kopie an die Admin-Adresse. Leer lassen, um nichts zu senden.</p>
+		</div>
+		<?php
 	}
 
 	private static function pay_box( array $c ) {
@@ -431,6 +466,22 @@ class MSB_Admin_Expenses {
 		$reason = isset( $_POST['reason'] ) ? sanitize_text_field( wp_unslash( $_POST['reason'] ) ) : '';
 		$ok     = MSB_Expenses::cancel( $id, $reason );
 		self::back( 'claims', $ok ? 'Abrechnung storniert. Die Auslagen sind wieder offen.' : 'Stornieren ging nicht (Grund fehlt oder schon storniert).', $ok ? array() : array( 'err' => 1 ) );
+	}
+
+	public static function handle_finom() {
+		if ( ! current_user_can( msb_capability( 'settings' ) ) ) {
+			wp_die( 'Keine Berechtigung.' );
+		}
+		check_admin_referer( 'msb_exp_finom' );
+		$to = isset( $_POST['expense_finom_email'] ) ? trim( sanitize_email( wp_unslash( $_POST['expense_finom_email'] ) ) ) : '';
+		if ( '' !== $to && ! is_email( $to ) ) {
+			self::back( 'claims', 'Die E-Mail-Adresse ist ungültig.', array( 'err' => 1 ) );
+		}
+		$s                        = get_option( 'msb_settings', array() );
+		$s                        = is_array( $s ) ? $s : array();
+		$s['expense_finom_email'] = $to;
+		update_option( 'msb_settings', $s );
+		self::back( 'claims', '' !== $to ? 'Finom-Beleg-Postfach gespeichert.' : 'Finom-Beleg-Postfach entfernt, es wird nichts mehr gesendet.' );
 	}
 
 	/**

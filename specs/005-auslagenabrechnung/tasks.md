@@ -5,7 +5,7 @@
 - [x] T003 Recht `msb_manage_expenses` (`msb_capability( 'expenses' )`, Gesellschafter, Administratoren), Einstellung `expense_finom_email`
 - [x] T004 `MSB_Expenses`: Auslagen, Upload mit JPEG-Umwandlung, Abrechnung mit Nummernkreis AUS, PDF nach Vorlage mit GiroCode und Fotoanlagen, Versand an Finom, ausgezahlt, Storno, EÜR-Kasten und CSV, Fristablauf
 - [x] T005 `MSB_Admin_Expenses`: Seite Vermietung → Auslagen (Meine Auslagen, Abrechnungen, Meine Bankverbindung), geschützter Dateiabruf
-- [x] T006 Einbindung: `msb-rental.php`, Einstellung und Kasten in `MSB_Documents`, Regel in `MSB_Retention`, Hilfe in `MSB_Docs`
+- [x] T006 Einbindung: `msb-rental.php`, `MSB_Documents::issuer()`/`logo_jpeg()` öffentlich, Regel in `MSB_Retention`, Hilfe in `MSB_Docs`; Finom-Postfach und EÜR-Kasten auf der Auslagen-Seite
 - [x] T007 Test `tests/msb-rental/test-expenses.php`
 - [x] T008 Version 1.10.0, CHANGELOG, ANLEITUNG, Anforderungen PAY-37 bis PAY-42, ADM-16, ROL-04, DSG-12
 - [ ] T009 netcup-Snapshot (Moritz)

@@ -15,7 +15,7 @@ Neue Klasse `MSB_Expenses` (`includes/class-msb-expenses.php`) für Auslagen, Ab
 - Tabelle `msb_expenses` (Positionen): `id`, `user_id` (Gesellschafter), `spent_on` (date), `purpose` (varchar 190), `amount` (decimal 12,2, brutto), `vat_info` (varchar 40, nur Information), `receipt_file` (varchar 255), `receipt_type` (jpeg/pdf/other), `no_receipt_reason` (text), `claim_id` (0 = offen), `created_by`, `created_at`, `updated_at`.
 - Tabelle `msb_expense_claims` (Abrechnungen): `id`, `number` (varchar 40), `user_id`, `period_to` (date, Stichtag), `amount`, `status` (issued/paid/cancelled), `data` (JSON: Name, IBAN, Positionen, Aussteller, Verwendungszweck), `file`, `sent_at`, `paid_at`, `paid_by`, `cancel_reason`, `created_by`, `created_at`.
 - Benutzer-Meta je Gesellschafter: `msb_partner_iban`, `msb_partner_name` (Name für die Überweisung). Keine Werte im Repository.
-- Neue Einstellung im Tab Belege: `expense_finom_email` (Finom-Beleg-Postfach), leer = kein automatischer Versand.
+- Neue Einstellung `expense_finom_email` in `msb_settings` (Finom-Beleg-Postfach), gepflegt unter Vermietung → Auslagen → Abrechnungen (nur mit Recht für Einstellungen), leer = kein automatischer Versand.
 
 **Testing**: `php -l` für alle geänderten Dateien, `php tests/msb-rental/test-expenses.php` (IBAN-Prüfung, Nummernformat, Summen, EPC-Inhalt, CSV-Zeilen, Sperre nach Abrechnung).
 
@@ -55,7 +55,7 @@ Mit `MSB_Emails::send_raw()` an `expense_finom_email`: Betreff „Auslagenabrech
 
 ## EÜR (PAY-42)
 
-Kasten auf der Seite Belege unter dem bestehenden EÜR-Kasten (PAY-32): Summe der ausgezahlten und der offenen Auslagen des Jahres, CSV `auslagen-euer-JJJJ.csv` mit Belegdatum, Lieferant/Zweck, Betrag, Gesellschafter, AUS-Nummer, Status, Erstattungsdatum, Eigenbeleg ja/nein. Stornierte Abrechnungen erscheinen nicht, ihre Positionen zählen erst mit der neuen Abrechnung.
+Kasten unter Vermietung → Auslagen → Abrechnungen (mit Jahresauswahl): Summe der ausgezahlten und der offenen Auslagen des Jahres, CSV `auslagen-euer-JJJJ.csv` mit Belegdatum, Lieferant/Zweck, Betrag, Gesellschafter, AUS-Nummer, Status, Erstattungsdatum, Eigenbeleg ja/nein. Stornierte Abrechnungen erscheinen nicht, ihre Positionen zählen erst mit der neuen Abrechnung.
 
 ## Aufbewahrung (DSG-12)
 
@@ -67,7 +67,7 @@ Abrechnungen, Positionen und Dateien bleiben 8 Jahre ab Ende des Jahres der Abre
 - `plugins/msb-rental/admin/class-msb-admin-expenses.php` (neu)
 - `plugins/msb-rental/includes/class-msb-install.php` (Tabellen, `DB_VERSION` 1.10.0)
 - `plugins/msb-rental/includes/functions.php` (Recht `expenses`, Gesellschafter-Rechte, Admin-Filter)
-- `plugins/msb-rental/includes/class-msb-documents.php` (Einstellung Finom-Adresse im Tab Belege, Kasten auf der Seite Belege)
+- `plugins/msb-rental/includes/class-msb-documents.php` (nur `issuer()` und `logo_jpeg()` öffentlich, damit die Abrechnung Absender und Logo der Belege nutzt)
 - `plugins/msb-rental/includes/class-msb-retention.php` (Regel DSG-12)
 - `plugins/msb-rental/msb-rental.php` (Laden, Version 1.10.0)
 - `plugins/msb-rental/CHANGELOG.md`, `plugins/msb-rental/ANLEITUNG.md`, `plugins/msb-rental/admin/class-msb-docs.php` (Hilfe)
@@ -113,6 +113,10 @@ Zwei neue Tabellen über `dbDelta` in `MSB_Install::create_tables()`, Datenbankv
 - Beleg-Postfach per E-Mail, Texterkennung, „Link payment“: https://help.finom.co/en/articles/5901360-how-to-collect-documents-using-finom
 - Dokumente an Zahlungen hängen: https://help.finom.co/en/articles/4786775-how-to-upload-additional-documents-to-a-transaction
 - Keine öffentliche Schnittstelle bekannt: https://apis.io/providers/finom/
+
+## Änderung vor der Freigabe (12.11.2026)
+
+Damit an bestehenden Dateien möglichst wenig geändert wird (kleinere Freigabe-Vorschläge), liegen das Feld für das Finom-Beleg-Postfach und der EÜR-Kasten nicht unter Einstellungen → Belege bzw. auf der Seite Belege, sondern auf der neuen Seite unter Vermietung → Auslagen → Abrechnungen. In `class-msb-documents.php` werden nur zwei Methoden öffentlich. Die Hilfe verlinkt die Seite direkt (Abschnitt `#auslagen`), ohne neuen Eintrag im Inhaltsverzeichnis.
 
 ## Freigabe
 

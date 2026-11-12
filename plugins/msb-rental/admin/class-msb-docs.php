@@ -35,7 +35,6 @@ class MSB_Docs {
 				'stripe'       => 'Stripe einrichten',
 				'paypal'       => 'PayPal einrichten',
 				'zahlungen-backend' => 'Zahlungen im Backend',
-				'auslagen'     => 'Auslagen der Gesellschafter',
 			),
 			'Kunden'               => array(
 				'kunden'       => 'Kundenverwaltung',
@@ -380,11 +379,11 @@ class MSB_Docs {
 				<li><strong>Meine Bankverbindung:</strong> einmal Name und IBAN eintragen. Jeder sieht und ändert nur seine eigene.</li>
 				<li><strong>Auslage erfassen:</strong> Datum, Lieferant/Zweck, Betrag brutto und ein Foto vom Kassenbon (auf dem Handy direkt mit der Kamera) oder eine PDF. Ohne Beleg nur mit Begründung (Eigenbeleg). Solange nicht abgerechnet, lässt sich alles ändern.</li>
 				<li><strong>Abrechnung erstellen:</strong> alle offenen Auslagen bis zum Stichtag werden zur Auslagenabrechnung <code>AUS-JJJJ-0001</code> (eigener, lückenloser Nummernkreis). Die PDF folgt der Vorlage, Fotos hängen als Folgeseiten an, PDF-Belege werden separat mitgeschickt. Danach sind die Positionen gesperrt.</li>
-				<li><strong>An Finom:</strong> Ist unter ' . self::link( 'admin.php?page=msb-settings&tab=documents', 'Einstellungen → Belege' ) . ' das Finom-Beleg-Postfach eingetragen (Adresse in Finom unter „Invoices“), geht die Abrechnung automatisch dorthin.</li>
+				<li><strong>An Finom:</strong> Ist unter Auslagen → Abrechnungen das Finom-Beleg-Postfach eingetragen (Adresse in Finom unter „Invoices“, ändern nur Administratoren), geht die Abrechnung automatisch dorthin.</li>
 				<li><strong>Auszahlen:</strong> unter Abrechnungen → Auszahlen stehen Empfänger, IBAN, Betrag und Verwendungszweck zum Kopieren und als GiroCode. Die Überweisung in Finom anlegen und bestätigen, dort die Abrechnung mit der Zahlung verknüpfen („Link payment“), dann hier „Als ausgezahlt markieren“.</li>
 			</ol>
 			<p><strong>Fehler?</strong> Vor der Auszahlung „Stornieren“ mit Grund: Die Nummer bleibt belegt, die Auslagen sind wieder offen und können korrigiert neu abgerechnet werden. Eine Abrechnung wird nie geändert.</p>
-			<p><strong>Steuer:</strong> Die GbR ist Kleinunternehmer, es zählt nur der Bruttobetrag. Unter ' . self::link( 'admin.php?page=msb-documents', 'Belege' ) . ' gibt es den Kasten „Auslagen für die EÜR“ mit CSV (jede Position mit Belegdatum und Erstattungsdatum). Abrechnungen und Belegfotos werden 8 Jahre aufbewahrt und liegen geschützt, nicht öffentlich abrufbar.</p>'
+			<p><strong>Steuer:</strong> Die GbR ist Kleinunternehmer, es zählt nur der Bruttobetrag. Unter Auslagen → Abrechnungen gibt es den Kasten „Auslagen für die EÜR“ mit CSV (jede Position mit Belegdatum und Erstattungsdatum). Abrechnungen und Belegfotos werden 8 Jahre aufbewahrt und liegen geschützt, nicht öffentlich abrufbar.</p>'
 		);
 
 		/* ---------------- Kunden ---------------- */
