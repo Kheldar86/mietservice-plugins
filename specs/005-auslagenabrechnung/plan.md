@@ -123,6 +123,6 @@ Damit an bestehenden Dateien möglichst wenig geändert wird (kleinere Freigabe-
 | Plan bestätigt von Moritz | 12.11.2026 | „Ja bau es“ |
 | netcup-Snapshot | 12.11.2026 | Moritz („Ja Schnappschuss ist da“) |
 | Bridge-Vorschläge 1.10.0 | 12.11.2026 | Vorher Live-Stand geprüft: alle 8 bestehenden Dateien SHA-256-gleich mit Branch-Basis 1.9.1. class-msb-expenses.php `2c448e9c…` (neu), class-msb-admin-expenses.php `f57ca365…` (neu), class-msb-install.php `4e418527…`, class-msb-documents.php `bae4378d…`, class-msb-docs.php `9067765f…`, CHANGELOG `b314a94a…`, ANLEITUNG `214eeb14…`, msb-rental.php `636df426…` |
-| Freigegeben 1.10.0 | | |
-| Live-Abgleich SHA-256 | | |
+| Freigegeben 1.10.0 | 12.11.2026 ca. 23:05 | Moritz („Freigegeben“), alle 8 Vorschläge „approved“ |
+| Live-Abgleich SHA-256 | 12.11.2026 | alle 8 Dateien identisch: class-msb-expenses.php `63619b73…`, class-msb-admin-expenses.php `efe1f8d2…`, class-msb-install.php `27cc22e4…`, class-msb-documents.php `ca2d29ee…`, class-msb-docs.php `7d070731…`, CHANGELOG `fdadbb0b…`, ANLEITUNG `7e63c505…`, msb-rental.php `9658ac59…`. Startseite 200 ohne Fehler, Tabellen `msb_expenses` und `msb_expense_claims` angelegt, `msb_db_version`, `msb_expenses_db` und `msb_roles_version` = 1.10.0 |
 | Merge und Tag | | Tag `msb-rental-v1.10.0` legt Moritz in GitHub an |

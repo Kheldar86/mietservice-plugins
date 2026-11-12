@@ -8,6 +8,6 @@
 - [x] T006 Einbindung: `msb-rental.php`, `MSB_Documents::issuer()`/`logo_jpeg()` öffentlich, Fristen-Lauf in `MSB_Expenses::retention()`, Hilfe in `MSB_Docs`; Finom-Postfach und EÜR-Kasten auf der Auslagen-Seite
 - [x] T007 Test `tests/msb-rental/test-expenses.php`
 - [x] T008 Version 1.10.0, CHANGELOG, ANLEITUNG, Anforderungen PAY-37 bis PAY-42, ADM-16, ROL-04, DSG-12
-- [ ] T009 netcup-Snapshot (Moritz)
-- [ ] T010 Bridge-Vorschläge je Datei, Freigabe (Moritz), SHA-256-Abgleich, in plan.md eintragen
+- [x] T009 netcup-Snapshot (Moritz)
+- [x] T010 Bridge-Vorschläge je Datei, Freigabe (Moritz), SHA-256-Abgleich, in plan.md eintragen
 - [ ] T011 Live-Test mit 0,01 € (Abrechnung, PDF, GiroCode, Finom-Postfach, Storno), dann Pull Request, Merge und Tag `msb-rental-v1.10.0`
