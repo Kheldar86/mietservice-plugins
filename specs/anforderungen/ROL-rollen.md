@@ -31,6 +31,6 @@ Die Rechte werden über eigene Berechtigungen je Bereich vergeben (z. B. Buchung
 
 ### ROL-04 · MUSS
 
-Das Recht `msb_manage_expenses` haben die Rolle „Gesellschafter“ und Administratoren. Jeder erfasst, ändert und löscht nur eigene offene Auslagen und pflegt nur die eigene Bankverbindung. Alle mit dem Recht sehen alle Abrechnungen, dürfen sie an Finom senden, als ausgezahlt markieren und stornieren. Das Finom-Beleg-Postfach ändern nur Nutzer mit dem Recht für Einstellungen (Administratoren).
+Die Auslagen nutzen alle mit dem Recht für Buchungen (`msb_capability( 'bookings' )`), also die Rolle „Gesellschafter“ und Administratoren (Entscheidung 12.11.2026: kein eigenes Recht nötig). Jeder erfasst, ändert und löscht nur eigene offene Auslagen und pflegt nur die eigene Bankverbindung. Alle mit dem Recht sehen alle Abrechnungen, dürfen sie an Finom senden, als ausgezahlt markieren und stornieren. Das Finom-Beleg-Postfach ändern nur Nutzer mit dem Recht für Einstellungen (Administratoren).
 
 **Status:** umgesetzt in 1.10.0

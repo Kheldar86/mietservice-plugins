@@ -16,11 +16,76 @@ class MSB_Expenses {
 
 	const PAGE     = 'msb-expenses';
 	const MAX_SIZE = 10485760; // 10 MB, Grenze des Finom-Beleg-Postfachs.
+	const DB       = '1.10.0'; // Stand der Tabellen msb_expenses und msb_expense_claims.
+	const RULE     = 'Auslagenabrechnungen (8 Jahre)'; // Eintrag im Löschprotokoll (DSG-12).
 
 	public static function init() {
+		add_action( 'init', array( __CLASS__, 'maybe_install' ), 6 );
+		add_action( 'msb_cron_daily', array( __CLASS__, 'retention' ) );
 		if ( is_admin() ) {
 			add_action( 'admin_init', array( __CLASS__, 'handle_euer_export' ), 8 );
 		}
+	}
+
+	/**
+	 * Recht für die Auslagen (ROL-04): wie Buchungen, also Gesellschafter und Administratoren.
+	 */
+	public static function cap() {
+		return msb_capability( 'bookings' );
+	}
+
+	/**
+	 * Legt die Tabellen beim ersten Seitenaufruf nach dem Update an (Datenbankversion 1.10.0).
+	 */
+	public static function maybe_install() {
+		if ( self::DB === get_option( 'msb_expenses_db' ) ) {
+			return;
+		}
+		global $wpdb;
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		$charset  = $wpdb->get_charset_collate();
+		$expenses = self::t( 'expenses' );
+		$claims   = self::t( 'expense_claims' );
+		dbDelta(
+			"CREATE TABLE {$expenses} (
+			id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+			user_id bigint(20) unsigned NOT NULL DEFAULT 0,
+			spent_on date NOT NULL,
+			purpose varchar(190) NOT NULL DEFAULT '',
+			amount decimal(12,2) NOT NULL DEFAULT 0,
+			vat_info varchar(40) NOT NULL DEFAULT '',
+			receipt_file varchar(255) NOT NULL DEFAULT '',
+			receipt_type varchar(10) NOT NULL DEFAULT '',
+			no_receipt_reason text NULL,
+			claim_id bigint(20) unsigned NOT NULL DEFAULT 0,
+			created_by bigint(20) unsigned NOT NULL DEFAULT 0,
+			created_at datetime NOT NULL,
+			updated_at datetime NOT NULL,
+			PRIMARY KEY  (id),
+			KEY user_claim (user_id,claim_id),
+			KEY claim_id (claim_id)
+		) {$charset};
+		CREATE TABLE {$claims} (
+			id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+			number varchar(40) NOT NULL DEFAULT '',
+			user_id bigint(20) unsigned NOT NULL DEFAULT 0,
+			period_to date NOT NULL,
+			amount decimal(12,2) NOT NULL DEFAULT 0,
+			status varchar(20) NOT NULL DEFAULT 'issued',
+			data longtext NULL,
+			file varchar(255) NOT NULL DEFAULT '',
+			sent_at datetime NULL DEFAULT NULL,
+			paid_at datetime NULL DEFAULT NULL,
+			paid_by bigint(20) unsigned NOT NULL DEFAULT 0,
+			cancel_reason text NULL,
+			created_by bigint(20) unsigned NOT NULL DEFAULT 0,
+			created_at datetime NOT NULL,
+			PRIMARY KEY  (id),
+			KEY number (number),
+			KEY user_id (user_id)
+		) {$charset};"
+		);
+		update_option( 'msb_expenses_db', self::DB, false );
 	}
 
 	/* ------------------------------------------------------------------
@@ -812,7 +877,7 @@ class MSB_Expenses {
 	 * ------------------------------------------------------------------ */
 
 	public static function box( $year ) {
-		if ( ! current_user_can( msb_capability( 'expenses' ) ) ) {
+		if ( ! current_user_can( self::cap() ) ) {
 			return '';
 		}
 		$rows = self::euer_rows( self::claims_for_year( $year ), $year );
@@ -844,7 +909,7 @@ class MSB_Expenses {
 			return;
 		}
 		check_admin_referer( 'msb_expense_export' );
-		if ( ! current_user_can( msb_capability( 'expenses' ) ) ) {
+		if ( ! current_user_can( self::cap() ) ) {
 			wp_die( 'Keine Berechtigung.' );
 		}
 		$year = isset( $_GET['year'] ) ? absint( $_GET['year'] ) : (int) current_time( 'Y' );
@@ -879,6 +944,32 @@ class MSB_Expenses {
 	/* ------------------------------------------------------------------
 	 * Aufbewahrung (DSG-12)
 	 * ------------------------------------------------------------------ */
+
+	/**
+	 * Täglicher Lauf zusammen mit den Löschfristen: im Probelauf nur zählen, scharf löschen. Beides steht im Löschprotokoll.
+	 */
+	public static function retention() {
+		global $wpdb;
+		$ids = self::expired_claims();
+		if ( ! $ids ) {
+			return;
+		}
+		$live = class_exists( 'MSB_Retention' ) && MSB_Retention::live();
+		if ( $live ) {
+			foreach ( $ids as $id ) {
+				self::purge_claim( $id );
+			}
+		}
+		$wpdb->insert(
+			self::t( 'deletion_log' ),
+			array(
+				'run_at' => current_time( 'mysql' ),
+				'rule'   => self::RULE,
+				'count'  => count( $ids ),
+				'dry'    => $live ? 0 : 1,
+			)
+		);
+	}
 
 	/**
 	 * Abrechnungen, deren Frist (8 Jahre ab Ende des Jahres der Abrechnung) abgelaufen ist.

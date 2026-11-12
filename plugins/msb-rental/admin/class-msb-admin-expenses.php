@@ -18,7 +18,7 @@ class MSB_Admin_Expenses {
 	}
 
 	public static function menu() {
-		add_submenu_page( 'msb-bookings', 'Auslagen der Gesellschafter', 'Auslagen', msb_capability( 'expenses' ), MSB_Expenses::PAGE, array( __CLASS__, 'page' ) );
+		add_submenu_page( 'msb-bookings', 'Auslagen der Gesellschafter', 'Auslagen', MSB_Expenses::cap(), MSB_Expenses::PAGE, array( __CLASS__, 'page' ) );
 	}
 
 	private static function url( array $args = array() ) {
@@ -26,7 +26,7 @@ class MSB_Admin_Expenses {
 	}
 
 	private static function guard( $nonce ) {
-		if ( ! current_user_can( msb_capability( 'expenses' ) ) ) {
+		if ( ! current_user_can( MSB_Expenses::cap() ) ) {
 			wp_die( 'Keine Berechtigung.' );
 		}
 		check_admin_referer( $nonce );
@@ -51,7 +51,7 @@ class MSB_Admin_Expenses {
 	 * ------------------------------------------------------------------ */
 
 	public static function page() {
-		if ( ! current_user_can( msb_capability( 'expenses' ) ) ) {
+		if ( ! current_user_can( MSB_Expenses::cap() ) ) {
 			wp_die( 'Keine Berechtigung.' );
 		}
 		// phpcs:disable WordPress.Security.NonceVerification
@@ -492,7 +492,7 @@ class MSB_Admin_Expenses {
 		$kind = isset( $_GET['kind'] ) ? sanitize_key( $_GET['kind'] ) : '';
 		$id   = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
 		// phpcs:enable
-		if ( ! current_user_can( msb_capability( 'expenses' ) ) ) {
+		if ( ! current_user_can( MSB_Expenses::cap() ) ) {
 			wp_die( 'Keine Berechtigung.' );
 		}
 		check_admin_referer( 'msb_exp_file_' . $kind . '_' . $id );

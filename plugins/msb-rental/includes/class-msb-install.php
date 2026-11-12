@@ -103,8 +103,6 @@ class MSB_Install {
 		$sequences = self::table( 'sequences' );
 		$documents = self::table( 'documents' );
 		$deletion  = self::table( 'deletion_log' );
-		$expenses  = self::table( 'expenses' );
-		$claims    = self::table( 'expense_claims' );
 
 		$sql = "CREATE TABLE {$bookings} (
 			id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -223,43 +221,6 @@ class MSB_Install {
 			dry tinyint(1) NOT NULL DEFAULT 1,
 			PRIMARY KEY  (id),
 			KEY run_at (run_at)
-		) {$charset};
-		CREATE TABLE {$expenses} (
-			id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-			user_id bigint(20) unsigned NOT NULL DEFAULT 0,
-			spent_on date NOT NULL,
-			purpose varchar(190) NOT NULL DEFAULT '',
-			amount decimal(12,2) NOT NULL DEFAULT 0,
-			vat_info varchar(40) NOT NULL DEFAULT '',
-			receipt_file varchar(255) NOT NULL DEFAULT '',
-			receipt_type varchar(10) NOT NULL DEFAULT '',
-			no_receipt_reason text NULL,
-			claim_id bigint(20) unsigned NOT NULL DEFAULT 0,
-			created_by bigint(20) unsigned NOT NULL DEFAULT 0,
-			created_at datetime NOT NULL,
-			updated_at datetime NOT NULL,
-			PRIMARY KEY  (id),
-			KEY user_claim (user_id,claim_id),
-			KEY claim_id (claim_id)
-		) {$charset};
-		CREATE TABLE {$claims} (
-			id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-			number varchar(40) NOT NULL DEFAULT '',
-			user_id bigint(20) unsigned NOT NULL DEFAULT 0,
-			period_to date NOT NULL,
-			amount decimal(12,2) NOT NULL DEFAULT 0,
-			status varchar(20) NOT NULL DEFAULT 'issued',
-			data longtext NULL,
-			file varchar(255) NOT NULL DEFAULT '',
-			sent_at datetime NULL DEFAULT NULL,
-			paid_at datetime NULL DEFAULT NULL,
-			paid_by bigint(20) unsigned NOT NULL DEFAULT 0,
-			cancel_reason text NULL,
-			created_by bigint(20) unsigned NOT NULL DEFAULT 0,
-			created_at datetime NOT NULL,
-			PRIMARY KEY  (id),
-			KEY number (number),
-			KEY user_id (user_id)
 		) {$charset};";
 
 		dbDelta( $sql );

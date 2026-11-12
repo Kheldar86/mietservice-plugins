@@ -11,13 +11,12 @@ Alle Änderungen pro Version. Die neueste Version steht oben. Dieselben Hinweise
 - **Auszahlen**: Empfänger, IBAN, Betrag und Verwendungszweck (`AUS-2026-0001 Auslagen 11/2026`) mit Kopier-Knöpfen und als GiroCode. Nach der Überweisung in Finom „Als ausgezahlt markieren“ mit Datum
 - **Meine Bankverbindung**: Name und IBAN je Gesellschafter (IBAN-Prüfung, Anzeige maskiert)
 - Unter Vermietung → Auslagen → Abrechnungen: Kasten „Auslagen JJJJ für die EÜR“ mit Summen und CSV (jede Position mit Belegdatum, Zweck, Betrag, Gesellschafter, Abrechnung, Status und Erstattungsdatum)
-- Neues Recht `msb_manage_expenses` für die Rolle Gesellschafter und Administratoren. Jeder erfasst nur eigene Auslagen und pflegt nur die eigene Bankverbindung, alle sehen alle Abrechnungen
-- Löschfristen: neue Regel „Auslagenabrechnungen der Gesellschafter“, 8 Jahre nach Ende des Jahres der Abrechnung (im Probelauf zuerst nur gezählt)
+- Zugriff für alle mit dem Recht für Buchungen (Gesellschafter und Administratoren). Jeder erfasst nur eigene Auslagen und pflegt nur die eigene Bankverbindung, alle sehen alle Abrechnungen
+- Löschfristen: Auslagenabrechnungen werden 8 Jahre nach Ende des Jahres der Abrechnung gelöscht. Der tägliche Lauf folgt dem Schalter der Löschfristen (Probelauf zählt nur) und steht im Löschprotokoll als „Auslagenabrechnungen (8 Jahre)“
 
 ### Update-Hinweise
-- Datenbankversion 1.10.0: zwei neue Tabellen `msb_expenses` und `msb_expense_claims`, angelegt beim ersten Seitenaufruf nach dem Update. Bestehende Tabellen bleiben unverändert
+- Datenbankversion 1.10.0: zwei neue Tabellen `msb_expenses` und `msb_expense_claims`, angelegt beim ersten Seitenaufruf nach dem Update (Option `msb_expenses_db`). Bestehende Tabellen bleiben unverändert
 - Belegfotos und Abrechnungen liegen geschützt unter `uploads/msb-belege/auslagen/` und sind nur über das Backend abrufbar
-- Die Rechte der Rolle Gesellschafter werden beim ersten Aufruf im Backend automatisch ergänzt
 - Danach unter Vermietung → Auslagen → Abrechnungen das Finom-Beleg-Postfach eintragen und unter Vermietung → Auslagen → Meine Bankverbindung die eigene IBAN
 
 ## 1.9.1 – 10.11.2026

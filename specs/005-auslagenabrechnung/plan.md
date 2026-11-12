@@ -4,7 +4,7 @@
 
 ## Summary
 
-Neue Klasse `MSB_Expenses` (`includes/class-msb-expenses.php`) für Auslagen, Abrechnungen, PDF, Versand und EÜR-Zeilen, dazu die Backend-Seite `MSB_Admin_Expenses` (`admin/class-msb-admin-expenses.php`) unter Vermietung → Auslagen. Zwei neue Tabellen, eigener Nummernkreis `AUS-JJJJ-0001` über `msb_next_sequence( 'doc_expense', $jahr )`, Ablage geschützt unter `uploads/msb-belege/auslagen/`. Die PDF entsteht mit `MSB_PDF` nach der Vorlage, der GiroCode mit `MSB_QR` (beides ohne neue Abhängigkeit). Version msb-rental **1.10.0** (vorher 1.9.1), Datenbankversion **1.10.0** (vorher 1.8.1).
+Neue Klasse `MSB_Expenses` (`includes/class-msb-expenses.php`) für Auslagen, Abrechnungen, PDF, Versand und EÜR-Zeilen, dazu die Backend-Seite `MSB_Admin_Expenses` (`admin/class-msb-admin-expenses.php`) unter Vermietung → Auslagen. Zwei neue Tabellen, eigener Nummernkreis `AUS-JJJJ-0001` über `msb_next_sequence( 'doc_expense', $jahr )`, Ablage geschützt unter `uploads/msb-belege/auslagen/`. Die PDF entsteht mit `MSB_PDF` nach der Vorlage, der GiroCode mit `MSB_QR` (beides ohne neue Abhängigkeit). Version msb-rental **1.10.0** (vorher 1.9.1), Datenbankversion **1.10.0** (vorher 1.8.1). Die neue Klasse legt ihre Tabellen selbst an und kümmert sich selbst um die Frist, damit bestehende Dateien kaum geändert werden.
 
 ## Technical Context
 
@@ -43,7 +43,7 @@ Vermietung → **Auslagen** mit drei Bereichen:
 
 ## Rechte (ROL-04)
 
-Neues Recht `msb_manage_expenses` über `msb_capability( 'expenses' )`, in `msb_partner_caps()` und für Administratoren. Jeder erfasst und ändert nur **eigene** offene Auslagen und nur die **eigene** Bankverbindung. Beide sehen alle Abrechnungen (Transparenz unter Gesellschaftern) und dürfen „ausgezahlt“ setzen. Die Finom-Adresse ändern nur Administratoren (Einstellungen).
+Kein neues Recht: Die Auslagen nutzen `msb_capability( 'bookings' )` (über `MSB_Expenses::cap()`), das Gesellschafter und Administratoren schon haben. Jeder erfasst und ändert nur **eigene** offene Auslagen und nur die **eigene** Bankverbindung. Beide sehen alle Abrechnungen (Transparenz unter Gesellschaftern) und dürfen „ausgezahlt“ setzen. Die Finom-Adresse ändern nur Administratoren (Einstellungen).
 
 ## PDF (PAY-38)
 
@@ -59,16 +59,14 @@ Kasten unter Vermietung → Auslagen → Abrechnungen (mit Jahresauswahl): Summe
 
 ## Aufbewahrung (DSG-12)
 
-Abrechnungen, Positionen und Dateien bleiben 8 Jahre ab Ende des Jahres der Abrechnung (§ 147 AO) und werden dann über `MSB_Retention` gelöscht (im Probelauf zuerst nur gezählt, wie die übrigen Regeln). Offene Positionen ohne Abrechnung werden nicht automatisch gelöscht. Ablage `uploads/msb-belege/auslagen/` mit `.htaccess` „Require all denied“, Abruf nur über das Backend mit Recht und Nonce.
+Abrechnungen, Positionen und Dateien bleiben 8 Jahre ab Ende des Jahres der Abrechnung (§ 147 AO) und werden dann gelöscht: `MSB_Expenses::retention()` hängt am täglichen Cron `msb_cron_daily`, folgt `MSB_Retention::live()` (Probelauf zählt nur) und schreibt ins Löschprotokoll. Offene Positionen ohne Abrechnung werden nicht automatisch gelöscht. Ablage `uploads/msb-belege/auslagen/` mit `.htaccess` „Require all denied“, Abruf nur über das Backend mit Recht und Nonce.
 
 ## Betroffene Dateien
 
 - `plugins/msb-rental/includes/class-msb-expenses.php` (neu)
 - `plugins/msb-rental/admin/class-msb-admin-expenses.php` (neu)
-- `plugins/msb-rental/includes/class-msb-install.php` (Tabellen, `DB_VERSION` 1.10.0)
-- `plugins/msb-rental/includes/functions.php` (Recht `expenses`, Gesellschafter-Rechte, Admin-Filter)
+- `plugins/msb-rental/includes/class-msb-install.php` (nur `DB_VERSION` 1.10.0; die Tabellen legt `MSB_Expenses::maybe_install()` an)
 - `plugins/msb-rental/includes/class-msb-documents.php` (nur `issuer()` und `logo_jpeg()` öffentlich, damit die Abrechnung Absender und Logo der Belege nutzt)
-- `plugins/msb-rental/includes/class-msb-retention.php` (Regel DSG-12)
 - `plugins/msb-rental/msb-rental.php` (Laden, Version 1.10.0)
 - `plugins/msb-rental/CHANGELOG.md`, `plugins/msb-rental/ANLEITUNG.md`, `plugins/msb-rental/admin/class-msb-docs.php` (Hilfe)
 - `specs/anforderungen/PAY-zahlung-kaution-storno.md`, `ADM-backend.md`, `ROL-rollen.md`, `DSG-datenschutz-loeschfristen.md`
@@ -76,7 +74,7 @@ Abrechnungen, Positionen und Dateien bleiben 8 Jahre ab Ende des Jahres der Abre
 
 ## Datenbank
 
-Zwei neue Tabellen über `dbDelta` in `MSB_Install::create_tables()`, Datenbankversion 1.10.0. Bestehende Tabellen bleiben unverändert. Neuer Zähler `doc_expense` in `msb_sequences`.
+Zwei neue Tabellen über `dbDelta` in `MSB_Expenses::maybe_install()` (Option `msb_expenses_db`), Datenbankversion 1.10.0 in `MSB_Install`. Bestehende Tabellen bleiben unverändert. Neuer Zähler `doc_expense` in `msb_sequences`.
 
 ## Offene Fragen an den Steuerberater (nicht im Plugin entschieden)
 
@@ -116,7 +114,7 @@ Zwei neue Tabellen über `dbDelta` in `MSB_Install::create_tables()`, Datenbankv
 
 ## Änderung vor der Freigabe (12.11.2026)
 
-Damit an bestehenden Dateien möglichst wenig geändert wird (kleinere Freigabe-Vorschläge), liegen das Feld für das Finom-Beleg-Postfach und der EÜR-Kasten nicht unter Einstellungen → Belege bzw. auf der Seite Belege, sondern auf der neuen Seite unter Vermietung → Auslagen → Abrechnungen. In `class-msb-documents.php` werden nur zwei Methoden öffentlich. Die Hilfe verlinkt die Seite direkt (Abschnitt `#auslagen`), ohne neuen Eintrag im Inhaltsverzeichnis.
+Damit an bestehenden Dateien möglichst wenig geändert wird (kleinere Freigabe-Vorschläge), liegen das Feld für das Finom-Beleg-Postfach und der EÜR-Kasten nicht unter Einstellungen → Belege bzw. auf der Seite Belege, sondern auf der neuen Seite unter Vermietung → Auslagen → Abrechnungen. In `class-msb-documents.php` werden nur zwei Methoden öffentlich, in `class-msb-install.php` ändert sich nur die Datenbankversion. `functions.php` und `class-msb-retention.php` bleiben unverändert: kein eigenes Recht (Recht für Buchungen), eigene Tabellen-Anlage und eigener Fristen-Lauf in `MSB_Expenses`. Die Hilfe verlinkt die Seite direkt (Abschnitt `#auslagen`), ohne neuen Eintrag im Inhaltsverzeichnis.
 
 ## Freigabe
 

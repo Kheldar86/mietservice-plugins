@@ -89,6 +89,6 @@ Eine gesperrte Buchung zeigt im Backend den Hinweis, dass sie nach Art. 18 DSGVO
 
 ### DSG-12 · MUSS
 
-Auslagenabrechnungen, ihre Auslagen und Belegdateien werden 8 Jahre ab Ende des Jahres der Abrechnung aufbewahrt (§ 147 AO) und danach über die Löschfristen gelöscht (Regel „Auslagenabrechnungen der Gesellschafter“, im Probelauf zuerst nur gezählt). Offene Auslagen ohne Abrechnung werden nicht automatisch gelöscht. Die Dateien liegen unter uploads/msb-belege/auslagen/ ohne öffentlichen Zugriff und sind nur über das Backend mit Recht und Nonce abrufbar.
+Auslagenabrechnungen, ihre Auslagen und Belegdateien werden 8 Jahre ab Ende des Jahres der Abrechnung aufbewahrt (§ 147 AO) und danach gelöscht. Der tägliche Lauf (msb_cron_daily) folgt dem Schalter der Löschfristen (im Probelauf nur gezählt) und schreibt ins Löschprotokoll (Regel „Auslagenabrechnungen (8 Jahre)“). Offene Auslagen ohne Abrechnung werden nicht automatisch gelöscht. Die Dateien liegen unter uploads/msb-belege/auslagen/ ohne öffentlichen Zugriff und sind nur über das Backend mit Recht und Nonce abrufbar.
 
 **Status:** umgesetzt in 1.10.0

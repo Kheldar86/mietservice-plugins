@@ -35,7 +35,6 @@ class MSB_Retention {
 			'customer'        => array( 'Kundendaten ohne Aufbewahrungspflicht', '3 Jahre nach Ende des Jahres der letzten Buchung oder Anmeldung', 'Kunde und Konto werden gelöscht. Buchungen mit Zahlung oder Beleg bleiben ohne Kundenbezug und gesperrt.' ),
 			'booking_nomoney' => array( 'Abgeschlossene Buchungen ohne Zahlung und Beleg', '3 Jahre nach Ende des Jahres der Rückgabe', 'Buchung und Positionen werden gelöscht.' ),
 			'retention'       => array( 'Buchungen mit Zahlung oder Beleg', '8 Jahre nach Ende des Jahres des letzten Belegs bzw. der letzten Zahlung', 'Buchung, Positionen, Zahlungen, Belege und PDFs werden gelöscht.' ),
-			'expenses'        => array( 'Auslagenabrechnungen der Gesellschafter', '8 Jahre nach Ende des Jahres der Abrechnung', 'Abrechnung, ihre Auslagen und alle Belegdateien werden gelöscht. Offene Auslagen ohne Abrechnung bleiben.' ),
 		);
 	}
 
@@ -158,9 +157,6 @@ class MSB_Retention {
 					}
 				}
 				return $ids;
-
-			case 'expenses':
-				return class_exists( 'MSB_Expenses' ) ? MSB_Expenses::expired_claims() : array();
 		}
 		return array();
 	}
@@ -184,11 +180,6 @@ class MSB_Retention {
 					break;
 				case 'customer':
 					self::erase_customer( $id, false );
-					break;
-				case 'expenses':
-					if ( class_exists( 'MSB_Expenses' ) ) {
-						MSB_Expenses::purge_claim( $id );
-					}
 					break;
 			}
 		}

@@ -140,8 +140,7 @@ function msb_setting( $key, $default = null ) {
 
 /**
  * Berechtigung je Bereich (ROL-03): bookings (Buchungen, Kunden, Kalender, Zahlungen), delete (Buchungen löschen),
- * items (Mietartikel, Kategorien, KI-Assistent), settings (Einstellungen, Buchungsformular, Shortcodes),
- * expenses (Auslagen der Gesellschafter, ROL-04, 1.10.0).
+ * items (Mietartikel, Kategorien, KI-Assistent), settings (Einstellungen, Buchungsformular, Shortcodes).
  */
 function msb_capability( $area = 'bookings' ) {
 	$caps = array(
@@ -149,7 +148,6 @@ function msb_capability( $area = 'bookings' ) {
 		'delete'   => 'msb_delete_bookings',
 		'items'    => 'msb_manage_items',
 		'settings' => 'msb_manage_settings',
-		'expenses' => 'msb_manage_expenses',
 	);
 	return apply_filters( 'msb_capability', isset( $caps[ $area ] ) ? $caps[ $area ] : 'manage_options', $area );
 }
@@ -167,7 +165,7 @@ function msb_item_caps() {
  */
 function msb_partner_caps() {
 	return array_merge(
-		array( 'read', 'upload_files', 'msb_manage_bookings', 'msb_manage_items', 'msb_manage_expenses' ),
+		array( 'read', 'upload_files', 'msb_manage_bookings', 'msb_manage_items' ),
 		array( 'edit_msb_items', 'edit_others_msb_items', 'edit_published_msb_items', 'edit_private_msb_items', 'publish_msb_items', 'read_private_msb_items' ),
 		array( 'rank_math_onpage_general', 'rank_math_onpage_advanced', 'rank_math_onpage_snippet', 'rank_math_onpage_social' )
 	);
@@ -183,7 +181,7 @@ add_filter(
 	'user_has_cap',
 	function ( $allcaps ) {
 		if ( ! empty( $allcaps['manage_options'] ) ) {
-			foreach ( array_merge( array( 'msb_manage_bookings', 'msb_delete_bookings', 'msb_manage_items', 'msb_manage_settings', 'msb_manage_expenses' ), msb_item_caps() ) as $cap ) {
+			foreach ( array_merge( array( 'msb_manage_bookings', 'msb_delete_bookings', 'msb_manage_items', 'msb_manage_settings' ), msb_item_caps() ) as $cap ) {
 				$allcaps[ $cap ] = true;
 			}
 		}
