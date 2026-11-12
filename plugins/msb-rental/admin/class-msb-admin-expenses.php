@@ -457,7 +457,7 @@ class MSB_Admin_Expenses {
 		$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0; // phpcs:ignore
 		self::guard( 'msb_exp_send_' . $id );
 		$ok = MSB_Expenses::send( $id );
-		self::back( 'claims', $ok ? 'An das Finom-Beleg-Postfach gesendet.' : 'Versand fehlgeschlagen. Ist unter Einstellungen → Belege ein Finom-Beleg-Postfach eingetragen?', array( 'claim' => $id ) + ( $ok ? array() : array( 'err' => 1 ) ) );
+		self::back( 'claims', $ok ? 'An das Finom-Beleg-Postfach gesendet.' : 'Versand fehlgeschlagen. Ist unten unter „Finom-Beleg-Postfach“ eine Adresse eingetragen?', array( 'claim' => $id ) + ( $ok ? array() : array( 'err' => 1 ) ) );
 	}
 
 	public static function handle_cancel() {
@@ -465,7 +465,7 @@ class MSB_Admin_Expenses {
 		self::guard( 'msb_exp_cancel_' . $id );
 		$reason = isset( $_POST['reason'] ) ? sanitize_text_field( wp_unslash( $_POST['reason'] ) ) : '';
 		$ok     = MSB_Expenses::cancel( $id, $reason );
-		self::back( 'claims', $ok ? 'Abrechnung storniert. Die Auslagen sind wieder offen.' : 'Stornieren ging nicht (Grund fehlt oder schon storniert).', $ok ? array() : array( 'err' => 1 ) );
+		self::back( 'claims', $ok ? 'Abrechnung storniert. Die Auslagen sind wieder offen.' : 'Stornieren ging nicht (Grund fehlt, schon storniert oder schon ausgezahlt).', $ok ? array() : array( 'err' => 1 ) );
 	}
 
 	public static function handle_finom() {
