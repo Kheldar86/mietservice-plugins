@@ -115,7 +115,6 @@ function msb_settings_defaults() {
 		'doc_auto_invoice'         => 1,
 		'doc_mail_enabled'         => 1,
 		'review_url'               => 'https://g.page/r/Cft8th8ur-CSECE/review',
-		'expense_finom_email'      => '',
 		'doc_mail_subject_invoice' => 'Ihre {document_type} {document_number} zu Buchung {booking_number}',
 		'doc_mail_body_invoice'    => "Hallo {customer_name},\n\nanbei erhalten Sie Ihre {document_type} zu Ihrer Buchung {booking_number}.\n\n{document_summary}\n\n{document_note}\n\nViele Grüße\nIhr Team von {site_name}",
 		'doc_mail_subject_deposit' => 'Ihre {document_type} {document_number} zu Buchung {booking_number}',
