@@ -91,20 +91,20 @@ Zwei neue Tabellen über `dbDelta` in `MSB_Install::create_tables()`, Datenbankv
 
 ## Abnahmekriterien
 
-- [ ] Auslage mit Foto und mit Eigenbeleg-Begründung speichern, bearbeiten, löschen (nur solange offen)
+- [ ] Live: Auslage mit Foto und mit Eigenbeleg-Begründung speichern, bearbeiten, löschen (nur solange offen)
 - [ ] Abrechnung `AUS-JJJJ-0001` mit richtiger Summe, Positionen danach gesperrt, ohne IBAN keine Nummer
-- [ ] PDF wie Vorlage, Fotobelege als Folgeseiten, PDF-Belege genannt
+- [x] PDF wie Vorlage, Fotobelege als Folgeseiten, PDF-Belege genannt (lokal mit Beispieldaten)
 - [ ] GiroCode mit Empfänger, IBAN, Betrag, Verwendungszweck (mit Banking-App geprüft)
 - [ ] Versand an die Finom-Adresse mit Anhängen, Versandzeit vermerkt
 - [ ] Ausgezahlt und Storno mit Grund; Storno gibt die Positionen frei, die Nummer bleibt belegt
 - [ ] Eric sieht nur seine offenen Auslagen und seine Bankverbindung, aber alle Abrechnungen; keine Einstellungen
 - [ ] Kasten und CSV „Auslagen JJJJ für die EÜR“
 - [ ] Dateien nicht öffentlich abrufbar
-- [ ] Version 1.10.0, Datenbankversion 1.10.0, CHANGELOG, Status PAY-37 bis PAY-42, ADM-16, ROL-04, DSG-12
+- [x] Version 1.10.0, Datenbankversion 1.10.0, CHANGELOG, Status PAY-37 bis PAY-42, ADM-16, ROL-04, DSG-12
 
 ## Testschritte
 
-1. Lokal: `php -l` für alle geänderten Dateien und `php tests/msb-rental/test-expenses.php`.
+1. Lokal: `php -l` für alle geänderten Dateien und `php tests/msb-rental/test-expenses.php`. Ergebnis am 12.11.2026 (PHP 8.5): keine Syntaxfehler, 40 von 40 Fällen bestanden; die übrigen Tests unter `tests/msb-rental/` bestehen weiter. Die Beispiel-PDF entspricht der Vorlage.
 2. Live nach der Freigabe: Bankverbindung eintragen, Auslage über 0,01 € mit Foto erfassen, Abrechnung erstellen, PDF prüfen, GiroCode mit dem Handy scannen (nicht ausführen), Eingang im Finom-Beleg-Postfach prüfen, danach stornieren. Erst dann echte Auslagen erfassen.
 
 ## Quellen zu Finom (Stand 12.11.2026)
@@ -118,7 +118,7 @@ Zwei neue Tabellen über `dbDelta` in `MSB_Install::create_tables()`, Datenbankv
 
 | Schritt | Wann | Notiz |
 |---|---|---|
-| Plan bestätigt von Moritz | | |
+| Plan bestätigt von Moritz | 12.11.2026 | „Ja bau es“ |
 | netcup-Snapshot | | |
 | Bridge-Vorschläge 1.10.0 | | |
 | Freigegeben 1.10.0 | | |

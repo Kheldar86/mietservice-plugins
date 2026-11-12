@@ -95,7 +95,7 @@ class MSB_Documents {
 	 * Angaben für die Belege
 	 * ------------------------------------------------------------------ */
 
-	private static function issuer() {
+	public static function issuer() {
 		$s       = msb_settings();
 		$contact = trim( (string) $s['doc_issuer_contact'] );
 		if ( '' === $contact ) {
@@ -133,7 +133,7 @@ class MSB_Documents {
 	/**
 	 * Logo als JPEG für das PDF: auf weißen Hintergrund gesetzt, weißer Rand abgeschnitten, höchstens 800 px breit.
 	 */
-	private static function logo_jpeg() {
+	public static function logo_jpeg() {
 		$id   = self::logo_id();
 		$file = $id ? get_attached_file( $id ) : '';
 		if ( ! $file || ! file_exists( $file ) ) {
@@ -973,6 +973,7 @@ class MSB_Documents {
 			</form>
 			<p>Summe Rechnungen (RE, inkl. Korrekturen, ohne Testbelege): <strong><?php echo esc_html( msb_price( $sums['invoice'] ) ); ?></strong> · Summe Kautionseinbehalte (KAU, Schadenersatz): <strong><?php echo esc_html( msb_price( $sums['deposit'] ) ); ?></strong></p>
 			<?php echo MSB_Euer::box( $year ); // phpcs:ignore ?>
+			<?php echo class_exists( 'MSB_Expenses' ) ? MSB_Expenses::box( $year ) : ''; // phpcs:ignore ?>
 			<table class="widefat striped msb-doc-list">
 				<thead><tr><th>Nummer</th><th>Art</th><th>Datum</th><th>Buchung</th><th>Kunde</th><th style="text-align:right">Betrag</th><th>Status</th></tr></thead>
 				<tbody>
@@ -1120,6 +1121,11 @@ class MSB_Documents {
 							<p class="description">Eine Kopie geht immer an <?php echo esc_html( $s['admin_email'] ); ?>. Stornorechnung und Kautionsabrechnung entstehen automatisch bei Stornogebühr bzw. Einbehalt.</p></td>
 					</tr>
 					<tr>
+						<th scope="row"><label for="expense_finom_email">Finom-Beleg-Postfach</label></th>
+						<td><input type="email" id="expense_finom_email" name="expense_finom_email" value="<?php echo esc_attr( $s['expense_finom_email'] ); ?>" class="regular-text" placeholder="Adresse aus Finom → Invoices">
+							<p class="description">Auslagenabrechnungen der Gesellschafter (AUS-…) gehen automatisch als PDF an diese Adresse, PDF-Belege als zusätzliche Anhänge. Leer lassen, um nichts zu senden.</p></td>
+					</tr>
+					<tr>
 						<th scope="row"><label for="review_url">Google-Bewertung</label></th>
 						<td><input type="url" id="review_url" name="review_url" value="<?php echo esc_attr( $s['review_url'] ); ?>" class="large-text" placeholder="https://g.page/r/…/review">
 							<p class="description">Link aus dem Google Unternehmensprofil („Nach Rezensionen fragen“). Nur Kunden, die bei der Buchung den freiwilligen Haken zur Bewertung gesetzt haben, bekommen ihn in der Mail zur Rechnung. Leer lassen, um die Bitte abzuschalten.</p></td>
@@ -1144,6 +1150,7 @@ class MSB_Documents {
 		$in = wp_unslash( $_POST ); // phpcs:ignore
 		$s  = msb_settings();
 		$s['review_url'] = isset( $in['review_url'] ) ? esc_url_raw( trim( (string) $in['review_url'] ) ) : '';
+		$s['expense_finom_email'] = isset( $in['expense_finom_email'] ) && is_email( trim( (string) $in['expense_finom_email'] ) ) ? sanitize_email( trim( (string) $in['expense_finom_email'] ) ) : '';
 		foreach ( array( 'doc_issuer_name', 'doc_issuer_contact', 'doc_tax_number', 'doc_vat_note', 'doc_footer', 'doc_mail_subject_invoice', 'doc_mail_subject_deposit' ) as $k ) {
 			$s[ $k ] = isset( $in[ $k ] ) ? sanitize_text_field( (string) $in[ $k ] ) : '';
 		}

@@ -4,7 +4,7 @@
 
 **Created**: 2026-11-12
 
-**Status**: Entwurf, wartet auf Bestätigung des Plans durch Moritz
+**Status**: Umgesetzt, wartet auf Freigabe (Plan bestätigt am 12.11.2026)
 
 **Input**: Moritz (12.11.2026), mit Vorlage „Auslagenabrechnung_Finom_Kästner_GbR.docx“: „Ich benötige die Funktion in der Vermietungsunternehmen App eine Auslagenabrechnung pro Gesellschafter anzulegen der dann auch bei finom eingelesen und an das privat Konto des Gesellschafters ausgezahlt sowie buchhalterisch in finom auch erkannt wird“
 

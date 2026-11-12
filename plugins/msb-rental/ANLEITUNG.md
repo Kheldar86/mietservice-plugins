@@ -32,5 +32,6 @@ Vorher wie immer ein Backup machen – über die Backup-Funktion von netcup (kei
 4. **Einstellungen → Kundenkonten**: Konten erlauben (Gastbuchung bleibt möglich).
 5. **Buchungsformular**: Spalte „Kundenstamm“ prüfen.
 6. Testbuchung durchspielen (Stripe-Testkarte 4242 4242 4242 4242).
+7. **Ab 1.10.0, Einstellungen → Belege**: Finom-Beleg-Postfach eintragen (Adresse aus Finom → Invoices). Danach trägt jeder Gesellschafter unter **Vermietung → Auslagen → Meine Bankverbindung** seinen Namen und seine IBAN ein.
 
 Voraussetzungen: WordPress ab 6.0, PHP ab 7.4, HTTPS (für Online-Zahlungen).

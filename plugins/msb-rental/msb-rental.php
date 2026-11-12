@@ -3,7 +3,7 @@
  * Plugin Name:       Mietservice Barnim – Vermietung
  * Plugin URI:        https://www.mietservice-barnim.de
  * Description:       Vermietung von Outdoor- und Transportartikeln: Inventar, Buchungskalender, dynamische Preise, Bildergalerien, Online-Zahlung (Stripe, PayPal) mit Anzahlung und Kaution, Kundenverwaltung mit optionalem Kundenkonto, Buchungsübersicht, Shortcodes und KI-Artikelassistent.
- * Version:           1.9.1
+ * Version:           1.10.0
  * Author:            Mietservice Barnim
  * Text Domain:       msb-rental
  * Requires at least: 6.0
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MSB_VERSION', '1.9.1' );
+define( 'MSB_VERSION', '1.10.0' );
 define( 'MSB_FILE', __FILE__ );
 define( 'MSB_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MSB_URL', plugin_dir_url( __FILE__ ) );
@@ -58,6 +58,9 @@ if ( file_exists( MSB_DIR . 'includes/class-msb-reviews.php' ) ) {
 if ( file_exists( MSB_DIR . 'includes/class-msb-promo-links.php' ) ) {
 	require_once MSB_DIR . 'includes/class-msb-promo-links.php';
 }
+if ( file_exists( MSB_DIR . 'includes/class-msb-expenses.php' ) ) {
+	require_once MSB_DIR . 'includes/class-msb-expenses.php';
+}
 
 if ( is_admin() ) {
 	require_once MSB_DIR . 'admin/class-msb-admin.php';
@@ -67,6 +70,9 @@ if ( is_admin() ) {
 	require_once MSB_DIR . 'admin/class-msb-docs.php';
 	if ( file_exists( MSB_DIR . 'admin/class-msb-assistant.php' ) ) {
 		require_once MSB_DIR . 'admin/class-msb-assistant.php';
+	}
+	if ( class_exists( 'MSB_Expenses' ) && file_exists( MSB_DIR . 'admin/class-msb-admin-expenses.php' ) ) {
+		require_once MSB_DIR . 'admin/class-msb-admin-expenses.php';
 	}
 }
 
@@ -103,6 +109,9 @@ function msb_boot() {
 	if ( class_exists( 'MSB_Promo_Links' ) ) {
 		MSB_Promo_Links::init();
 	}
+	if ( class_exists( 'MSB_Expenses' ) ) {
+		MSB_Expenses::init();
+	}
 
 	if ( is_admin() ) {
 		MSB_Admin::init();
@@ -112,6 +121,9 @@ function msb_boot() {
 		MSB_Docs::init();
 		if ( class_exists( 'MSB_Assistant' ) ) {
 			MSB_Assistant::init();
+		}
+		if ( class_exists( 'MSB_Admin_Expenses' ) ) {
+			MSB_Admin_Expenses::init();
 		}
 	}
 }

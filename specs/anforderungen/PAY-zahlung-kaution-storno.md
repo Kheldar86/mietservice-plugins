@@ -42,6 +42,12 @@
 | PAY-34 | MUSS | umgesetzt in 1.7.2 |
 | PAY-35 | MUSS | umgesetzt in 1.7.2 |
 | PAY-36 | MUSS | umgesetzt in 1.7.2 |
+| PAY-37 | MUSS | umgesetzt in 1.10.0 |
+| PAY-38 | MUSS | umgesetzt in 1.10.0 |
+| PAY-39 | MUSS | umgesetzt in 1.10.0 |
+| PAY-40 | SOLL | umgesetzt in 1.10.0 |
+| PAY-41 | MUSS | umgesetzt in 1.10.0 |
+| PAY-42 | MUSS | umgesetzt in 1.10.0 |
 
 ## Zahlarten und Anzahlung
 
@@ -272,3 +278,41 @@ Belege einer Testbuchung bekommen TEST-JJJJ-0001 und zählen nicht in Summen und
 EÜR-Export: Bargeld aus Testbuchungen fehlt, Online-Zahlungen bleiben mit „ja“ in der Spalte „Test“.
 
 **Status:** umgesetzt in 1.7.2
+
+## Auslagen der Gesellschafter
+
+### PAY-37 · MUSS
+
+Jeder Gesellschafter erfasst private Auslagen für die GbR mit Datum (nicht in der Zukunft), Lieferant/Zweck, Bruttobetrag (> 0) und optional der enthaltenen MwSt. als Information (§ 19 UStG, kein Vorsteuerabzug). Pflicht ist ein Beleg als Foto oder PDF (höchstens 10 MB) oder, ohne Beleg, eine Begründung (Eigenbeleg). Offene Auslagen lassen sich ändern und löschen, abgerechnete nicht (Entscheidung 12.11.2026).
+
+**Status:** umgesetzt in 1.10.0
+
+### PAY-38 · MUSS
+
+Aus allen offenen Auslagen eines Gesellschafters bis zu einem Stichtag entsteht der Beleg „Auslagenabrechnung“ mit eigenem Nummernkreis AUS-JJJJ-0001 (jährlich ab 0001, lückenlos). Die PDF folgt der Vorlage „Auslagenabrechnung / Eigenbeleg“ vom 12.11.2026: auszahlende GbR, Gesellschafter mit Name und IBAN, Datum, Zeitraum, Positionen, Gesamtbetrag, Zahlungshinweis, Hinweis § 19 UStG, Ersteller mit Zeitstempel; Fotobelege als Folgeseiten. Ohne gültige IBAN wird keine Nummer vergeben. Eine Abrechnung wird nie geändert. Vor der Auszahlung kann sie mit Grund storniert werden: Die Nummer bleibt belegt, die Auslagen sind wieder offen.
+
+**Status:** umgesetzt in 1.10.0
+
+### PAY-39 · MUSS
+
+Zu jeder nicht ausgezahlten Abrechnung zeigt das Backend Empfänger, IBAN, Betrag und Verwendungszweck „AUS-JJJJ-NNNN Auslagen MM/JJJJ“ zum Kopieren und als GiroCode (EPC-QR, Version 002, UTF-8). Der GiroCode steht auch auf der PDF.
+
+**Status:** umgesetzt in 1.10.0
+
+### PAY-40 · SOLL
+
+Ist unter Einstellungen → Belege ein Finom-Beleg-Postfach eingetragen, geht jede neue Abrechnung als PDF dorthin, PDF-Belege und nicht umwandelbare Fotos als zusätzliche Anhänge, Kopie an die Admin-Adresse. Der Versand wird mit Zeit vermerkt und kann wiederholt werden. Eine Überweisung löst das Plugin nicht aus (Finom hat keine Schnittstelle, die Zahlung bestätigt ein Gesellschafter).
+
+**Status:** umgesetzt in 1.10.0
+
+### PAY-41 · MUSS
+
+Eine Abrechnung hat den Status „nicht ausgezahlt“, „ausgezahlt“ (mit Datum der Überweisung und Bearbeiter) oder „storniert“ (mit Grund, Bearbeiter und Zeit).
+
+**Status:** umgesetzt in 1.10.0
+
+### PAY-42 · MUSS
+
+Auf der Seite Belege gibt es den Kasten „Auslagen JJJJ für die EÜR“ mit Summen (gesamt, ausgezahlt, offen) und CSV: jede Position einer nicht stornierten Abrechnung mit Belegdatum im Jahr, mit Zweck, Betrag brutto, Gesellschafter, Abrechnungsnummer, Status, Erstattungsdatum und Kennzeichen Eigenbeleg. Ob Beleg- oder Erstattungsdatum maßgeblich ist, klärt der Steuerberater (Frage offen, siehe specs/005-auslagenabrechnung/plan.md).
+
+**Status:** umgesetzt in 1.10.0

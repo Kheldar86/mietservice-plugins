@@ -9,6 +9,7 @@
 | ROL-01 | MUSS | umgesetzt in 1.4.0 |
 | ROL-02 | MUSS | umgesetzt in 1.4.0 |
 | ROL-03 | MUSS | umgesetzt in 1.4.0 |
+| ROL-04 | MUSS | umgesetzt in 1.10.0 |
 
 ### ROL-01 · MUSS
 
@@ -27,3 +28,9 @@ Die Rolle „Gesellschafter“ darf keine Plugins, Themes, Nutzer oder WordPress
 Die Rechte werden über eigene Berechtigungen je Bereich vergeben (z. B. Buchungen, Artikel, Einstellungen) statt über manage_options.
 
 **Status:** umgesetzt in 1.4.0
+
+### ROL-04 · MUSS
+
+Das Recht `msb_manage_expenses` haben die Rolle „Gesellschafter“ und Administratoren. Jeder erfasst, ändert und löscht nur eigene offene Auslagen und pflegt nur die eigene Bankverbindung. Alle mit dem Recht sehen alle Abrechnungen, dürfen sie an Finom senden, als ausgezahlt markieren und stornieren. Das Finom-Beleg-Postfach ändern nur Administratoren (Einstellungen).
+
+**Status:** umgesetzt in 1.10.0
