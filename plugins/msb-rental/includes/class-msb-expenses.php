@@ -616,7 +616,7 @@ class MSB_Expenses {
 		global $wpdb;
 		$c      = self::claim( $id );
 		$reason = trim( sanitize_textarea_field( (string) $reason ) );
-		if ( ! $c || 'cancelled' === $c['status'] || '' === $reason ) {
+		if ( ! $c || 'issued' !== $c['status'] || '' === $reason ) {
 			return false;
 		}
 		$wpdb->update(
