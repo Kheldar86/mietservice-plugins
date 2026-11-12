@@ -31,7 +31,7 @@ Daraus folgt der Ablauf: Das Plugin erstellt die Abrechnung, schickt sie an das 
 | PAY-41 | neu | Status offen → ausgezahlt (mit Datum) bzw. storniert |
 | PAY-42 | neu | Auslagen im EÜR-Export (Kasten und CSV je Jahr) |
 | ADM-16 | neu | Seite Vermietung → Auslagen, Kartenstil auf dem Handy |
-| ROL-04 | neu | Recht `msb_manage_expenses` für Gesellschafter und Administratoren |
+| ROL-04 | neu | Auslagen für alle mit dem Recht für Buchungen (Gesellschafter, Administratoren) |
 | DSG-12 | neu | Aufbewahrung der Abrechnungen und Belegfotos 8 Jahre, geschützte Ablage |
 
 ## User Scenarios & Testing
