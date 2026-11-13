@@ -95,7 +95,7 @@ class MSB_Documents {
 	 * Angaben für die Belege
 	 * ------------------------------------------------------------------ */
 
-	private static function issuer() {
+	public static function issuer() {
 		$s       = msb_settings();
 		$contact = trim( (string) $s['doc_issuer_contact'] );
 		if ( '' === $contact ) {
@@ -133,7 +133,7 @@ class MSB_Documents {
 	/**
 	 * Logo als JPEG für das PDF: auf weißen Hintergrund gesetzt, weißer Rand abgeschnitten, höchstens 800 px breit.
 	 */
-	private static function logo_jpeg() {
+	public static function logo_jpeg() {
 		$id   = self::logo_id();
 		$file = $id ? get_attached_file( $id ) : '';
 		if ( ! $file || ! file_exists( $file ) ) {

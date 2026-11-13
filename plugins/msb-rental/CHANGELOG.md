@@ -2,6 +2,37 @@
 
 Alle Änderungen pro Version. Die neueste Version steht oben. Dieselben Hinweise finden Sie im Backend unter **Vermietung → Hilfe & Doku → Versionshinweise**.
 
+## 1.10.1 – 13.11.2026
+
+### Neu
+- **Freigabe durch den zweiten Gesellschafter (Vier-Augen-Prinzip):** Eine neue Auslagenabrechnung wartet zuerst auf Freigabe. Freigeben kann nur, wer sie weder bekommt noch erstellt hat. Der andere Gesellschafter bekommt eine Mail mit Link, im Menü steht „Abrechnungen (1 zur Freigabe)“. Erst nach der Freigabe gibt es „Auszahlen“
+- Bei der Freigabe entsteht die PDF einmal neu mit dem Vermerk „Freigegeben (Vier-Augen-Prinzip) von … am …“ und dem GiroCode. Inhalt und Beträge bleiben gleich. Vor der Freigabe steht „Freigabe … ausstehend“ und es gibt keinen GiroCode
+- **Hinweis über 250 €:** Beim Erfassen einer Auslage über 250 € erscheint der Hinweis, dass Name und Anschrift der GbR auf der Rechnung stehen sollten (Kleinbetragsrechnung bis 250 €, § 33 UStDV)
+
+### Geändert
+- Die Abrechnung geht erst **nach der Freigabe** an das Finom-Beleg-Postfach, nicht mehr schon beim Erstellen
+- Status: „wartet auf Freigabe“, „freigegeben, nicht ausgezahlt“, „ausgezahlt“, „storniert“ (auch in der EÜR-CSV)
+
+### Update-Hinweise
+- Datenbankversion 1.10.1: zwei neue Spalten `approved_at` und `approved_by` in `msb_expense_claims`, ergänzt beim ersten Seitenaufruf nach dem Update
+
+## 1.10.0 – 12.11.2026
+
+### Neu
+- **Auslagen der Gesellschafter** unter **Vermietung → Auslagen**: Jeder Gesellschafter erfasst privat bezahlte Ausgaben für die GbR mit Datum, Lieferant/Zweck, Betrag brutto und einem Foto vom Kassenbon (auf dem Handy direkt mit der Kamera) oder einer PDF. Ohne Beleg nur mit Begründung (Eigenbeleg)
+- **Auslagenabrechnung** als eigener Beleg mit lückenlosem Nummernkreis `AUS-JJJJ-0001`: alle offenen Auslagen bis zu einem Stichtag, PDF nach der Vorlage „Auslagenabrechnung / Eigenbeleg“ mit Gesellschafter, IBAN, Positionen, Gesamtbetrag, Zahlungshinweis und GiroCode, Fotobelege als Folgeseiten. Eine Abrechnung wird nie geändert; Fehler werden vor der Auszahlung mit Grund storniert, die Auslagen sind danach wieder offen
+- **Versand an das Finom-Beleg-Postfach**: Ist unter Vermietung → Auslagen → Abrechnungen die Adresse eingetragen (ändern nur Administratoren), geht jede neue Abrechnung automatisch dorthin (PDF-Belege als zusätzliche Anhänge), Kopie an die Admin-Adresse. „Erneut senden“ ist möglich
+- **Auszahlen**: Empfänger, IBAN, Betrag und Verwendungszweck (`AUS-2026-0001 Auslagen 11/2026`) mit Kopier-Knöpfen und als GiroCode. Nach der Überweisung in Finom „Als ausgezahlt markieren“ mit Datum
+- **Meine Bankverbindung**: Name und IBAN je Gesellschafter (IBAN-Prüfung, Anzeige maskiert)
+- Unter Vermietung → Auslagen → Abrechnungen: Kasten „Auslagen JJJJ für die EÜR“ mit Summen und CSV (jede Position mit Belegdatum, Zweck, Betrag, Gesellschafter, Abrechnung, Status und Erstattungsdatum)
+- Zugriff für alle mit dem Recht für Buchungen (Gesellschafter und Administratoren). Jeder erfasst nur eigene Auslagen und pflegt nur die eigene Bankverbindung, alle sehen alle Abrechnungen
+- Löschfristen: Auslagenabrechnungen werden 8 Jahre nach Ende des Jahres der Abrechnung gelöscht. Der tägliche Lauf folgt dem Schalter der Löschfristen (Probelauf zählt nur) und steht im Löschprotokoll als „Auslagenabrechnungen (8 Jahre)“
+
+### Update-Hinweise
+- Datenbankversion 1.10.0: zwei neue Tabellen `msb_expenses` und `msb_expense_claims`, angelegt beim ersten Seitenaufruf nach dem Update (Option `msb_expenses_db`). Bestehende Tabellen bleiben unverändert
+- Belegfotos und Abrechnungen liegen geschützt unter `uploads/msb-belege/auslagen/` und sind nur über das Backend abrufbar
+- Danach unter Vermietung → Auslagen → Abrechnungen das Finom-Beleg-Postfach eintragen und unter Vermietung → Auslagen → Meine Bankverbindung die eigene IBAN
+
 ## 1.9.1 – 10.11.2026
 
 ### Neu
