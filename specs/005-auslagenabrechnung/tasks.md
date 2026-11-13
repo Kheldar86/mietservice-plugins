@@ -10,4 +10,4 @@
 - [x] T008 Version 1.10.0, CHANGELOG, ANLEITUNG, Anforderungen PAY-37 bis PAY-42, ADM-16, ROL-04, DSG-12
 - [x] T009 netcup-Snapshot (Moritz)
 - [x] T010 Bridge-Vorschläge je Datei, Freigabe (Moritz), SHA-256-Abgleich, in plan.md eintragen
-- [ ] T011 Live-Test mit 0,01 € (Abrechnung, PDF, GiroCode, Finom-Postfach, Storno), dann Pull Request, Merge und Tag `msb-rental-v1.10.0`
+- [x] T011 Live-Test mit 0,01 € (Abrechnung, PDF, GiroCode, Finom-Postfach, Storno), dann Pull Request, Merge und Tag `msb-rental-v1.10.0`

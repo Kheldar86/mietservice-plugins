@@ -43,4 +43,4 @@
 | Bridge-Vorschläge 1.10.1 | 13.11.2026, 07:06–07:09 | 6 Vorschläge, je Datei einer: `class-msb-expenses.php` (ganz, 1b9c0921…), `class-msb-admin-expenses.php` (ganz, 953eeedc…), `class-msb-install.php` (nur `DB_VERSION`, c2a494c7…), `msb-rental.php` (2 Versionsstellen, 9dbbe588…), `class-msb-docs.php` (Hilfe, c7361f9d…), `CHANGELOG.md` (a8c08e9f…) |
 | Freigegeben 1.10.1 | 13.11.2026, ca. 07:15 | alle 6 von Moritz freigegeben, Status „approved“, Ergebnis „Gespeichert“ |
 | Live-Abgleich SHA-256 | 13.11.2026 | alle 6 Dateien identisch mit Commit 8029a11; Optionen `msb_db_version` und `msb_expenses_db` = 1.10.1, Spalten `approved_at` und `approved_by` vorhanden |
-| Merge und Tag | | Tags `msb-rental-v1.10.0` und `msb-rental-v1.10.1` legt Moritz an |
+| Merge und Tag | 13.11.2026 | PR #13 in den Branch von PR #12 gemergt, PR #12 nach `main` (609bae2); die 6 Live-Dateien auf `main` identisch mit 8029a11. Tags von Moritz gesetzt: `msb-rental-v1.10.0` → deae66d, `msb-rental-v1.10.1` → 8029a11 |
