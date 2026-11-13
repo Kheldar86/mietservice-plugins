@@ -82,6 +82,12 @@ Zwei neue Tabellen über `dbDelta` in `MSB_Expenses::maybe_install()` (Option `m
 2. **Unterschrift:** Reicht die elektronisch erstellte Abrechnung mit Name und Zeitstempel, oder muss sie unterschrieben werden?
 3. **Belege auf den Namen des Gesellschafters** (z. B. Kassenbon ohne Firmennamen): genügt das mit der Abrechnung als Zuordnung?
 
+**Antworten, von Moritz am 13.11.2026 eingebracht** (Herkunft nicht genannt, ausdrücklich keine verbindliche Steuerberatung):
+
+1. Laut Antwort zählt der Tag der Erstattung (§ 11 EStG). Das ist noch offen, denn es gibt auch die Sicht „Zahltag des Gesellschafters (Einlage)“. Der Steuerberater bestätigt. Der CSV-Export enthält beide Daten. Der Kasten filtert derzeit nach Belegdatum und wird angepasst, falls der Erstattungstag bestätigt wird.
+2. Eine Unterschrift ist nicht vorgeschrieben (GoBD: nachvollziehbar, unveränderbar, zugeordnet). Empfohlen wird eine digitale Freigabe durch den zweiten Gesellschafter. Möglicher Folgeschritt, noch nicht beschlossen.
+3. Kassenbons ohne Firmennamen reichen bis 250 € brutto (§ 33 UStDV). Darüber sollten Name und Anschrift der GbR auf der Rechnung stehen. Ein möglicher Folgeschritt ist ein Hinweis beim Erfassen über 250 €.
+
 ## Abweichung von der Vorlage
 
 - Nummer `AUS-JJJJ-0001` (fortlaufend je Jahr) statt `AUS-2026-11`, damit zwei Abrechnungen im selben Monat nicht kollidieren und der Nummernkreis lückenlos bleibt. Der Monat steht im Verwendungszweck und im Kopf.
