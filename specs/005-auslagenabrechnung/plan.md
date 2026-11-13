@@ -98,12 +98,12 @@ Zwei neue Tabellen über `dbDelta` in `MSB_Expenses::maybe_install()` (Option `m
 - [ ] Live: Auslage mit Foto und mit Eigenbeleg-Begründung speichern, bearbeiten, löschen (nur solange offen)
 - [ ] Abrechnung `AUS-JJJJ-0001` mit richtiger Summe, Positionen danach gesperrt, ohne IBAN keine Nummer
 - [x] PDF wie Vorlage, Fotobelege als Folgeseiten, PDF-Belege genannt (lokal mit Beispieldaten)
-- [ ] GiroCode mit Empfänger, IBAN, Betrag, Verwendungszweck (mit Banking-App geprüft)
+- [x] GiroCode mit Empfänger, IBAN, Betrag, Verwendungszweck (mit Banking-App geprüft) – 13.11.2026, AUS-2026-0001, von Moritz bestätigt „alles richtig“
 - [ ] Versand an die Finom-Adresse mit Anhängen, Versandzeit vermerkt
-- [ ] Ausgezahlt und Storno mit Grund; Storno gibt die Positionen frei, die Nummer bleibt belegt
+- [ ] Ausgezahlt und Storno mit Grund; Storno gibt die Positionen frei, die Nummer bleibt belegt – Storno live geprüft 13.11.2026 (AUS-2026-0001), „Ausgezahlt“ noch offen
 - [ ] Eric sieht nur seine offenen Auslagen und seine Bankverbindung, aber alle Abrechnungen; keine Einstellungen
 - [ ] Kasten und CSV „Auslagen JJJJ für die EÜR“
-- [ ] Dateien nicht öffentlich abrufbar
+- [x] Dateien nicht öffentlich abrufbar – 13.11.2026: PDF-Adresse und Ordner liefern von außen 403
 - [x] Version 1.10.0, Datenbankversion 1.10.0, CHANGELOG, Status PAY-37 bis PAY-42, ADM-16, ROL-04, DSG-12
 
 ## Testschritte
