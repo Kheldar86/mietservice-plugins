@@ -371,6 +371,22 @@ class MSB_Docs {
 			'<p>In der Buchungsliste zeigt die Spalte „Zahlung / Kaution“ den Stand auf einen Blick.</p>'
 		);
 
+		self::section(
+			'auslagen',
+			'Auslagen der Gesellschafter (ab 1.10.0)',
+			'<p>Unter ' . self::link( 'admin.php?page=msb-expenses', 'Vermietung → Auslagen' ) . ' erfasst jeder Gesellschafter, was er privat für die GbR bezahlt hat, und rechnet es gesammelt ab. Erstattet wird vom Finom-Geschäftskonto aufs Privatkonto.</p>
+			<ol>
+				<li><strong>Meine Bankverbindung:</strong> einmal Name und IBAN eintragen. Jeder sieht und ändert nur seine eigene.</li>
+				<li><strong>Auslage erfassen:</strong> Datum, Lieferant/Zweck, Betrag brutto und ein Foto vom Kassenbon (auf dem Handy direkt mit der Kamera) oder eine PDF. Ohne Beleg nur mit Begründung (Eigenbeleg). Kassenbons bis 250 € reichen ohne Firmennamen, darüber sollten Name und Anschrift der GbR auf der Rechnung stehen (Hinweis beim Erfassen). Solange nicht abgerechnet, lässt sich alles ändern.</li>
+				<li><strong>Abrechnung erstellen:</strong> alle offenen Auslagen bis zum Stichtag werden zur Auslagenabrechnung <code>AUS-JJJJ-0001</code> (eigener, lückenloser Nummernkreis). Die PDF folgt der Vorlage, Fotos hängen als Folgeseiten an, PDF-Belege werden separat mitgeschickt. Danach sind die Positionen gesperrt.</li>
+				<li><strong>Freigabe (ab 1.10.1):</strong> Der andere Gesellschafter bekommt eine Mail und gibt die Abrechnung unter Abrechnungen → „Prüfen und freigeben“ frei (Vier-Augen-Prinzip). Wer sie bekommt oder erstellt hat, kann sie nicht selbst freigeben. Die PDF trägt danach den Freigabevermerk und den GiroCode.</li>
+				<li><strong>An Finom:</strong> Ist unter Auslagen → Abrechnungen das Finom-Beleg-Postfach eingetragen (Adresse in Finom unter „Invoices“, ändern nur Administratoren), geht die Abrechnung nach der Freigabe automatisch dorthin.</li>
+				<li><strong>Auszahlen:</strong> unter Abrechnungen → Auszahlen stehen Empfänger, IBAN, Betrag und Verwendungszweck zum Kopieren und als GiroCode. Die Überweisung in Finom anlegen und bestätigen, dort die Abrechnung mit der Zahlung verknüpfen („Link payment“), dann hier „Als ausgezahlt markieren“.</li>
+			</ol>
+			<p><strong>Fehler?</strong> Vor der Auszahlung „Stornieren“ mit Grund: Die Nummer bleibt belegt, die Auslagen sind wieder offen und können korrigiert neu abgerechnet werden. Eine Abrechnung wird nie geändert.</p>
+			<p><strong>Steuer:</strong> Die GbR ist Kleinunternehmer, es zählt nur der Bruttobetrag. Unter Auslagen → Abrechnungen gibt es den Kasten „Auslagen für die EÜR“ mit CSV (jede Position mit Belegdatum und Erstattungsdatum). Abrechnungen und Belegfotos werden 8 Jahre aufbewahrt und liegen geschützt, nicht öffentlich abrufbar.</p>'
+		);
+
 		/* ---------------- Kunden ---------------- */
 		self::section(
 			'kunden',

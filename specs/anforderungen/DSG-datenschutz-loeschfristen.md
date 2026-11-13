@@ -17,6 +17,7 @@
 | DSG-09 | MUSS | umgesetzt in 1.7.0 |
 | DSG-10 | MUSS | umgesetzt in 1.7.0 |
 | DSG-11 | MUSS | umgesetzt in 1.7.0 |
+| DSG-12 | MUSS | umgesetzt in 1.10.0 |
 
 Die DSGVO nennt selbst keine festen Fristen. Sie verlangt, Daten nur so lange zu speichern wie nötig (Art. 5 Abs. 1 lit. e, Art. 17). Die konkreten Fristen ergeben sich aus den Aufbewahrungspflichten in AO und HGB; seit dem 1.1.2025 gelten für Buchungsbelege und Rechnungen 8 statt 10 Jahre (Viertes Bürokratieentlastungsgesetz). Die Fristen unten sind die übliche Empfehlung, keine Rechtsberatung.
 
@@ -85,3 +86,9 @@ Kasten „Daten löschen (Art. 17 DSGVO)“ am Kunden, nur mit der Berechtigung 
 Eine gesperrte Buchung zeigt im Backend den Hinweis, dass sie nach Art. 18 DSGVO gesperrt ist und nur wegen der Aufbewahrungspflicht bis zu einem genannten Datum gespeichert bleibt.
 
 **Status:** umgesetzt in 1.7.0
+
+### DSG-12 · MUSS
+
+Auslagenabrechnungen, ihre Auslagen und Belegdateien werden 8 Jahre ab Ende des Jahres der Abrechnung aufbewahrt (§ 147 AO) und danach gelöscht. Der tägliche Lauf (msb_cron_daily) folgt dem Schalter der Löschfristen (im Probelauf nur gezählt) und schreibt ins Löschprotokoll (Regel „Auslagenabrechnungen (8 Jahre)“). Offene Auslagen ohne Abrechnung werden nicht automatisch gelöscht. Die Dateien liegen unter uploads/msb-belege/auslagen/ ohne öffentlichen Zugriff und sind nur über das Backend mit Recht und Nonce abrufbar.
+
+**Status:** umgesetzt in 1.10.0

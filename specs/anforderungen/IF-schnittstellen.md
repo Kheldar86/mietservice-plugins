@@ -180,6 +180,6 @@ Die Bewertungsbitte steht nur in der Mail zur Rechnung, nur mit Haken und nur, w
 
 ### IF-20 · MUSS
 
-Werbe-Kurzlinks `/qr/<name>` für QR-Codes und Aufkleber (Entscheidung 10.11.2026, erster Link `/qr/anhaenger` für den Mietanhänger). Jeder Link hat Bezeichnung und Ziel auf der eigenen Seite (Pfad oder Adresse mit eigenem Host, sonst abgelehnt) und leitet mit `utm_source=qr`, `utm_medium=offline` und `utm_campaign=<name>` weiter. Aufrufe je Monat, ohne HEAD-Anfragen, Bots und Vorschauen und ohne Nutzer, die Artikel bearbeiten dürfen. Ein unbekannter Name führt auf die Startseite. Der Name bleibt nach dem Anlegen fest, das Ziel ist änderbar.
+Werbe-Kurzlinks `/qr/<name>` für QR-Codes und Aufkleber (Entscheidung 10.11.2026, erster Link `/qr/anhaenger-1` für den Mietanhänger). Jeder Link hat Bezeichnung und Ziel auf der eigenen Seite (Pfad oder Adresse mit eigenem Host, sonst abgelehnt) und leitet mit `utm_source=qr`, `utm_medium=offline` und `utm_campaign=<name>` weiter. Aufrufe je Monat, ohne HEAD-Anfragen, Bots und Vorschauen und ohne Nutzer, die Artikel bearbeiten dürfen. Ein unbekannter Name führt auf die Startseite. Der Name bleibt nach dem Anlegen fest, das Ziel ist änderbar.
 
 **Status:** umgesetzt in 1.9.0
