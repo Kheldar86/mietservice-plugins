@@ -31,7 +31,7 @@
 ## Abnahmekriterien
 
 - [x] Lokal: Vier-Augen-Regeln, Status, PDF ohne GiroCode vor und mit Vermerk und GiroCode nach der Freigabe (54 von 54)
-- [ ] Live: Abrechnung von Moritz wartet auf Freigabe, Eric bekommt Mail und kann freigeben, Moritz selbst nicht
+- [x] Live: Abrechnung von Moritz wartet auf Freigabe, Eric bekommt Mail und kann freigeben, Moritz selbst nicht (13.11.2026: AUS-2026-0001 über 0,01 € um 11:33 erstellt, von Eric um 12:04:50 freigegeben, 12:04:51 an Finom gesendet, PDF mit Vermerk und GiroCode geprüft)
 - [ ] Live: Hinweis bei 289,00 € sichtbar
 
 ## Freigabe
