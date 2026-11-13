@@ -18,6 +18,8 @@ function is_admin() { return false; }
 function current_time( $f ) { return 'Y' === $f ? '2026' : ( 'Y-m-d' === $f ? '2026-11-12' : '2026-11-12 21:30:00' ); }
 function mysql2date( $f, $d ) { return date( str_replace( '\u\m', '\u\m', $f ), strtotime( $d ) ); }
 function msb_price( $a ) { return number_format( (float) $a, 2, ',', '.' ) . ' €'; }
+function get_user_meta( $id, $k, $single = false ) { return 'msb_partner_name' === $k && 7 === (int) $id ? 'Max Muster' : ''; }
+function get_userdata( $id ) { return false; }
 class MSB_Documents {
 	public static function issuer() { return array( 'name' => 'Beispiel GbR', 'address' => array( 'Musterweg 1', '12345 Musterstadt' ), 'contact' => '', 'tax' => '000/000/00000', 'footer' => '' ); }
 	public static function logo_jpeg() { return ''; }
@@ -27,6 +29,20 @@ $dir = isset( $argv[1] ) ? rtrim( $argv[1], '/' ) : dirname( __DIR__, 2 ) . '/pl
 require $dir . '/includes/class-msb-pdf.php';
 require $dir . '/includes/class-msb-qr.php';
 require $dir . '/includes/class-msb-expenses.php';
+
+/**
+ * Inhalt aller komprimierten Seiten einer PDF, zum Suchen nach Text (WinAnsi, deshalb nur ASCII-Suchbegriffe).
+ */
+function gzuncompress_all( $pdf ) {
+	$out = '';
+	if ( preg_match_all( '/stream\n(.*?)\nendstream/s', $pdf, $m ) ) {
+		foreach ( $m[1] as $raw ) {
+			$plain = @gzuncompress( $raw );
+			$out  .= false !== $plain ? $plain : '';
+		}
+	}
+	return $out;
+}
 
 $fail = 0;
 $n    = 0;
@@ -125,8 +141,22 @@ check( 'EÜR: 3 Zeilen (ohne Storno, ohne 2027)', 3 === count( $rows ) );
 check( 'EÜR: nach Datum sortiert', '2026-11-05' === $rows[0]['date'] && '2026-12-30' === $rows[2]['date'] );
 check( 'EÜR: ausgezahlt mit Datum', '2026-12-02' === $rows[0]['paid'] && 'ausgezahlt' === $rows[0]['status'] );
 check( 'EÜR: Eigenbeleg markiert', 'ja' === $rows[1]['own'] && '' === $rows[0]['own'] );
-check( 'EÜR: offen ohne Datum', '' === $rows[2]['paid'] && 'nicht ausgezahlt' === $rows[2]['status'] );
+check( 'EÜR: offen ohne Datum, wartet auf Freigabe', '' === $rows[2]['paid'] && 'wartet auf Freigabe' === $rows[2]['status'] );
 check( 'EÜR: Vorjahr fehlt in 2027', 1 === count( MSB_Expenses::euer_rows( $claims, 2027 ) ) );
+
+// Freigabe (PAY-43): Vier-Augen-Prinzip und Status.
+$c = array( 'status' => 'issued', 'approved_at' => null, 'user_id' => 3, 'created_by' => 3 );
+check( 'Freigabe: anderer Gesellschafter darf', MSB_Expenses::can_approve( $c, 7 ) );
+check( 'Freigabe: Empfänger darf nicht', ! MSB_Expenses::can_approve( $c, 3 ) );
+check( 'Freigabe: Ersteller darf nicht', ! MSB_Expenses::can_approve( array( 'created_by' => 7 ) + $c, 7 ) );
+check( 'Freigabe: niemand ohne Anmeldung', ! MSB_Expenses::can_approve( $c, 0 ) );
+check( 'Freigabe: nicht zweimal', ! MSB_Expenses::can_approve( array( 'approved_at' => '2026-11-13 10:00:00' ) + $c, 7 ) );
+check( 'Freigabe: nicht nach Storno', ! MSB_Expenses::can_approve( array( 'status' => 'cancelled' ) + $c, 7 ) );
+check( 'Status wartet', 'wartet auf Freigabe' === MSB_Expenses::status_text( $c ) );
+check( 'Status freigegeben', 'freigegeben, nicht ausgezahlt' === MSB_Expenses::status_text( array( 'approved_at' => '2026-11-13 10:00:00' ) + $c ) );
+check( 'Status ausgezahlt', 'ausgezahlt' === MSB_Expenses::status_text( array( 'status' => 'paid' ) + $c ) );
+check( 'Status storniert', 'storniert' === MSB_Expenses::status_text( array( 'status' => 'cancelled' ) + $c ) );
+check( 'Grenze Kleinbetragsrechnung 250 €', 250 === MSB_Expenses::SMALL );
 
 // PDF der Abrechnung mit einem Fotobeleg (falls GD vorhanden) und einem PDF-Beleg.
 $tmp = sys_get_temp_dir() . '/msb-expense-test-' . getmypid();
@@ -170,6 +200,13 @@ $claim = array(
 );
 $pdf = MSB_Expenses::render( $claim );
 check( 'PDF beginnt mit %PDF', 0 === strpos( $pdf, '%PDF-1.4' ) );
+check( 'PDF vor Freigabe ohne GiroCode-Text', false === strpos( gzuncompress_all( $pdf ), 'GiroCode zur' ) );
+$claim['approved_at'] = '2026-11-13 09:15:00';
+$claim['approved_by'] = 7;
+$pdf                  = MSB_Expenses::render( $claim );
+check( 'PDF nach Freigabe mit GiroCode', false !== strpos( gzuncompress_all( $pdf ), 'GiroCode zur' ) );
+$text = gzuncompress_all( $pdf );
+check( 'PDF nach Freigabe mit Vermerk', false !== strpos( $text, 'Freigegeben \\(Vier-Augen-Prinzip\\)' ) && false !== strpos( $text, 'Max Muster' ) );
 check( 'PDF endet mit %%EOF', '%%EOF' === substr( $pdf, -5 ) );
 $pages = preg_match( '/\/Count (\d+)/', $pdf, $m ) ? (int) $m[1] : 0;
 check( 'PDF Seiten: 1 + Fotoanlage', $pages === ( $photo ? 2 : 1 ) );

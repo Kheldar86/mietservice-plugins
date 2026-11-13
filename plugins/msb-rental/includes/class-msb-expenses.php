@@ -1,8 +1,8 @@
 <?php
 /**
  * Auslagen der Gesellschafter (1.10.0): private Auslagen erfassen, monatlich als Beleg „Auslagenabrechnung“
- * (Nummernkreis AUS-JJJJ-0001) abrechnen, an das Finom-Beleg-Postfach senden, als ausgezahlt markieren und
- * für die EÜR exportieren (PAY-37 bis PAY-42, ROL-04, DSG-12).
+ * (Nummernkreis AUS-JJJJ-0001) abrechnen, vom zweiten Gesellschafter freigeben lassen (1.10.1), an das
+ * Finom-Beleg-Postfach senden, als ausgezahlt markieren und für die EÜR exportieren (PAY-37 bis PAY-44, ROL-04, DSG-12).
  *
  * Eine Abrechnung wird nie geändert oder gelöscht (außer nach Ablauf der Aufbewahrungsfrist). Fehler werden
  * storniert, die Positionen sind danach wieder offen. Die Überweisung selbst bestätigt ein Gesellschafter in Finom.
@@ -16,7 +16,8 @@ class MSB_Expenses {
 
 	const PAGE     = 'msb-expenses';
 	const MAX_SIZE = 10485760; // 10 MB, Grenze des Finom-Beleg-Postfachs.
-	const DB       = '1.10.0'; // Stand der Tabellen msb_expenses und msb_expense_claims.
+	const DB       = '1.10.1'; // Stand der Tabellen msb_expenses und msb_expense_claims (1.10.1: Freigabe).
+	const SMALL    = 250; // Grenze für Kleinbetragsrechnungen (§ 33 UStDV), PAY-44.
 	const RULE     = 'Auslagenabrechnungen (8 Jahre)'; // Eintrag im Löschprotokoll (DSG-12).
 
 	public static function init() {
@@ -35,7 +36,7 @@ class MSB_Expenses {
 	}
 
 	/**
-	 * Legt die Tabellen beim ersten Seitenaufruf nach dem Update an (Datenbankversion 1.10.0).
+	 * Legt die Tabellen beim ersten Seitenaufruf nach dem Update an bzw. ergänzt sie (Datenbankversion 1.10.1).
 	 */
 	public static function maybe_install() {
 		if ( self::DB === get_option( 'msb_expenses_db' ) ) {
@@ -77,6 +78,8 @@ class MSB_Expenses {
 			sent_at datetime NULL DEFAULT NULL,
 			paid_at datetime NULL DEFAULT NULL,
 			paid_by bigint(20) unsigned NOT NULL DEFAULT 0,
+			approved_at datetime NULL DEFAULT NULL,
+			approved_by bigint(20) unsigned NOT NULL DEFAULT 0,
 			cancel_reason text NULL,
 			created_by bigint(20) unsigned NOT NULL DEFAULT 0,
 			created_at datetime NOT NULL,
@@ -98,6 +101,29 @@ class MSB_Expenses {
 			'paid'      => 'ausgezahlt',
 			'cancelled' => 'storniert',
 		);
+	}
+
+	/**
+	 * Status einer Abrechnung als Text, mit Freigabe (PAY-41, PAY-43).
+	 */
+	public static function status_text( array $c ) {
+		if ( 'issued' === $c['status'] ) {
+			return empty( $c['approved_at'] ) ? 'wartet auf Freigabe' : 'freigegeben, nicht ausgezahlt';
+		}
+		$labels = self::status_labels();
+		return isset( $labels[ $c['status'] ] ) ? $labels[ $c['status'] ] : (string) $c['status'];
+	}
+
+	/**
+	 * Vier-Augen-Prinzip (PAY-43): Freigeben darf nur, wer die Abrechnung weder bekommt noch erstellt hat.
+	 */
+	public static function can_approve( array $c, $user_id ) {
+		$user_id = (int) $user_id;
+		return $user_id > 0 && 'issued' === $c['status'] && empty( $c['approved_at'] ) && (int) $c['user_id'] !== $user_id && (int) $c['created_by'] !== $user_id;
+	}
+
+	public static function is_approved( array $c ) {
+		return ! empty( $c['approved_at'] );
 	}
 
 	public static function iban_normalize( $iban ) {
@@ -198,8 +224,7 @@ class MSB_Expenses {
 	 * @param array $claims Abrechnungen mit data['positions'].
 	 */
 	public static function euer_rows( array $claims, $year ) {
-		$rows   = array();
-		$labels = self::status_labels();
+		$rows = array();
 		foreach ( $claims as $c ) {
 			if ( 'cancelled' === $c['status'] ) {
 				continue;
@@ -214,7 +239,7 @@ class MSB_Expenses {
 					'amount'  => (float) $p['amount'],
 					'partner' => (string) $c['data']['name'],
 					'number'  => (string) $c['number'],
-					'status'  => isset( $labels[ $c['status'] ] ) ? $labels[ $c['status'] ] : $c['status'],
+					'status'  => self::status_text( $c ),
 					'paid'    => 'paid' === $c['status'] ? substr( (string) $c['paid_at'], 0, 10 ) : '',
 					'own'     => '' !== trim( (string) $p['no_receipt_reason'] ) ? 'ja' : '',
 				);
@@ -584,17 +609,78 @@ class MSB_Expenses {
 		$ids = implode( ',', array_map( 'intval', wp_list_pluck( $open, 'id' ) ) );
 		$wpdb->query( $wpdb->prepare( 'UPDATE ' . self::t( 'expenses' ) . " SET claim_id = %d WHERE claim_id = 0 AND id IN ({$ids})", $id ) ); // phpcs:ignore
 		self::file( $id );
+		self::notify_approvers( $id );
+		do_action( 'msb_expense_claim_issued', $id );
+		return $id;
+	}
+
+	/**
+	 * Freigabe durch den zweiten Gesellschafter (PAY-43). Die PDF wird dabei einmal mit Freigabevermerk und
+	 * GiroCode neu erzeugt (Inhalt und Beträge bleiben gleich) und erst jetzt an Finom gesendet (PAY-40).
+	 */
+	public static function approve( $id ) {
+		global $wpdb;
+		$c   = self::claim( $id );
+		$uid = get_current_user_id();
+		if ( ! $c || ! self::can_approve( $c, $uid ) ) {
+			return false;
+		}
+		$wpdb->update(
+			self::t( 'expense_claims' ),
+			array(
+				'approved_at' => current_time( 'mysql' ),
+				'approved_by' => $uid,
+				'file'        => '',
+			),
+			array( 'id' => (int) $id )
+		);
+		self::delete_file( $c['file'] );
+		self::file( $id );
 		if ( is_email( msb_setting( 'expense_finom_email' ) ) ) {
 			self::send( $id );
 		}
-		do_action( 'msb_expense_claim_issued', $id );
-		return $id;
+		do_action( 'msb_expense_claim_approved', $id );
+		return true;
+	}
+
+	/**
+	 * Mail an die anderen Gesellschafter (Rolle Gesellschafter und Admin-Adresse), dass eine Abrechnung auf Freigabe wartet.
+	 */
+	public static function notify_approvers( $id ) {
+		$c = self::claim( $id );
+		if ( ! $c ) {
+			return;
+		}
+		$skip = array();
+		foreach ( array( $c['user_id'], $c['created_by'] ) as $uid ) {
+			$u = get_userdata( (int) $uid );
+			if ( $u ) {
+				$skip[] = strtolower( $u->user_email );
+			}
+		}
+		$to = array();
+		foreach ( get_users( array( 'role' => 'msb_partner', 'fields' => array( 'user_email' ) ) ) as $u ) {
+			$to[] = $u->user_email;
+		}
+		$to[] = (string) msb_setting( 'admin_email' );
+		$to   = array_unique( array_filter( array_map( 'strtolower', $to ), 'is_email' ) );
+		$to   = array_diff( $to, $skip );
+		if ( ! $to ) {
+			return;
+		}
+		$url  = admin_url( 'admin.php?page=' . self::PAGE . '&tab=claims&claim=' . (int) $id . '#msb-pay' );
+		$body = '<p>' . esc_html( 'Die Auslagenabrechnung ' . $c['number'] . ' von ' . $c['data']['name'] . ' über ' . msb_price( $c['amount'] ) . ' (Zeitraum ' . $c['data']['period'] . ') wartet auf deine Freigabe.' ) . '</p>'
+			. '<p>' . esc_html( 'Freigeben kann nur der andere Gesellschafter (Vier-Augen-Prinzip). Erst danach wird ausgezahlt und an Finom gesendet.' ) . '</p>'
+			. '<p><a href="' . esc_url( $url ) . '">Abrechnung prüfen und freigeben</a></p>';
+		foreach ( $to as $mail ) {
+			MSB_Emails::send_raw( $mail, 'Freigabe nötig: Auslagenabrechnung ' . $c['number'] . ' – ' . msb_price( $c['amount'] ), $body );
+		}
 	}
 
 	public static function mark_paid( $id, $date ) {
 		global $wpdb;
 		$c = self::claim( $id );
-		if ( ! $c || 'issued' !== $c['status'] ) {
+		if ( ! $c || 'issued' !== $c['status'] || ! self::is_approved( $c ) ) {
 			return false;
 		}
 		$date = preg_match( '/^\d{4}-\d{2}-\d{2}$/', (string) $date ) ? $date : current_time( 'Y-m-d' );
@@ -769,6 +855,9 @@ class MSB_Expenses {
 			'Verwendungszweck: ' . $d['purpose'],
 			'Die Gesellschaft ist Kleinunternehmer nach § 19 UStG. Alle Beträge sind Bruttobeträge, ein Vorsteuerabzug findet nicht statt.',
 			'Erstellt im Backend von ' . ( '' !== (string) ( isset( $d['created_by'] ) ? $d['created_by'] : '' ) ? $d['created_by'] : 'unbekannt' ) . ' am ' . mysql2date( 'd.m.Y \u\m H:i', $c['created_at'] ) . ' Uhr.',
+			self::is_approved( $c )
+				? 'Freigegeben (Vier-Augen-Prinzip) von ' . self::partner_name( isset( $c['approved_by'] ) ? $c['approved_by'] : 0 ) . ' am ' . mysql2date( 'd.m.Y \u\m H:i', $c['approved_at'] ) . ' Uhr.'
+				: 'Freigabe durch den zweiten Gesellschafter: ausstehend. Erst nach der Freigabe wird ausgezahlt.',
 		);
 		if ( 'cancelled' === $c['status'] ) {
 			array_unshift( $texts, 'STORNIERT: ' . $c['cancel_reason'] );
@@ -786,7 +875,7 @@ class MSB_Expenses {
 		}
 
 		// GiroCode rechts neben den Hinweisen (EPC-QR).
-		if ( class_exists( 'MSB_QR' ) && 'cancelled' !== $c['status'] ) {
+		if ( class_exists( 'MSB_QR' ) && 'cancelled' !== $c['status'] && self::is_approved( $c ) ) {
 			$m = MSB_QR::matrix( self::epc_payload( $d['name'], $d['iban'], $c['amount'], $d['purpose'] ) );
 			if ( $m ) {
 				$box = 32;
@@ -897,7 +986,7 @@ class MSB_Expenses {
 			<h2>Auslagen <?php echo (int) $year; ?> für die EÜR</h2>
 			<p>Abgerechnete Auslagen mit Belegdatum <?php echo (int) $year; ?>: <strong><?php echo esc_html( msb_price( $paid + $open ) ); ?></strong> · davon ausgezahlt: <strong><?php echo esc_html( msb_price( $paid ) ); ?></strong> · noch nicht ausgezahlt: <strong><?php echo esc_html( msb_price( $open ) ); ?></strong></p>
 			<p><a class="button" href="<?php echo esc_url( $url ); ?>">Auslagen <?php echo (int) $year; ?> als CSV (EÜR)</a></p>
-			<p class="description">Jede Position einzeln mit Belegdatum, Zweck, Betrag (brutto), Gesellschafter, Abrechnungsnummer und Erstattungsdatum. Stornierte Abrechnungen fehlen, ihre Positionen zählen mit der neuen Abrechnung. Ob das Belegdatum oder das Erstattungsdatum maßgeblich ist, klärt der Steuerberater.</p>
+			<p class="description">Jede Position einzeln mit Belegdatum, Zweck, Betrag (brutto), Gesellschafter, Abrechnungsnummer, Status und Erstattungsdatum. Stornierte Abrechnungen fehlen, ihre Positionen zählen mit der neuen Abrechnung. Ob das Belegdatum oder das Erstattungsdatum maßgeblich ist, klärt der Steuerberater (die CSV enthält beide).</p>
 		</div>
 		<?php
 		return ob_get_clean();

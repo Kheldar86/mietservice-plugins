@@ -1,7 +1,8 @@
 <?php
 /**
  * Backend-Seite Vermietung → Auslagen (1.10.0, ADM-16): eigene Auslagen erfassen, Abrechnungen ansehen,
- * an Finom senden, als ausgezahlt markieren oder stornieren, eigene Bankverbindung pflegen.
+ * freigeben (1.10.1, Vier-Augen-Prinzip), an Finom senden, als ausgezahlt markieren oder stornieren,
+ * eigene Bankverbindung pflegen.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +13,7 @@ class MSB_Admin_Expenses {
 
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'menu' ), 11 );
-		foreach ( array( 'save', 'delete', 'claim', 'bank', 'paid', 'send', 'cancel', 'file', 'finom' ) as $a ) {
+		foreach ( array( 'save', 'delete', 'claim', 'bank', 'paid', 'send', 'cancel', 'file', 'finom', 'approve' ) as $a ) {
 			add_action( 'admin_post_msb_exp_' . $a, array( __CLASS__, 'handle_' . $a ) );
 		}
 	}
@@ -61,9 +62,15 @@ class MSB_Admin_Expenses {
 		delete_transient( 'msb_exp_msg_' . get_current_user_id() );
 		$msg = is_array( $note ) ? (string) $note[0] : '';
 		$err = is_array( $note ) && ! empty( $note[1] );
+		$waiting = 0;
+		foreach ( MSB_Expenses::claims() as $c ) {
+			if ( MSB_Expenses::can_approve( $c, get_current_user_id() ) ) {
+				$waiting++;
+			}
+		}
 		$tabs = array(
 			'mine'   => 'Meine Auslagen',
-			'claims' => 'Abrechnungen',
+			'claims' => 'Abrechnungen' . ( $waiting ? ' (' . $waiting . ' zur Freigabe)' : '' ),
 			'bank'   => 'Meine Bankverbindung',
 		);
 		$tab = isset( $tabs[ $tab ] ) ? $tab : 'mine';
@@ -97,6 +104,12 @@ class MSB_Admin_Expenses {
 				var t = b.getAttribute( 'data-msb-copy' );
 				var done = function () { var o = b.textContent; b.textContent = 'Kopiert'; setTimeout( function () { b.textContent = o; }, 1500 ); };
 				if ( navigator.clipboard ) { navigator.clipboard.writeText( t ).then( done ); } else { window.prompt( 'Zum Kopieren:', t ); }
+			} );
+			document.addEventListener( 'input', function ( e ) {
+				if ( e.target && 'msb-amount' === e.target.id ) {
+					var v = parseFloat( String( e.target.value ).replace( /\./g, '' ).replace( ',', '.' ) );
+					document.getElementById( 'msb-250' ).style.display = v > <?php echo (int) MSB_Expenses::SMALL; ?> ? '' : 'none';
+				}
 			} );
 			document.addEventListener( 'change', function ( e ) {
 				if ( e.target && 'msb-no-receipt' === e.target.id ) {
@@ -135,7 +148,8 @@ class MSB_Admin_Expenses {
 				<tr>
 					<th scope="row"><label for="msb-amount">Betrag (brutto)</label></th>
 					<td><input type="text" id="msb-amount" name="amount" inputmode="decimal" class="small-text" required placeholder="45,90" value="<?php echo esc_attr( $edit ? number_format( (float) $edit['amount'], 2, ',', '' ) : '' ); ?>"> €
-						<p class="description">Betrag laut Kassenbon, mit Mehrwertsteuer. Als Kleinunternehmer zählt nur der Bruttobetrag.</p></td>
+						<p class="description">Betrag laut Kassenbon, mit Mehrwertsteuer. Als Kleinunternehmer zählt nur der Bruttobetrag.</p>
+						<p class="description" id="msb-250" style="<?php echo $edit && (float) $edit['amount'] > MSB_Expenses::SMALL ? '' : 'display:none'; ?>"><strong>Über <?php echo (int) MSB_Expenses::SMALL; ?> €:</strong> Auf der Rechnung sollten Name und Anschrift der GbR stehen (<?php echo esc_html( self::issuer_line() ); ?>). Kassenbons bis <?php echo (int) MSB_Expenses::SMALL; ?> € reichen ohne.</p></td>
 				</tr>
 				<tr>
 					<th scope="row"><label for="msb-vat">Darin MwSt. (optional)</label></th>
@@ -214,7 +228,7 @@ class MSB_Admin_Expenses {
 					<p><strong>Zuerst die <a href="<?php echo esc_url( self::url( array( 'tab' => 'bank' ) ) ); ?>">Bankverbindung</a> eintragen.</strong></p>
 				<?php endif; ?>
 				<p><button type="submit" class="button button-primary" <?php disabled( ! $bank ); ?>>Abrechnung erstellen</button></p>
-				<p class="description">Es entsteht eine PDF nach der Vorlage mit allen Fotobelegen als Folgeseiten. <?php echo is_email( msb_setting( 'expense_finom_email' ) ) ? 'Sie geht automatisch an das Finom-Beleg-Postfach.' : 'Ein Finom-Beleg-Postfach ist noch nicht eingetragen (Abrechnungen, ganz unten), die PDF wird deshalb nicht automatisch verschickt.'; ?></p>
+				<p class="description">Es entsteht eine PDF nach der Vorlage mit allen Fotobelegen als Folgeseiten. Danach muss der andere Gesellschafter sie freigeben (Vier-Augen-Prinzip), er bekommt dazu eine Mail. <?php echo is_email( msb_setting( 'expense_finom_email' ) ) ? 'Nach der Freigabe geht sie automatisch an das Finom-Beleg-Postfach.' : 'Ein Finom-Beleg-Postfach ist noch nicht eingetragen (Abrechnungen, ganz unten), die PDF wird deshalb nicht automatisch verschickt.'; ?></p>
 			</form>
 		<?php endif; ?>
 		<?php
@@ -222,7 +236,7 @@ class MSB_Admin_Expenses {
 
 	private static function tab_claims() {
 		$claims = MSB_Expenses::claims();
-		$labels = MSB_Expenses::status_labels();
+		$uid    = get_current_user_id();
 		// phpcs:ignore WordPress.Security.NonceVerification
 		$show = isset( $_GET['claim'] ) ? absint( $_GET['claim'] ) : 0;
 		?>
@@ -238,7 +252,10 @@ class MSB_Admin_Expenses {
 					<td data-label="Gesellschafter"><?php echo esc_html( $c['data']['name'] ); ?></td>
 					<td data-label="Zeitraum"><?php echo esc_html( $c['data']['period'] ); ?></td>
 					<td data-label="Status">
-						<?php echo esc_html( isset( $labels[ $c['status'] ] ) ? $labels[ $c['status'] ] : $c['status'] ); ?>
+						<?php echo esc_html( MSB_Expenses::status_text( $c ) ); ?>
+						<?php if ( MSB_Expenses::is_approved( $c ) && 'cancelled' !== $c['status'] ) : ?>
+							<br><small>freigegeben von <?php echo esc_html( MSB_Expenses::partner_name( $c['approved_by'] ) ); ?> am <?php echo esc_html( mysql2date( 'd.m.Y', $c['approved_at'] ) ); ?></small>
+						<?php endif; ?>
 						<?php if ( 'paid' === $c['status'] ) : ?>
 							am <?php echo esc_html( mysql2date( 'd.m.Y', $c['paid_at'] ) ); ?>
 						<?php endif; ?>
@@ -252,8 +269,12 @@ class MSB_Admin_Expenses {
 					<td class="msb-c-aside" style="text-align:right"><?php echo esc_html( msb_price( $c['amount'] ) ); ?></td>
 					<td class="msb-c-actions">
 						<a class="button" href="<?php echo esc_url( self::file_url( 'claim', $c['id'] ) ); ?>" target="_blank">PDF</a>
-						<?php if ( 'issued' === $c['status'] ) : ?>
+						<?php if ( MSB_Expenses::can_approve( $c, $uid ) ) : ?>
+							<a class="button button-primary" href="<?php echo esc_url( self::url( array( 'tab' => 'claims', 'claim' => (int) $c['id'] ) ) ); ?>#msb-pay">Prüfen und freigeben</a>
+						<?php elseif ( 'issued' === $c['status'] && MSB_Expenses::is_approved( $c ) ) : ?>
 							<a class="button" href="<?php echo esc_url( self::url( array( 'tab' => 'claims', 'claim' => (int) $c['id'] ) ) ); ?>#msb-pay">Auszahlen</a>
+						<?php elseif ( 'issued' === $c['status'] ) : ?>
+							<a class="button" href="<?php echo esc_url( self::url( array( 'tab' => 'claims', 'claim' => (int) $c['id'] ) ) ); ?>#msb-pay">Ansehen</a>
 						<?php endif; ?>
 					</td>
 				</tr>
@@ -263,7 +284,11 @@ class MSB_Admin_Expenses {
 		<?php
 		$c = $show ? MSB_Expenses::claim( $show ) : null;
 		if ( $c && 'issued' === $c['status'] ) {
-			self::pay_box( $c );
+			if ( MSB_Expenses::is_approved( $c ) ) {
+				self::pay_box( $c );
+			} else {
+				self::approve_box( $c );
+			}
 		}
 		// phpcs:ignore WordPress.Security.NonceVerification
 		$year = isset( $_GET['year'] ) ? absint( $_GET['year'] ) : (int) current_time( 'Y' );
@@ -302,6 +327,57 @@ class MSB_Admin_Expenses {
 		<?php
 	}
 
+	/**
+	 * Zeile mit Name und Anschrift der GbR aus den Beleg-Einstellungen (Hinweis über 250 €, PAY-44).
+	 */
+	private static function issuer_line() {
+		$is = MSB_Documents::issuer();
+		return trim( $is['name'] . ', ' . implode( ', ', (array) $is['address'] ), ', ' );
+	}
+
+	private static function cancel_form( array $c ) {
+		?>
+		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" onsubmit="return confirm('Abrechnung wirklich stornieren? Die Nummer bleibt belegt, die Auslagen sind danach wieder offen.');" style="margin-left:24px">
+			<input type="hidden" name="action" value="msb_exp_cancel">
+			<input type="hidden" name="id" value="<?php echo (int) $c['id']; ?>">
+			<?php wp_nonce_field( 'msb_exp_cancel_' . (int) $c['id'] ); ?>
+			<label>Grund <input type="text" name="reason" class="regular-text" required placeholder="z. B. falscher Betrag bei Pos. 2"></label>
+			<button type="submit" class="button button-link-delete">Stornieren</button>
+		</form>
+		<?php
+	}
+
+	/**
+	 * Freigabe durch den zweiten Gesellschafter (PAY-43).
+	 */
+	private static function approve_box( array $c ) {
+		$can = MSB_Expenses::can_approve( $c, get_current_user_id() );
+		?>
+		<div class="msb-card-box" id="msb-pay">
+			<h2><?php echo esc_html( $c['number'] ); ?> freigeben</h2>
+			<p><?php echo esc_html( $c['data']['name'] . ' · ' . $c['data']['period'] . ' · ' . msb_price( $c['amount'] ) . ' · ' . count( (array) $c['data']['positions'] ) . ' Position(en)' ); ?> · <a href="<?php echo esc_url( self::file_url( 'claim', $c['id'] ) ); ?>" target="_blank">PDF mit allen Belegen ansehen</a></p>
+			<?php if ( $can ) : ?>
+				<p>Bitte Positionen und Belege prüfen. Mit der Freigabe bestätigst du die betriebliche Veranlassung (Vier-Augen-Prinzip). Danach kann ausgezahlt werden<?php echo is_email( msb_setting( 'expense_finom_email' ) ) ? ', und die Abrechnung geht an das Finom-Beleg-Postfach' : ''; ?>.</p>
+			<?php else : ?>
+				<p><strong>Wartet auf Freigabe durch den anderen Gesellschafter.</strong> Wer die Abrechnung bekommt oder erstellt hat, kann sie nicht selbst freigeben.</p>
+			<?php endif; ?>
+			<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;justify-content:space-between">
+				<div>
+					<?php if ( $can ) : ?>
+						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" onsubmit="return confirm('Abrechnung jetzt freigeben?');">
+							<input type="hidden" name="action" value="msb_exp_approve">
+							<input type="hidden" name="id" value="<?php echo (int) $c['id']; ?>">
+							<?php wp_nonce_field( 'msb_exp_approve_' . (int) $c['id'] ); ?>
+							<button type="submit" class="button button-primary">Freigeben</button>
+						</form>
+					<?php endif; ?>
+				</div>
+				<?php self::cancel_form( $c ); ?>
+			</div>
+		</div>
+		<?php
+	}
+
 	private static function pay_box( array $c ) {
 		$d       = $c['data'];
 		$amount  = number_format( (float) $c['amount'], 2, ',', '' );
@@ -317,6 +393,7 @@ class MSB_Admin_Expenses {
 		?>
 		<div class="msb-card-box" id="msb-pay">
 			<h2><?php echo esc_html( $c['number'] ); ?> auszahlen</h2>
+			<p>Freigegeben von <?php echo esc_html( MSB_Expenses::partner_name( $c['approved_by'] ) ); ?> am <?php echo esc_html( mysql2date( 'd.m.Y H:i', $c['approved_at'] ) ); ?>.</p>
 			<ol>
 				<li>In Finom eine Überweisung anlegen, mit diesen Angaben oder dem GiroCode:</li>
 			</ol>
@@ -350,13 +427,7 @@ class MSB_Admin_Expenses {
 						<button type="submit" class="button button-primary">Als ausgezahlt markieren</button>
 					</form>
 				</div>
-				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" onsubmit="return confirm('Abrechnung wirklich stornieren? Die Nummer bleibt belegt, die Auslagen sind danach wieder offen.');" style="margin-left:24px">
-					<input type="hidden" name="action" value="msb_exp_cancel">
-					<input type="hidden" name="id" value="<?php echo (int) $c['id']; ?>">
-					<?php wp_nonce_field( 'msb_exp_cancel_' . (int) $c['id'] ); ?>
-					<label>Grund <input type="text" name="reason" class="regular-text" required placeholder="z. B. falscher Betrag bei Pos. 2"></label>
-					<button type="submit" class="button button-link-delete">Stornieren</button>
-				</form>
+				<?php self::cancel_form( $c ); ?>
 			</div>
 		</div>
 		<?php
@@ -408,7 +479,9 @@ class MSB_Admin_Expenses {
 			}
 			self::back( 'mine', $res->get_error_message(), array( 'err' => 1, 'edit' => $id ? $id : null ) );
 		}
-		self::back( 'mine', $id ? 'Auslage geändert.' : 'Auslage gespeichert.' );
+		$p    = MSB_Expenses::position( $res );
+		$hint = $p && (float) $p['amount'] > MSB_Expenses::SMALL && '' !== (string) $p['receipt_file'] ? ' Hinweis: Über ' . MSB_Expenses::SMALL . ' € sollten Name und Anschrift der GbR auf der Rechnung stehen.' : '';
+		self::back( 'mine', ( $id ? 'Auslage geändert.' : 'Auslage gespeichert.' ) . $hint );
 	}
 
 	public static function handle_delete() {
@@ -425,9 +498,8 @@ class MSB_Admin_Expenses {
 		if ( is_wp_error( $id ) ) {
 			self::back( 'mine', $id->get_error_message(), array( 'err' => 1 ) );
 		}
-		$c    = MSB_Expenses::claim( $id );
-		$note = $c && $c['sent_at'] ? ' und an Finom gesendet' : '';
-		self::back( 'claims', 'Abrechnung ' . ( $c ? $c['number'] : '' ) . ' erstellt' . $note . '.', array( 'claim' => $id ) );
+		$c = MSB_Expenses::claim( $id );
+		self::back( 'claims', 'Abrechnung ' . ( $c ? $c['number'] : '' ) . ' erstellt. Sie wartet jetzt auf die Freigabe durch den anderen Gesellschafter.', array( 'claim' => $id ) );
 	}
 
 	public static function handle_bank() {
@@ -466,6 +538,15 @@ class MSB_Admin_Expenses {
 		$reason = isset( $_POST['reason'] ) ? sanitize_text_field( wp_unslash( $_POST['reason'] ) ) : '';
 		$ok     = MSB_Expenses::cancel( $id, $reason );
 		self::back( 'claims', $ok ? 'Abrechnung storniert. Die Auslagen sind wieder offen.' : 'Stornieren ging nicht (Grund fehlt, schon storniert oder schon ausgezahlt).', $ok ? array() : array( 'err' => 1 ) );
+	}
+
+	public static function handle_approve() {
+		$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0; // phpcs:ignore
+		self::guard( 'msb_exp_approve_' . $id );
+		$ok = MSB_Expenses::approve( $id );
+		$c  = $ok ? MSB_Expenses::claim( $id ) : null;
+		$msg = $ok ? 'Freigegeben.' . ( $c && $c['sent_at'] ? ' Die Abrechnung ist an Finom gesendet.' : '' ) : 'Freigabe nicht möglich (eigene Abrechnung, schon freigegeben oder storniert).';
+		self::back( 'claims', $msg, array( 'claim' => $id ) + ( $ok ? array() : array( 'err' => 1 ) ) );
 	}
 
 	public static function handle_finom() {

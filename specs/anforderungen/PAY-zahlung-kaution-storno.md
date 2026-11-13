@@ -43,11 +43,13 @@
 | PAY-35 | MUSS | umgesetzt in 1.7.2 |
 | PAY-36 | MUSS | umgesetzt in 1.7.2 |
 | PAY-37 | MUSS | umgesetzt in 1.10.0 |
-| PAY-38 | MUSS | umgesetzt in 1.10.0 |
+| PAY-38 | MUSS | umgesetzt in 1.10.0, Freigabevermerk in 1.10.1 |
 | PAY-39 | MUSS | umgesetzt in 1.10.0 |
-| PAY-40 | SOLL | umgesetzt in 1.10.0 |
-| PAY-41 | MUSS | umgesetzt in 1.10.0 |
+| PAY-40 | SOLL | umgesetzt in 1.10.0, Versand nach Freigabe seit 1.10.1 |
+| PAY-41 | MUSS | umgesetzt in 1.10.0, Status mit Freigabe seit 1.10.1 |
 | PAY-42 | MUSS | umgesetzt in 1.10.0 |
+| PAY-43 | MUSS | umgesetzt in 1.10.1 |
+| PAY-44 | SOLL | umgesetzt in 1.10.1 |
 
 ## Zahlarten und Anzahlung
 
@@ -289,7 +291,7 @@ Jeder Gesellschafter erfasst private Auslagen für die GbR mit Datum (nicht in d
 
 ### PAY-38 · MUSS
 
-Aus allen offenen Auslagen eines Gesellschafters bis zu einem Stichtag entsteht der Beleg „Auslagenabrechnung“ mit eigenem Nummernkreis AUS-JJJJ-0001 (jährlich ab 0001, lückenlos). Die PDF folgt der Vorlage „Auslagenabrechnung / Eigenbeleg“ vom 12.11.2026: auszahlende GbR, Gesellschafter mit Name und IBAN, Datum, Zeitraum, Positionen, Gesamtbetrag, Zahlungshinweis, Hinweis § 19 UStG, Ersteller mit Zeitstempel; Fotobelege als Folgeseiten. Ohne gültige IBAN wird keine Nummer vergeben. Eine Abrechnung wird nie geändert. Vor der Auszahlung kann sie mit Grund storniert werden: Die Nummer bleibt belegt, die Auslagen sind wieder offen.
+Aus allen offenen Auslagen eines Gesellschafters bis zu einem Stichtag entsteht der Beleg „Auslagenabrechnung“ mit eigenem Nummernkreis AUS-JJJJ-0001 (jährlich ab 0001, lückenlos). Die PDF folgt der Vorlage „Auslagenabrechnung / Eigenbeleg“ vom 12.11.2026: auszahlende GbR, Gesellschafter mit Name und IBAN, Datum, Zeitraum, Positionen, Gesamtbetrag, Zahlungshinweis, Hinweis § 19 UStG, Ersteller mit Zeitstempel; Fotobelege als Folgeseiten. Ohne gültige IBAN wird keine Nummer vergeben. Eine Abrechnung wird nie geändert. Vor der Auszahlung kann sie mit Grund storniert werden: Die Nummer bleibt belegt, die Auslagen sind wieder offen. Bei der Freigabe (PAY-43) wird die PDF einmal mit Freigabevermerk und GiroCode neu erzeugt; Inhalt und Beträge bleiben gleich (Änderung 1.10.1).
 
 **Status:** umgesetzt in 1.10.0
 
@@ -301,18 +303,30 @@ Zu jeder nicht ausgezahlten Abrechnung zeigt das Backend Empfänger, IBAN, Betra
 
 ### PAY-40 · SOLL
 
-Ist unter Vermietung → Auslagen → Abrechnungen ein Finom-Beleg-Postfach eingetragen (ändern nur Nutzer mit Recht für Einstellungen), geht jede neue Abrechnung als PDF dorthin, PDF-Belege und nicht umwandelbare Fotos als zusätzliche Anhänge, Kopie an die Admin-Adresse. Der Versand wird mit Zeit vermerkt und kann wiederholt werden. Eine Überweisung löst das Plugin nicht aus (Finom hat keine Schnittstelle, die Zahlung bestätigt ein Gesellschafter).
+Ist unter Vermietung → Auslagen → Abrechnungen ein Finom-Beleg-Postfach eingetragen (ändern nur Nutzer mit Recht für Einstellungen), geht jede Abrechnung nach ihrer Freigabe (PAY-43, seit 1.10.1; vorher beim Erstellen) als PDF dorthin, PDF-Belege und nicht umwandelbare Fotos als zusätzliche Anhänge, Kopie an die Admin-Adresse. Der Versand wird mit Zeit vermerkt und kann wiederholt werden. Eine Überweisung löst das Plugin nicht aus (Finom hat keine Schnittstelle, die Zahlung bestätigt ein Gesellschafter).
 
-**Status:** umgesetzt in 1.10.0
+**Status:** umgesetzt in 1.10.0, Versand nach Freigabe seit 1.10.1
 
 ### PAY-41 · MUSS
 
-Eine Abrechnung hat den Status „nicht ausgezahlt“, „ausgezahlt“ (mit Datum der Überweisung und Bearbeiter) oder „storniert“ (mit Grund, Bearbeiter und Zeit).
+Eine Abrechnung hat den Status „wartet auf Freigabe“, „freigegeben, nicht ausgezahlt“ (PAY-43), „ausgezahlt“ (mit Datum der Überweisung und Bearbeiter, nur nach Freigabe) oder „storniert“ (mit Grund, Bearbeiter und Zeit, nur vor der Auszahlung).
 
-**Status:** umgesetzt in 1.10.0
+**Status:** umgesetzt in 1.10.0, Status mit Freigabe seit 1.10.1
 
 ### PAY-42 · MUSS
 
 Unter Vermietung → Auslagen → Abrechnungen gibt es den Kasten „Auslagen JJJJ für die EÜR“ (mit Jahresauswahl) mit Summen (gesamt, ausgezahlt, offen) und CSV: jede Position einer nicht stornierten Abrechnung mit Belegdatum im Jahr, mit Zweck, Betrag brutto, Gesellschafter, Abrechnungsnummer, Status, Erstattungsdatum und Kennzeichen Eigenbeleg. Ob Beleg- oder Erstattungsdatum maßgeblich ist, klärt der Steuerberater (Frage offen, siehe specs/005-auslagenabrechnung/plan.md).
 
 **Status:** umgesetzt in 1.10.0
+
+### PAY-43 · MUSS
+
+Jede Auslagenabrechnung muss vor der Auszahlung vom zweiten Gesellschafter freigegeben werden (Vier-Augen-Prinzip, Entscheidung 13.11.2026). Freigeben kann nur, wer die Abrechnung weder bekommt noch erstellt hat. Beim Erstellen bekommen die anderen Gesellschafter (Rolle Gesellschafter und Admin-Adresse, ohne Empfänger und Ersteller) eine Mail mit Link. Die Freigabe wird mit Zeit und Person gespeichert und als Vermerk auf die PDF gesetzt. Erst danach gibt es „Auszahlen“ und den Versand an Finom.
+
+**Status:** umgesetzt in 1.10.1
+
+### PAY-44 · SOLL
+
+Beim Erfassen einer Auslage über 250 € brutto erscheint der Hinweis, dass Name und Anschrift der GbR auf der Rechnung stehen sollten. Kassenbons bis 250 € reichen als Kleinbetragsrechnung ohne Empfänger (§ 33 UStDV, Antworten vom 13.11.2026).
+
+**Status:** umgesetzt in 1.10.1

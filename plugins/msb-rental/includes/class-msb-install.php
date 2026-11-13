@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class MSB_Install {
 
-	const DB_VERSION = '1.10.0';
+	const DB_VERSION = '1.10.1';
 
 	public static function activate() {
 		self::create_tables();

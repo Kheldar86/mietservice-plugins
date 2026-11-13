@@ -115,6 +115,6 @@ Seite Vermietung → Werbe-Links (nur mit Recht für Einstellungen): Liste mit B
 
 ### ADM-16 · MUSS
 
-Seite Vermietung → Auslagen mit den Bereichen „Meine Auslagen“ (Formular mit Kamera-Upload, offene Auslagen mit Summe, Abrechnung erstellen), „Abrechnungen“ (alle Abrechnungen mit Status, PDF, Auszahlen mit Kopier-Knöpfen und GiroCode, an Finom senden, als ausgezahlt markieren, ganz rechts abgesetzt „Stornieren“, Kasten „Auslagen JJJJ für die EÜR“, Finom-Beleg-Postfach) und „Meine Bankverbindung“ (Name, IBAN mit Prüfung, gespeicherte IBAN nur maskiert). Auf dem Handy im Kartenstil.
+Seite Vermietung → Auslagen mit den Bereichen „Meine Auslagen“ (Formular mit Kamera-Upload, offene Auslagen mit Summe, Abrechnung erstellen), „Abrechnungen“ (alle Abrechnungen mit Status, PDF, „Prüfen und freigeben“ mit Zähler im Reiter (seit 1.10.1), Auszahlen mit Kopier-Knöpfen und GiroCode, an Finom senden, als ausgezahlt markieren, ganz rechts abgesetzt „Stornieren“, Kasten „Auslagen JJJJ für die EÜR“, Finom-Beleg-Postfach) und „Meine Bankverbindung“ (Name, IBAN mit Prüfung, gespeicherte IBAN nur maskiert). Auf dem Handy im Kartenstil.
 
 **Status:** umgesetzt in 1.10.0

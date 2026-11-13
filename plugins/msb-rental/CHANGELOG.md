@@ -2,6 +2,20 @@
 
 Alle Änderungen pro Version. Die neueste Version steht oben. Dieselben Hinweise finden Sie im Backend unter **Vermietung → Hilfe & Doku → Versionshinweise**.
 
+## 1.10.1 – 13.11.2026
+
+### Neu
+- **Freigabe durch den zweiten Gesellschafter (Vier-Augen-Prinzip):** Eine neue Auslagenabrechnung wartet zuerst auf Freigabe. Freigeben kann nur, wer sie weder bekommt noch erstellt hat. Der andere Gesellschafter bekommt eine Mail mit Link, im Menü steht „Abrechnungen (1 zur Freigabe)“. Erst nach der Freigabe gibt es „Auszahlen“
+- Bei der Freigabe entsteht die PDF einmal neu mit dem Vermerk „Freigegeben (Vier-Augen-Prinzip) von … am …“ und dem GiroCode. Inhalt und Beträge bleiben gleich. Vor der Freigabe steht „Freigabe … ausstehend“ und es gibt keinen GiroCode
+- **Hinweis über 250 €:** Beim Erfassen einer Auslage über 250 € erscheint der Hinweis, dass Name und Anschrift der GbR auf der Rechnung stehen sollten (Kleinbetragsrechnung bis 250 €, § 33 UStDV)
+
+### Geändert
+- Die Abrechnung geht erst **nach der Freigabe** an das Finom-Beleg-Postfach, nicht mehr schon beim Erstellen
+- Status: „wartet auf Freigabe“, „freigegeben, nicht ausgezahlt“, „ausgezahlt“, „storniert“ (auch in der EÜR-CSV)
+
+### Update-Hinweise
+- Datenbankversion 1.10.1: zwei neue Spalten `approved_at` und `approved_by` in `msb_expense_claims`, ergänzt beim ersten Seitenaufruf nach dem Update
+
 ## 1.10.0 – 12.11.2026
 
 ### Neu
